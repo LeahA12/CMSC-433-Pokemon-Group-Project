@@ -1,3 +1,2 @@
 Leah:
   Used Copilot to generate github commit message and description
-  Used Gemini to split up work?
