@@ -20,5 +20,9 @@ CREATE TABLE pokemon (
     spDefense INT NOT NULL, -- Base special defense
     speed INT NOT NULL, -- Base speed
     generation INT NOT NULL, -- Pokemon generation
-    legendary BOOLEAN NOT NULL-- T/F is legendary
+    legendary BOOLEAN NOT NULL,-- T/F is legendary
+    move1 VARCHAR(30) NOT NULL,
+    move2 VARCHAR(30) NOT NULL,
+    move3 VARCHAR(30) DEFAULT NULL,
+    move4 VARCHAR(30) DEFAULT NULL
 );
