@@ -1,3 +1,5 @@
+Update this as you get stuff done! :)
+
 Leah: sprite animation
 Max: sql database setup, ui stuff
 Alexis: php & ui stuff - manage starting battles & ending battles
