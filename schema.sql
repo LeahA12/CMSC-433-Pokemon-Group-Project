@@ -26,3 +26,11 @@ CREATE TABLE pokemon (
     move3 VARCHAR(30) DEFAULT NULL,
     move4 VARCHAR(30) DEFAULT NULL
 );
+
+CREATE TABLE player (
+    id INT AUTO_INCREMENT PRIMARY KEY
+
+
+
+
+);
