@@ -35,10 +35,10 @@ CREATE TABLE player (
     poke4_id INT,
     poke5_id, INT,
     poke6_id, INT,
-    poke1 FOREIGN KEY (poke1_id) REFERENCES pokemon(poke_id),
-    poke2 FOREIGN KEY (poke2_id) REFERENCES pokemon(poke_id),
-    poke3 FOREIGN KEY (poke3_id) REFERENCES pokemon(poke_id),
-    poke4 FOREIGN KEY (poke4_id) REFERENCES pokemon(poke_id),
-    poke5 FOREIGN KEY (poke5_id) REFERENCES pokemon(poke_id),
-    poke6 FOREIGN KEY (poke6_id) REFERENCES pokemon(poke_id)
+    CONSTRAINT poke1 FOREIGN KEY (poke1_id) REFERENCES pokemon(poke_id),
+    CONSTRAINT poke2 FOREIGN KEY (poke2_id) REFERENCES pokemon(poke_id),
+    CONSTRAINT poke3 FOREIGN KEY (poke3_id) REFERENCES pokemon(poke_id),
+    CONSTRAINT poke4 FOREIGN KEY (poke4_id) REFERENCES pokemon(poke_id),
+    CONSTRAINT poke5 FOREIGN KEY (poke5_id) REFERENCES pokemon(poke_id),
+    CONSTRAINT poke6 FOREIGN KEY (poke6_id) REFERENCES pokemon(poke_id)
 );
