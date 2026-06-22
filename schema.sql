@@ -4,4 +4,5 @@ CREATE TABLE attacks {
     damage INT; -- Base damage
     type VARCHAR(20); -- Grass/Water/Etc
     style VARCHAR(20);  -- Special/Physical
+    status VARCHAR(20); -- Poison opponent, paralyze opponent, etc.
 }
