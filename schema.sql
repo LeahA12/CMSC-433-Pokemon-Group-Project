@@ -20,7 +20,7 @@ CREATE TABLE pokemon (
     sp_defense INT NOT NULL, -- Base special defense
     speed INT NOT NULL, -- Base speed
     generation INT NOT NULL, -- Pokemon generation
-    legendary BOOLEAN NOT NULL,-- T/F is legendary
+    legendary BOOLEAN NOT NULL DEFAULT 0,-- T/F is legendary
     
     move1_id INT NOT NULL, -- Move1 ID
     move2_id INT NOT NULL, -- Move2 ID
@@ -34,6 +34,7 @@ CREATE TABLE pokemon (
 
 CREATE TABLE player (
     player_id INT AUTO_INCREMENT PRIMARY KEY, -- Player ID
+    type BOOLEAN DEFAULT 0, -- Human or robot, If robot, type == 1
     poke1_id INT NOT NULL, -- Pokemon1 ID
     poke2_id INT NOT NULL, -- Pokemon2 ID
     poke3_id INT NOT NULL, -- Pokemon3 ID
