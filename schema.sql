@@ -28,9 +28,12 @@ CREATE TABLE pokemon (
 );
 
 CREATE TABLE player (
-    id INT AUTO_INCREMENT PRIMARY KEY
-
-
-
-
+    player_id INT AUTO_INCREMENT PRIMARY KEY,
+    poke1_id INT,
+    poke2_id INT,
+    poke3_id INT,
+    poke4_id INT,
+    poke5_id, INT,
+    poke6_id, INT,
+    poke1 FOREIGN KEY (poke1_id) REFERENCES pokemon(id)
 );
