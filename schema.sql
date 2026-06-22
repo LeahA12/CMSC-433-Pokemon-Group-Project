@@ -16,8 +16,8 @@ CREATE TABLE pokemon (
     hp INT NOT NULL, -- Hit points
     attack INT NOT NULL, -- Base attack
     defense INT NOT NULL, -- Base defense
-    spAttack INT NOT NULL, -- Base special attack
-    spDefense INT NOT NULL, -- Base special defense
+    sp_attack INT NOT NULL, -- Base special attack
+    sp_defense INT NOT NULL, -- Base special defense
     speed INT NOT NULL, -- Base speed
     generation INT NOT NULL, -- Pokemon generation
     legendary BOOLEAN NOT NULL,-- T/F is legendary
