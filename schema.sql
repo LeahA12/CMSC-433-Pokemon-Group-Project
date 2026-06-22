@@ -1,5 +1,5 @@
 -- this file will contain all the commands to set up the database
-CREATE TABLE attacks 
+CREATE TABLE attacks {
     id INT AUTO_INCREMENT PRIMARY KEY;
     name VARCHAR(30); -- Name
     amount INT; -- Base damage
