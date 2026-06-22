@@ -1,6 +1,6 @@
 -- this file will contain all the commands to set up the database
 CREATE TABLE attacks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    attack_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL, -- Name
     amount INT DEFAULT NULL, -- Base damage
     type VARCHAR(20) DEFAULT NULL, -- Grass/Water/Etc
@@ -9,7 +9,7 @@ CREATE TABLE attacks (
 );
 
 CREATE TABLE pokemon (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Index number
+    poke_id INT AUTO_INCREMENT PRIMARY KEY, -- Index number
     name VARCHAR(30) NOT NULL, -- Pokemon name
     type1 VARCHAR(20) NOT NULL, -- Pokemon primary type
     type2 VARCHAR(20) DEFAULT NULL, -- Pokemon secondary type (optional)
@@ -35,5 +35,10 @@ CREATE TABLE player (
     poke4_id INT,
     poke5_id, INT,
     poke6_id, INT,
-    poke1 FOREIGN KEY (poke1_id) REFERENCES pokemon(id)
+    poke1 FOREIGN KEY (poke1_id) REFERENCES pokemon(poke_id),
+    poke2 FOREIGN KEY (poke2_id) REFERENCES pokemon(poke_id),
+    poke3 FOREIGN KEY (poke3_id) REFERENCES pokemon(poke_id),
+    poke4 FOREIGN KEY (poke4_id) REFERENCES pokemon(poke_id),
+    poke5 FOREIGN KEY (poke5_id) REFERENCES pokemon(poke_id),
+    poke6 FOREIGN KEY (poke6_id) REFERENCES pokemon(poke_id)
 );
