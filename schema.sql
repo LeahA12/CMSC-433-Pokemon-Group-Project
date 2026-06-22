@@ -5,7 +5,7 @@ CREATE TABLE attacks (
     amount INT, -- Base damage
     type VARCHAR(20), -- Grass/Water/Etc
     style VARCHAR(20),  -- Special/Physical
-    status VARCHAR(20), -- Poison opponent, paralyze opponent, etc.
+    status VARCHAR(20) -- Poison opponent, paralyze opponent, etc.
 );
 
 CREATE TABLE pokemon (
@@ -20,5 +20,5 @@ CREATE TABLE pokemon (
     spDefense INT, -- Base special defense
     speed INT, -- Base speed
     generation INT, -- Pokemon generation
-    legendary BOOLEAN, -- T/F is legendary
+    legendary BOOLEAN -- T/F is legendary
 );
