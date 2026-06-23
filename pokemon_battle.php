@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body style="justify-content: center; display: flex; padding: 50px">
         <div class="box">
 	        <div class="column left">
             	test test bingle bongle dingle dangle yikkedy doo yikkedy da ping pong lippy tappy too ta
