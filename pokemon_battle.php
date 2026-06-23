@@ -3,6 +3,7 @@
     <head>
         <title>Pokemon Battle</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="box">
