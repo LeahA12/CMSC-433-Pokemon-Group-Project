@@ -16,4 +16,6 @@
 
 .middle {
   width: 59%;
+  border-left: none;
+  border-right: none;
 }
