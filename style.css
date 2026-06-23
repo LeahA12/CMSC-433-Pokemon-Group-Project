@@ -1,5 +1,19 @@
 .box {
-  border: 5px solid #000000;
-  width: 300px;
-  height: 300px;
+  width: 1000px;
+  height: 600px;
+}
+
+.column {
+  float: left;
+  height: 600px;
+  width: 600px;
+  border: 1px solid #000000;
+}
+
+.left, .right {
+  width: 20%;
+}
+
+.middle {
+  width: 59%;
 }

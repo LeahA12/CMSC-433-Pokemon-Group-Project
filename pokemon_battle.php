@@ -7,7 +7,13 @@
     </head>
     <body>
         <div class="box">
-            test test bingle bongle dingle dangle yikkedy doo yikkedy da ping pong lippy tappy too ta
-        </div>        
+	        <div class="column left">
+            	test test bingle bongle dingle dangle yikkedy doo yikkedy da ping pong lippy tappy too ta
+	        </div>
+	        <div class="column middle">
+	        </div>
+	        <div class="column right">
+	        </div>
+        </div>         
     </body>
 </html>
