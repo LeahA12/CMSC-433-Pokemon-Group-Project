@@ -4,6 +4,9 @@
         <title>Pokemon Battle</title>
         <meta charset="UTF-8">
     </head>
-
-    <body></body>
+    <body>
+        <div class="box">
+            
+        </div>        
+    </body>
 </html>
