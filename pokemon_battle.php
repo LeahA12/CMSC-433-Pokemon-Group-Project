@@ -8,11 +8,13 @@
     <body style="justify-content: center; display: flex; padding: 50px">
         <div class="box">
 	        <div class="column left">
-            	test test bingle bongle dingle dangle yikkedy doo yikkedy da ping pong lippy tappy too ta
+            	(Player pokemon status (look at poke showdown for what i mean))
 	        </div>
 	        <div class="column middle">
+                (Battle area)
 	        </div>
 	        <div class="column right">
+                (Opponent pokemon status)
 	        </div>
         </div>         
     </body>
