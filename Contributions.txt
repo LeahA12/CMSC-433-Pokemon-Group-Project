@@ -1,7 +1,7 @@
 Update this as you get stuff done! :)
 
 Leah: sprite animation
-Max: sql database setup, ui stuff
+Max: sql database setup, battle base ui
 Alexis: php & ui stuff - manage starting battles & ending battles
 Joseph:
 Habib:
