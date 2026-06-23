@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body style="justify-content: center; display: flex; padding: 50px">
-        <div class="box">
+        <div class="battleBox">
 	        <div class="column left">
             	(Player pokemon status (look at poke showdown for what i mean))
 	        </div>
