@@ -8,4 +8,4 @@ Max:
 
 Habib:
   Used Claude to help identify tools to extract audio/mp3 assets for game
-  
+  Used Gemini to learn about HTML audio API and reasons for requiring user interaction to play audio (combat spam websites)

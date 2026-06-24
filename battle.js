@@ -17,3 +17,11 @@ context.drawImage(
 	// Destination CANVAS coords and width/height
 	0, 0, canvasWidth, canvasHeight
 );
+
+var theme = new Audio();
+theme.src = 'sounds/battle.mp3';
+theme.volume = 0.05;
+
+document.addEventListener('click', function () {
+	theme.play();
+});
