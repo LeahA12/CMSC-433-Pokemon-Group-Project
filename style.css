@@ -33,17 +33,18 @@
 	background-color: #F7F7FA;
 	border-radius: 5px;
 	border: 5px solid #6E6E8F;
-	height: 95%;
+	height: 90%;
 	float: left;
 	text-align: center;
-	margin-right: 5px;
+	margin-right: 6px;
+	margin-left: 3px;
 }
 .optionButtonsArea {
 	width: 50%;
 	background-color: #999999;
 	border-radius: 5px;
 	border: 5px solid #6E6E8F;
-	height: 95%;
+	height: 90%;
 	float: left;
 	overflow: auto;
 }
