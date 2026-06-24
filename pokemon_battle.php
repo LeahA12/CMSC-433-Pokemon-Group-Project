@@ -7,13 +7,13 @@
     </head>
     <body style="justify-content: center; display: flex; padding: 50px">
         <div class="battleBox">
-	        <div class="column left">
+	        <div class="column playerStatus">
             	(Player pokemon status (look at poke showdown for what i mean))
 	        </div>
-	        <div class="column middle">
+	        <div class="column battleArena">
                 (Battle area)
 	        </div>
-	        <div class="column right">
+	        <div class="column opponentStatus">
                 (Opponent pokemon status)
 	        </div>
         </div>         
