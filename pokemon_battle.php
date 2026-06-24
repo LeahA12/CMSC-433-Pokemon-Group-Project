@@ -35,8 +35,8 @@
 				<div class="moveSelect" id="moveSelect" style="display: none">
 					<button class="moveOptions">[MOVE 1]</button>
 					<button class="moveOptions">[MOVE 2]</button>
-					<button class="moveOptions"><[MOVE 3]</button>
-					<button class="moveOptions"><[MOVE 4]</button>
+					<button class="moveOptions">[MOVE 3]</button>
+					<button class="moveOptions">[MOVE 4]</button>
 				</div>
 				<div class="movePP" id="movePP" style="display: none">PP left for this move</div>
 			</div>
