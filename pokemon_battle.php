@@ -25,20 +25,20 @@
 				<p>Opponent pokemon status</p> 
 			</div>
 		  	<div class="optionSelect">
-				<div class="optionText">WHAT WILL [POKEMON] DO?</div>
-				<div class="optionButtonsArea"> 
+				<div class="optionText" id="optionText">WHAT WILL [POKEMON] DO?</div>
+				<div class="optionButtonsArea" id="optionButtonsArea"> 
 					<button class="startOptions" id="fight">FIGHT</button>
 					<button class="startOptions" id="bag">BAG</button>
 					<button class="startOptions" id="pokemon">POKEMON</button>
 					<button class="startOptions" id="run">RUN</button>
 				</div>
-				<div class="moveSelect" style="display: none">
+				<div class="moveSelect" id="moveSelect" style="display: none">
 					<button class="moveOptions">[MOVE 1]</button>
 					<button class="moveOptions">[MOVE 2]</button>
 					<button class="moveOptions"><[MOVE 3]</button>
 					<button class="moveOptions"><[MOVE 4]</button>
 				</div>
-				<div class="movePP" style="display: none">PP left for this move</div>
+				<div class="movePP" id="movePP" style="display: none">PP left for this move</div>
 			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
