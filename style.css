@@ -73,6 +73,8 @@
 	height: 87%;
 	float: left;
 	margin: 0.5%;
+	text-align: center;
+	align-content: center;
 }
 .moveOptions {
 	width: 50%;

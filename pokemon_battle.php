@@ -38,7 +38,7 @@
 					<button class="moveOptions">[MOVE 3]</button>
 					<button class="moveOptions">[MOVE 4]</button>
 				</div>
-				<div class="movePP" id="movePPId" style="display: none;">PP X/Y</div>
+				<div class="movePP" id="movePPId" style="display: none;">PP<br>X/Y</div>
 			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
