@@ -1,6 +1,7 @@
 Leah:
   Used Copilot to generate github commit message and description
   Used Gemini to create an empty Pokemon Emerald battle image (emptyBattle.jpg)
+  Used Claude to figure out what 6 Pokemon to use for battling  
 
 Max:
   Used Gemini to generate an outline of the steps a professional would take to start this project
