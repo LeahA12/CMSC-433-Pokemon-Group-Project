@@ -47,7 +47,7 @@
 	float: left;
 	overflow: auto;
 }
-// When one of these is pressed, optionText hides and optionButtonsArea hides
+/* When one of these is pressed, optionText hides and optionButtonsArea hides */
 .startOptions {
 	width: 50%;
 	height: 50%;
