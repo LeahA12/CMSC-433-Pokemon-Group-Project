@@ -26,10 +26,11 @@ CREATE TABLE pokemon (
     move2_id INT NOT NULL, -- Move2 ID
     move3_id INT DEFAULT NULL, -- Move3 ID, can be NULL
     move4_id INT DEFAULT NULL, -- Move4 ID, can be NULL
-    CONSTRAINT fk_move1_id FOREIGN KEY (move1_id) REFERENCES attacks(attack_id), -- Move1 FK to attack table
-    CONSTRAINT fk_move2_id FOREIGN KEY (move2_id) REFERENCES attacks(attack_id), -- Move2 FK to attack table
-    CONSTRAINT fk_move3_id FOREIGN KEY (move3_id) REFERENCES attacks(attack_id), -- Move3 FK to attack table
-    CONSTRAINT fk_move4_id FOREIGN KEY (move4_id) REFERENCES attacks(attack_id) -- Move4 FK to attack table
+
+    FOREIGN KEY (move1_id) REFERENCES attacks(attack_id), -- Move1 FK to attack table
+    FOREIGN KEY (move2_id) REFERENCES attacks(attack_id), -- Move2 FK to attack table
+    FOREIGN KEY (move3_id) REFERENCES attacks(attack_id), -- Move3 FK to attack table
+    OREIGN KEY (move4_id) REFERENCES attacks(attack_id) -- Move4 FK to attack table
 );
 
 CREATE TABLE player (
@@ -41,10 +42,11 @@ CREATE TABLE player (
     poke4_id INT DEFAULT NULL, -- Pokemon4 ID, can be NULL
     poke5_id INT DEFAULT NULL, -- Pokemon5 ID, can be NULL
     poke6_id INT DEFAULT NULL, -- Pokemon6 ID, can be NULL
-    CONSTRAINT fk_poke1_id FOREIGN KEY (poke1_id) REFERENCES pokemon(poke_id), -- Poke1 FK to poke table
-    CONSTRAINT fk_poke2_id FOREIGN KEY (poke2_id) REFERENCES pokemon(poke_id), -- Poke2 FK to poke table
-    CONSTRAINT fk_poke3_id FOREIGN KEY (poke3_id) REFERENCES pokemon(poke_id), -- Poke3 FK to poke table
-    CONSTRAINT fk_poke4_id FOREIGN KEY (poke4_id) REFERENCES pokemon(poke_id), -- Poke4 FK to poke table
-    CONSTRAINT fk_poke5_id FOREIGN KEY (poke5_id) REFERENCES pokemon(poke_id), -- Poke5 FK to poke table
-    CONSTRAINT fk_poke6_id FOREIGN KEY (poke6_id) REFERENCES pokemon(poke_id) -- Poke6 FK to poke table
+    
+    FOREIGN KEY (poke1_id) REFERENCES pokemon(poke_id), -- Poke1 FK to poke table
+    FOREIGN KEY (poke2_id) REFERENCES pokemon(poke_id), -- Poke2 FK to poke table
+    FOREIGN KEY (poke3_id) REFERENCES pokemon(poke_id), -- Poke3 FK to poke table
+    FOREIGN KEY (poke4_id) REFERENCES pokemon(poke_id), -- Poke4 FK to poke table
+    FOREIGN KEY (poke5_id) REFERENCES pokemon(poke_id), -- Poke5 FK to poke table
+    FOREIGN KEY (poke6_id) REFERENCES pokemon(poke_id) -- Poke6 FK to poke table
 );
