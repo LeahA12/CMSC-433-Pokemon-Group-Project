@@ -34,12 +34,14 @@
 	height: 100%;
 	float: left;
 }
-.optionButtons {
+.optionButtonsArea {
 	width: 50%;
 	background-color: #999999;
 	height: 100%;
 	float: left;
+	overflow: auto;
 }
+
 
 /* Max's idea w/some edits to fit BattleCanvas */
 
