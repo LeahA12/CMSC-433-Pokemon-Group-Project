@@ -38,6 +38,7 @@
 	text-align: center;
 	margin-right: 6px;
 	margin-left: 3px;
+	margin-top: 3px;
 }
 .optionButtonsArea {
 	width: 50%;
@@ -47,6 +48,7 @@
 	height: 90%;
 	float: left;
 	overflow: auto;
+	margin-top: 3px;
 }
 .startOptions {
 	width: 50%;
