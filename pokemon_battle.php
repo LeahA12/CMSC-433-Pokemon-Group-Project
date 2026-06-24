@@ -13,7 +13,7 @@
 	        </div>
 	        <div class="column battleArena">
                 (Battle area)
-				<canvas id="BattleCanvas" width="1000" height="500"></canvas>
+				<canvas id="BattleCanvas" width="800" height="500"></canvas>
 	        </div>
 	        <div class="column opponentStatus">
                 (Opponent pokemon status)
