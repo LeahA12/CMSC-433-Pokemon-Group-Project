@@ -32,6 +32,11 @@
 	background-color: #666666;
 	height: 100%;
 }
+.optionButtons {
+	width: 50%;
+	background-color: #999999;
+	height: 100%;
+}
 
 /* Max's idea w/some edits to fit BattleCanvas */
 
