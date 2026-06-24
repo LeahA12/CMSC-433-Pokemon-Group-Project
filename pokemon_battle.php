@@ -25,6 +25,7 @@
 				<p>Opponent pokemon status</p> 
 			</div>
 		  	<div class="optionSelect">
+				<div class="optiontext">What will the pokemon want to do?</div>
 		  	</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
