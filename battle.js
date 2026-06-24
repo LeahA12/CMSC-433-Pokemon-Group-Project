@@ -5,7 +5,7 @@ var context = myCanvas.getContext("2d");
 
 // CREATE BACKGROUND BATTLE ARENA FROM IMAGE FILE
 var battleArena = new Image();
-battleArena.src = "emptyBattle.png";
+battleArena.src = "emptyBattle.jpg";
 
 context.drawImage(
 	// Source IMAGE that will be drawn into destination CANVAS
