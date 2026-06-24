@@ -26,8 +26,6 @@ document.addEventListener('click', function () {
 	theme.play();
 });
 
-document.getElementById("fight").addEventListener('click', fightSelected);
-
 function fightSelected() {
 	document.getElementById("optionText").style.display = "none";
 	document.getElementById("optionButtonsArea").style.display = "none";

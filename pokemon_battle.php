@@ -27,7 +27,7 @@
 		  	<div class="optionSelect">
 				<div class="optionText" id="optionText">WHAT WILL [POKEMON] DO?</div>
 				<div class="optionButtonsArea" id="optionButtonsArea"> 
-					<button class="startOptions" id="fight">FIGHT</button>
+					<button class="startOptions" id="fight" onclick="fightSelected()">FIGHT</button>
 					<button class="startOptions" id="bag">BAG</button>
 					<button class="startOptions" id="pokemon">POKEMON</button>
 					<button class="startOptions" id="run">RUN</button>
@@ -38,7 +38,7 @@
 					<button class="moveOptions">[MOVE 3]</button>
 					<button class="moveOptions">[MOVE 4]</button>
 				</div>
-				<div class="movePP" id="movePPId">PP left for this move</div>
+				<div class="movePP" id="movePPId" style="display: none;">PP X/Y</div>
 			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
