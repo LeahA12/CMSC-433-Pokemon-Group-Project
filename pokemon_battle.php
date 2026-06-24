@@ -27,10 +27,10 @@
 		  	<div class="optionSelect">
 				<div class="optionText">What will the pokemon want to do?</div>
 				<div class="optionButtonsArea"> 
-					<button type="button">Fight!</button>
-					<button type="button">Bag!</button>
-					<button type="button">Pokemon!</button>
-					<button type="button">Run!</button>
+					<button type="startOptions">Fight!</button>
+					<button type="startOptions">Bag!</button>
+					<button type="startOptions">Pokemon!</button>
+					<button type="startOptions">Run!</button>
 				</div>
 		  	</div>
 		</div>

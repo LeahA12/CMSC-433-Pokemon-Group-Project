@@ -41,7 +41,10 @@
 	float: left;
 	overflow: auto;
 }
-
+.startOptions {
+	width: 50%;
+	float: left;
+}
 
 /* Max's idea w/some edits to fit BattleCanvas */
 
