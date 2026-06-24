@@ -26,6 +26,9 @@ document.addEventListener('click', function () {
 	theme.play();
 });
 
+
+document.getElementById("moveSelect").style.display ="none";
+document.getElementById("movePP").style.display ="none";
 document.getElementById("fight").addEventListener('click', fightSelected);
 
 function fightSelected() {
