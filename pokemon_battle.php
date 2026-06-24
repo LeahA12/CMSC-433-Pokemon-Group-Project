@@ -7,17 +7,16 @@
 		<script async src="battle.js"></script>
     </head>
     <body style="justify-content: center; display: flex; padding: 50px">
-        <div class="battleBox">
+		<div class="battleBox">
 	        <div class="column playerStatus">
             	(Player pokemon status (look at poke showdown for what i mean))
 	        </div>
 	        <div class="column battleArena">
-                (Battle area)
-				<canvas id="BattleCanvas" width="800" height="500"></canvas>
+				<canvas id="BattleCanvas" width="630" height="416"></canvas>
 	        </div>
 	        <div class="column opponentStatus">
                 (Opponent pokemon status)
 	        </div>
-        </div>         
+        </div>
     </body>
 </html>
