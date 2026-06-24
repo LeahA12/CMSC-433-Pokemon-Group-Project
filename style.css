@@ -28,6 +28,11 @@
 	width: 585px;
 	height: 80px;
 }
+.optionText {
+	position: absolute;
+	width: 50%;
+	background-color: #666666;
+}
 
 /* Max's idea w/some edits to fit BattleCanvas */
 

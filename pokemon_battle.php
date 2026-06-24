@@ -25,7 +25,9 @@
 				<p>Opponent pokemon status</p> 
 			</div>
 		  	<div class="optionSelect">
-				Here is where the battle options will be
+				<p class="optionText">
+					Here is where the battle options will be
+				</p>
 		  	</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
