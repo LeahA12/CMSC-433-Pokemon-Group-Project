@@ -26,7 +26,7 @@
 		  </div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
-        <!-- Max's idea w/Leah's background canvas idea -->
+        <!-- Max's idea w/Leah's background canvas idea 
 		<div class="battleBox">
 	        <div class="column playerStatus_Max">
             	(Player pokemon status (look at poke showdown for what i mean))
@@ -38,6 +38,7 @@
                 (Opponent pokemon status)
 	        </div>
         </div>
+		-->
 		<br> <br> <br>
     </body>
 </html>
