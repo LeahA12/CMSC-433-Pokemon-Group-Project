@@ -25,14 +25,21 @@
 				<p>Opponent pokemon status</p> 
 			</div>
 		  	<div class="optionSelect">
-				<div class="optionText">What will the pokemon want to do?</div>
+				<div class="optionText">WHAT WILL [POKEMON] DO?</div>
 				<div class="optionButtonsArea"> 
-					<button class="startOptions">Fight!</button>
-					<button class="startOptions">Bag!</button>
-					<button class="startOptions">Pokemon!</button>
-					<button class="startOptions">Run!</button>
+					<button class="startOptions">FIGHT</button>
+					<button class="startOptions">BAG</button>
+					<button class="startOptions">POKEMON</button>
+					<button class="startOptions">RUN</button>
 				</div>
-		  	</div>
+				<div class="moveSelect" style="display: none">
+					<button class="moveOptions">[MOVE 1]</button>
+					<button class="moveOptions">[MOVE 2]</button>
+					<button class="moveOptions"><[MOVE 3]</button>
+					<button class="moveOptions"><[MOVE 4]</button>
+				</div>
+				<div class="movePP" style="display: none">PP left for this move</div>
+			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 
