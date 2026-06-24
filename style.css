@@ -40,7 +40,9 @@
 .optionButtonsArea {
 	width: 50%;
 	background-color: #999999;
-	height: 100%;
+	border-radius: 5px;
+	border: 5px solid #6E6E8F;
+	height: 95%;
 	float: left;
 	overflow: auto;
 }
