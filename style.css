@@ -1,12 +1,12 @@
 .battleBox {
-  width: 1000px;
-  height: 600px;
+  width: 500px;
+  height: 416px;
 }
 
 .column {
   float: left;
-  height: 600px;
   width: 600px;
+  height: 416px;
   border: 1px solid #000000;
 }
 
@@ -15,7 +15,8 @@
 }
 
 .battleArena {
-  width: 800px;
+  width: 630px;
   border-left: none;
   border-right: none;
 }
+
