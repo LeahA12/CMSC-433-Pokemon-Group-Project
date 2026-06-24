@@ -4,6 +4,7 @@
         <title>Pokemon Battle</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
+		<script async src="battle.js"></script>
     </head>
     <body style="justify-content: center; display: flex; padding: 50px">
         <div class="battleBox">
@@ -12,6 +13,7 @@
 	        </div>
 	        <div class="column battleArena">
                 (Battle area)
+				<canvas id="BattleCanvas" width="1000" height="500"></canvas>
 	        </div>
 	        <div class="column opponentStatus">
                 (Opponent pokemon status)
