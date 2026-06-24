@@ -38,7 +38,7 @@
 					<button class="moveOptions">[MOVE 3]</button>
 					<button class="moveOptions">[MOVE 4]</button>
 				</div>
-				<div class="movePP" id="movePP">PP left for this move</div>
+				<div class="movePP" id="movePPId">PP left for this move</div>
 			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
