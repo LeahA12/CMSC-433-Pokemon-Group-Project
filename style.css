@@ -23,7 +23,7 @@
 .optionSelect {
 	position: absolute;
 	top: 290px;
-	border: 3px solid #222222;
+	background-color: #222222;
 	width: 630px;
 	height: 120px;
 	overflow: auto;
