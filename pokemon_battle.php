@@ -25,6 +25,9 @@
 			<p>Opponent pokemon status</p> 
 		  </div>
 		</div>
+		<div class="optionSelect">
+			Here is where the battle options will be
+		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 
 		<div class="battleBox">
