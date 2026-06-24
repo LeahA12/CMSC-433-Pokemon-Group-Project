@@ -17,16 +17,16 @@
 	
 		<!-- Leah's idea -->
 		<div class="parent">
-		  <img class="emptyBattle" src="emptyBattle.jpg" width="630" height="416"/>
-		  <div class="playerStatus">
-			<p>Player pokemon status</p> 
-		  </div>
-		  <div class="opponentStatus">
-			<p>Opponent pokemon status</p> 
-		  </div>
-		</div>
-		<div class="optionSelect">
-			Here is where the battle options will be
+			<img class="emptyBattle" src="emptyBattle.jpg" width="630" height="416"/>
+			<div class="playerStatus">
+				<p>Player pokemon status</p> 
+			</div>
+		  	<div class="opponentStatus">
+				<p>Opponent pokemon status</p> 
+			</div>
+		  	<div class="optionSelect">
+				Here is where the battle options will be
+		  	</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 
