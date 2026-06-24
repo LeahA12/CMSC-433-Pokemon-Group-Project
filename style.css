@@ -36,6 +36,7 @@
 	height: 87%;
 	float: left;
 	text-align: center;
+	align-content: center;
 	margin: 0.5%;
 }
 .optionButtonsArea {
