@@ -22,10 +22,10 @@
 }
 .optionSelect {
 	position: absolute;
-	top: 290px;
+	top: 292px;
 	background-color: #222222;
 	width: 630px;
-	height: 120px;
+	height: 122px;
 	overflow: auto;
 }
 .optionText {
