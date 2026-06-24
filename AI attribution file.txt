@@ -5,3 +5,7 @@ Leah:
 
 Max:
   Used Gemini to generate an outline of the steps a professional would take to start this project
+
+Habib:
+  Used Claude to help identify tools to extract audio/mp3 assets for game
+  
