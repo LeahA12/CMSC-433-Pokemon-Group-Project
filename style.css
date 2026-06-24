@@ -36,7 +36,7 @@
 	height: 90%;
 	float: left;
 	text-align: center;
-	margin: 2%;
+	margin: 1%;
 }
 .optionButtonsArea {
 	width: 50%;
@@ -46,7 +46,7 @@
 	height: 90%;
 	float: left;
 	overflow: auto;
-	margin: 2%;
+	margin: 1%;
 }
 /* When one of these is pressed, optionText hides and optionButtonsArea hides */
 .startOptions {
