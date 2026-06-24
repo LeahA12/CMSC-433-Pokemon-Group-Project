@@ -10,11 +10,11 @@
   border: 1px solid #000000;
 }
 
-.left, .right {
+.playerStatus, .opponentStatus {
   width: 20%;
 }
 
-.middle {
+.battleArena {
   width: 59%;
   border-left: none;
   border-right: none;
