@@ -25,3 +25,12 @@ theme.volume = 0.05;
 document.addEventListener('click', function () {
 	theme.play();
 });
+
+document.getElementById("fight").addEventListener("click", fightSelected);
+
+function fightSelected() {
+	document.getElementById("optionText").style.display = "none";
+	document.getElementById("optionButtonsArea").style.display = "none";
+	document.getElementById("moveSelect").style.display = "block";
+	document.getElementById("movePP").style.display = "block";
+}
