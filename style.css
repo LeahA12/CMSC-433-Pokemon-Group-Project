@@ -1,3 +1,29 @@
+/* Leah's idea */
+
+.parent {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+.emptyBattle {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+.playerStatus {
+	position: absolute;
+	top: 190px;
+	left: 370px;
+}
+.opponentStatus {
+	position: absolute;
+	top: 40px;
+	left: 45px;
+}
+
+
+/* Max's idea w/some edits to fit BattleCanvas */
+
 .battleBox {
   width: 500px;
   height: 416px;
@@ -10,7 +36,7 @@
   border: 1px solid #000000;
 }
 
-.playerStatus, .opponentStatus {
+.playerStatus_Max, .opponentStatus_Max {
   width: 20%;
 }
 
@@ -19,4 +45,3 @@
   border-left: none;
   border-right: none;
 }
-
