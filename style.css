@@ -100,7 +100,7 @@
 }
 .party {
 	float: right;
-	margin: 1%;
+	margin: 1% 0% 1% 1%;
 	width: 60%;
 	height: 10%;
 	background-color: #A3D1FF;
@@ -115,7 +115,7 @@
 	float: left;
 	text-align: center;
 	align-content: center;
-	margin: 0.5% 0.5% 0.5% 2%;
+	margin: 0.5% 0.5% 0.5% 3%;
 }
 .backToOptions {
 	float: left;
