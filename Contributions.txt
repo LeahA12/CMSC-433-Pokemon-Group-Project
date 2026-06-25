@@ -4,4 +4,4 @@ Leah: sprite idle animation, sprite shake & flash animation on hit, battle base 
 Max: sql database setup, battle base ui, battle communcation (like from buttons to url)
 Alexis: php & ui stuff - manage starting battles & ending battles
 Joseph: battle logic
-Habib: background audio, pokemon audio
+Habib: background audio, pokemon audio, ui audio
