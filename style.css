@@ -93,7 +93,7 @@
 .currPoke {
 	position: absolute;
 	top: 60px;
-	left: 25px;
+	left: 30px;
 	width: 30%;
 	height: 30%;
 	background-color: #5490CC;
@@ -111,6 +111,7 @@
 	border-radius: 5px;
 	border: 5px solid #6E6E8F;
 	height: 15%;
+	top: 60%;
 	float: left;
 	text-align: center;
 	align-content: center;
@@ -121,6 +122,7 @@
 	width: 20%;
 	height: 10%;
 	border-radius: 15px;
+	top: 62.5%;
 	text-align: center;
 	align-content: center;
 	background-color: #7D72A3;

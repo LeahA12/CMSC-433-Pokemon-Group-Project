@@ -48,7 +48,6 @@
 			<button class="party" id="pokemon3Button">[POKEMON 3]</button>
 			<button class="party" id="pokemon4Button">[POKEMON 4]</button>
 			<button class="party" id="pokemon5Button">[POKEMON 5]</button>
-			<br> <br>
 			<div class="swapPokeText" id="swapPokeText">Choose a POKEMON</div>
 			<button class="backToOptions" id="backToOptions">CANCEL</button>
 		</div>
