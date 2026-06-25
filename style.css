@@ -97,10 +97,8 @@
 	width: 30%;
 	height: 30%;
 	background-color: #5490CC;
-	float: left;
 }
 .party {
-	position: absolute;
 	float: right;
 	margin: 1%;
 	width: 60%;
