@@ -1,32 +1,52 @@
 var myCanvas = document.getElementById("BattleCanvas");
-var canvasWidth = myCanvas.width;
-var canvasHeight = myCanvas.height;
-var context = myCanvas.getContext("2d");
 
-// CREATE BACKGROUND BATTLE ARENA FROM IMAGE FILE
-var battleArena = new Image();
-battleArena.src = "emptyBattle.jpg";
+if (myCanvas) {
+	var canvasWidth = myCanvas.width;
+	var canvasHeight = myCanvas.height;
+	var context = myCanvas.getContext("2d");
 
-context.drawImage(
-	// Source IMAGE that will be drawn into destination CANVAS
-	battleArena,
+	// CREATE BACKGROUND BATTLE ARENA FROM IMAGE FILE
+	var battleArena = new Image();
+	battleArena.src = "emptyBattle.jpg";
+
+	context.drawImage(
+		// Source IMAGE that will be drawn into destination CANVAS
+		battleArena,
+		
+		// Source IMAGE coords and width/height
+		0, 0, battleArena.width, battleArena.height,
+		
+		// Destination CANVAS coords and width/height
+		0, 0, canvasWidth, canvasHeight
+	);
+}
+
+var soundCache = {};
+
+function playSound (src, volume) {
+	if (volume === undefined) {
+		volume = 0.05;
+	}
+
+	var sound = soundCache[src];
+
+	if (!sound) {
+		sound = new Audio();
+		sound.src = src;
+		soundCache[src] = sound;
+	}
 	
-	// Source IMAGE coords and width/height
-	0, 0, battleArena.width, battleArena.height,
-	
-	// Destination CANVAS coords and width/height
-	0, 0, canvasWidth, canvasHeight
-);
-
-var theme = new Audio();
-theme.src = 'sounds/battle.mp3';
-theme.volume = 0.05;
+	sound.volume = volume;
+	sound.play();
+}
 
 document.addEventListener('click', function () {
-	theme.play();
+	playSound('sounds/battle.mp3');
 });
 
 function fightSelected() {
+	playSound('sounds/select.mp3');
+
 	document.getElementById("optionText").style.display = "none";
 	document.getElementById("optionButtonsArea").style.display = "none";
 	document.getElementById("moveSelect").style.display = "block";
