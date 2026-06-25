@@ -43,6 +43,11 @@
 		</div>
 		<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
 			<button class="currPoke" id="currPoke"></button>
+			<button class="party" id="pokemon1Button">[POKEMON 1]</button>
+			<button class="party" id="pokemon2Button">[POKEMON 2]</button>
+			<button class="party" id="pokemon3Button">[POKEMON 3]</button>
+			<button class="party" id="pokemon4Button">[POKEMON 4]</button>
+			<button class="party" id="pokemon5Button">[POKEMON 5]</button>
 		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 

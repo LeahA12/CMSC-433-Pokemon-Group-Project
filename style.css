@@ -88,16 +88,25 @@
 	background-color: #C4BD33;
 	width: 630.5px;
 	height: 416px;
+	overflow: auto;
 }
 .currPoke {
 	position: absolute;
-	top: 40px;
+	top: 60px;
 	left: 45px;
-	width: 25%;
+	width: 30%;
 	height: 30%;
 	background-color: #5490CC;
+	float: left;
 }
-
+.party {
+	position: absolute;
+	float: right;
+	margin: 1%;
+	width: 60%;
+	height: 15%;
+	background-color: #A3D1FF;
+}
 
 
 /* Max's idea w/some edits to fit BattleCanvas */
