@@ -118,7 +118,7 @@
 	margin: 0.5%;
 }
 .backToOptions {
-	float: right;
+	float: left;
 	width: 20%;
 	height: 10%;
 	border-radius: 15px;
@@ -126,6 +126,7 @@
 	text-align: center;
 	align-content: center;
 	background-color: #7D72A3;
+	margin: 0.5%;
 }
 
 /* Max's idea w/some edits to fit BattleCanvas */
