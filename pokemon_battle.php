@@ -42,14 +42,14 @@
 			</div>
 		</div>
 		<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
-			<button class="currPoke" id="currPoke"></button>
+			<button class="currPoke" id="currPoke">[CURRENT POKEMON]</button>
 			<button class="party" id="pokemon1Button" style="margin-top: 5%;">[POKEMON 1]</button>
 			<button class="party" id="pokemon2Button">[POKEMON 2]</button>
 			<button class="party" id="pokemon3Button">[POKEMON 3]</button>
 			<button class="party" id="pokemon4Button">[POKEMON 4]</button>
 			<button class="party" id="pokemon5Button" style="margin-bottom: 3%;">[POKEMON 5]</button>
 			<div class="swapPokeText" id="swapPokeText">Choose a POKEMON</div>
-			<button class="backToOptions" id="backToOptions" style="margin-top: 2%;">CANCEL</button>
+			<button class="backToOptions" id="backToOptions" style="margin-top: 2.5%;" onclick="cancelSwap()">CANCEL</button>
 		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 
