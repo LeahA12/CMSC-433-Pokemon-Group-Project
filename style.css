@@ -117,6 +117,7 @@
 	margin: 0.5%;
 }
 .backToOptions {
+	float: left;
 	width: 20%;
 	height: 10%;
 	bottom: 15%;
