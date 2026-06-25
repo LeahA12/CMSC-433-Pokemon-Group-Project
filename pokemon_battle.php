@@ -49,7 +49,7 @@
 			<button class="party" id="pokemon4Button">[POKEMON 4]</button>
 			<button class="party" id="pokemon5Button" style="margin-bottom: 3%;">[POKEMON 5]</button>
 			<div class="swapPokeText" id="swapPokeText">Choose a POKEMON</div>
-			<button class="backToOptions" id="backToOptions" style="margin-top: 5%;">CANCEL</button>
+			<button class="backToOptions" id="backToOptions" style="margin-top: 2%;">CANCEL</button>
 		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 
