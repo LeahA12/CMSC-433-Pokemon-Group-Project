@@ -106,12 +106,13 @@
 	background-color: #A3D1FF;
 }
 .swapPokeText {
-	width: 75%;
+	width: 65%;
 	background-color: #F7F7FA;
 	border-radius: 5px;
 	border: 5px solid #6E6E8F;
 	height: 15%;
 	bottom: 1%;
+	float: left;
 	text-align: center;
 	align-content: center;
 	margin: 0.5%;
