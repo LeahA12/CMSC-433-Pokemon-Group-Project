@@ -39,10 +39,10 @@
 					<button class="moveOptions" id="move4Button" onclick="useMove(4)">[MOVE 4]</button>
 				</div>
 				<div class="movePP" id="movePPId" style="display: none;">PP<br>X/Y</div>
-				<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
-					<button class="currPoke" id="currPoke"></button>
-				</div>
 			</div>
+		</div>
+		<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
+			<button class="currPoke" id="currPoke"></button>
 		</div>
 		<br> <br> <br> <br> <br> <br>
         <!-- Max's idea w/Leah's background canvas idea 
