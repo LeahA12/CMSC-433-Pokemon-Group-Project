@@ -16,7 +16,7 @@
 		-->
 	
 		<!-- Leah's idea -->
-		<div class="parent">
+		<div class="parent" id="battleScreen">
 			<img class="emptyBattle" src="emptyBattle.jpg" width="630" height="416"/>
 			<div class="playerStatus">
 				<p>Player pokemon status</p> 
@@ -29,7 +29,7 @@
 				<div class="optionButtonsArea" id="optionButtonsArea"> 
 					<button class="startOptions" id="fightButton" onclick="fightSelected()">FIGHT</button>
 					<button class="startOptions" id="bagButton">BAG</button>
-					<button class="startOptions" id="pokemonButton">POKEMON</button>
+					<button class="startOptions" id="pokemonButton" onclick="swapSelected()">POKEMON</button>
 					<button class="startOptions" id="runButton">RUN</button>
 				</div>
 				<div class="moveSelect" id="moveSelect" style="display: none;">
@@ -39,6 +39,9 @@
 					<button class="moveOptions" id="move4Button" onclick="useMove(4)">[MOVE 4]</button>
 				</div>
 				<div class="movePP" id="movePPId" style="display: none;">PP<br>X/Y</div>
+				<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
+					<button class="currPoke" id="currPoke"></button>
+				</div>
 			</div>
 		</div>
 		<br> <br> <br> <br> <br> <br>

@@ -54,6 +54,10 @@ function fightSelected() {
 	document.getElementById("movePPId").style.display = "block";
 }
 
+function swapSelected() {
+	document.getElementById("battleScreen").style.display = "none";
+	document.getElementById("swapPokemonScreen").style.display = "block";
+}
 // Function to use the selected attack/move
 // move is an int (1-4)
 function useMove(move) {

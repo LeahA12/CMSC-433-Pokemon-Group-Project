@@ -81,6 +81,23 @@
 	height: 50%;
 	float: left;
 }
+.swapPokemonScreen {
+	position: relative;
+	top: 0;
+	left: 0;
+	background-color: #C4BD33;
+}
+.currPoke {
+	position: absolute;
+	top: 40px;
+	left: 45px;
+	width: 25%;
+	height: 30%;
+	background-color: #5490CC;
+}
+
+
+
 /* Max's idea w/some edits to fit BattleCanvas */
 
 .battleBox {
