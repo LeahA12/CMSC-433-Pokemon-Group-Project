@@ -26,9 +26,19 @@ document.addEventListener('click', function () {
 	theme.play();
 });
 
+// Changes battle ui to show the moves your pokemon knows after you select "FIGHT"
 function fightSelected() {
 	document.getElementById("optionText").style.display = "none";
 	document.getElementById("optionButtonsArea").style.display = "none";
 	document.getElementById("moveSelect").style.display = "block";
 	document.getElementById("movePPId").style.display = "block";
+}
+
+// Function to use the selected attack/move
+// move is an int (1-4)
+function useMove(move) {
+
+
+
+
 }

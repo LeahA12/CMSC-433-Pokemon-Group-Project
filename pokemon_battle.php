@@ -27,16 +27,16 @@
 		  	<div class="optionSelect">
 				<div class="optionText" id="optionText">WHAT WILL [POKEMON] DO?</div>
 				<div class="optionButtonsArea" id="optionButtonsArea"> 
-					<button class="startOptions" id="fight" onclick="fightSelected()">FIGHT</button>
-					<button class="startOptions" id="bag">BAG</button>
-					<button class="startOptions" id="pokemon">POKEMON</button>
-					<button class="startOptions" id="run">RUN</button>
+					<button class="startOptions" id="fightButton" onclick="fightSelected()">FIGHT</button>
+					<button class="startOptions" id="bagButton">BAG</button>
+					<button class="startOptions" id="pokemonButton">POKEMON</button>
+					<button class="startOptions" id="runButton">RUN</button>
 				</div>
 				<div class="moveSelect" id="moveSelect" style="display: none;">
-					<button class="moveOptions">[MOVE 1]</button>
-					<button class="moveOptions">[MOVE 2]</button>
-					<button class="moveOptions">[MOVE 3]</button>
-					<button class="moveOptions">[MOVE 4]</button>
+					<button class="moveOptions" id="move1Button" onclick="useMove(1)">[MOVE 1]</button>
+					<button class="moveOptions" id="move2Button" onclick="useMove(2)">[MOVE 2]</button>
+					<button class="moveOptions" id="move3Button" onclick="useMove(3)">[MOVE 3]</button>
+					<button class="moveOptions" id="move4Button" onclick="useMove(4)">[MOVE 4]</button>
 				</div>
 				<div class="movePP" id="movePPId" style="display: none;">PP<br>X/Y</div>
 			</div>
