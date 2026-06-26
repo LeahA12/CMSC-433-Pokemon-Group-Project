@@ -4,13 +4,17 @@ if (mySpritesCanvas) {
 	var canvasHeight = mySpritesCanvas.height;
 	var context = mySpritesCanvas.getContext("2d");
 
-	// Create & Draw Player's chosen pokemon using sprite image file from pokemondb.net
+	// Create Player's chosen pokemon using sprite image file from pokemondb.net
 	//    NOTE: In order to match the emerald pokemon look we're going for, 
 	//          we need to make sprite 2.6 times bigger.
-	var scaleNum = 2.6; // found this by doing trial and error
+	var pokeScaleNum = 2.6; // found this by doing trial and error
 	var playerSprite = new Image();
 	playerSprite.src = "sprites/treeckoBack.png"; // is treecko for now, will insert player choice later
-	context.drawImage(playerSprite, 150, 142, playerSprite.width*(scaleNum), playerSprite.height*(scaleNum)); 
+	
+	// Wait for sprite to finish loading before drawing!
+	playerSprite.addEventListener('load', function () {
+		context.drawImage(playerSprite, 150, 142, playerSprite.width*(pokeScaleNum), playerSprite.height*(pokeScaleNum)); 
+	});
 }
 
 var soundCache = {};
