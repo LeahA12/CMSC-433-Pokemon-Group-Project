@@ -35,6 +35,9 @@ class Move {
 	}
 }
 
+// array of pokemon
+const pokemon = new Array();
+
 // testing drawing player & opponent sprites
 drawPlayerSprite("treecko");
 drawOppSprite("swampert");
@@ -42,3 +45,25 @@ drawOppSprite("swampert");
 document.addEventListener('click', function () {
 	playSound('sounds/battle.mp3');
 });
+
+// php loads random pokemon from database
+// and javascript will create objects for each pokemon
+function startGame() {
+	fetch("database.php")
+        .then((response) => response.json())
+        .then((data) => {
+            
+        })
+        .catch(console.error)
+}
+
+// sends updated pokemon information back to database
+function battleEnd() {
+	fetch("database.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({  })
+    });
+}
