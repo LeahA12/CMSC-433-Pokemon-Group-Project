@@ -21,6 +21,7 @@ CREATE TABLE pokemon (
     speed INT NOT NULL, -- Base speed
     generation INT NOT NULL, -- Pokemon generation
     legendary BOOLEAN NOT NULL DEFAULT 0,-- T/F is legendary
+    status VARCHAR(20) DEFAULT NULL,
     
     move1_id INT NOT NULL, -- Move1 ID
     move2_id INT NOT NULL, -- Move2 ID
