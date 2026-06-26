@@ -30,7 +30,7 @@ CREATE TABLE pokemon (
     FOREIGN KEY (move1_id) REFERENCES attacks(attack_id), -- Move1 FK to attack table
     FOREIGN KEY (move2_id) REFERENCES attacks(attack_id), -- Move2 FK to attack table
     FOREIGN KEY (move3_id) REFERENCES attacks(attack_id), -- Move3 FK to attack table
-    OREIGN KEY (move4_id) REFERENCES attacks(attack_id) -- Move4 FK to attack table
+    FOREIGN KEY (move4_id) REFERENCES attacks(attack_id) -- Move4 FK to attack table
 );
 
 CREATE TABLE player (
