@@ -4,8 +4,8 @@
         <title>Pokemon Battle</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
-		<script async src="battleFunctions.js"></script>
-		<script async src="battleMain.js"></script>
+		<script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script async src="battle.js"></script>
     </head>
     <body style="justify-content: display: flex; padding: 50px">	
 		<div class="battleScreen" id="battleScreen">
