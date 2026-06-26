@@ -8,7 +8,7 @@
     </head>
     <body style="justify-content: display: flex; padding: 50px">	
 		<div class="battleScreen" id="battleScreen">
-			<!-- The Empty Emerald Battle Arena
+			<!-- The Empty Emerald Battle Arena Background
 			Note that emptyBattle.jpg is 1261 x 832 -> width: 1261, height: 832
 			emptyBattle.jpg seems a little big for a screen so we shrunk it by 
 			halving the width & height...
@@ -17,7 +17,10 @@
 			-->
 			<img class="emptyBattle" src="emptyBattle.jpg" width="630" height="416"/>
 			
-			<!-- The Player's HP/Name box layered on top of Battle Arena (lower-right)] -->
+			<!-- The Transparent Canvas W/Player & Opponent Pokemon Sprites [layered on top of Battle Arena] -->
+			<canvas id="pokeSpritesCanvas" width="630" height="416"></canvas>
+			
+			<!-- The Player's HP/Name box [layered on top of Battle Arena (lower-right)] -->
 			<div class="playerStatus">
 				<p>Player pokemon status</p> 
 			</div>
