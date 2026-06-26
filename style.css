@@ -1,4 +1,4 @@
-/* Battle Container of background image, player HP/Name box, opponent HP/Name box, & pokemon sprites */
+/* Battle Container of background image, pokemon sprites, player HP/Name box, & opponent HP/Name box */
 .battleScreen {
 	position: relative; /* reference point for any absolute positioning */
 	top: 0;
@@ -8,6 +8,13 @@
 /* Background Battle Arena Image -> has HP/Name boxes overlayed on top */
 .emptyBattle {
 	position: relative; /* reference point for any absolute positioning */
+	top: 0;
+	left: 0;
+}
+
+/* Canvas w/Player's & Opponent's Pokemon Sprites -> overlayed on top of Battle Image */
+#pokeSpritesCanvas {
+	position: absolute; /* positioned relative to .battleScreen */
 	top: 0;
 	left: 0;
 }
