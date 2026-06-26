@@ -53,7 +53,10 @@
 				</div>
 				
 				<!-- -->
-				<div class="movePP" id="movePPId" style="display: none;">PP<br>X/Y</div>
+				<div class="movePPContainer" id="movePPContainer">
+					<div class="movePP" id="movePPId">PP<br>X/Y</div>
+					<button class="moveOptions" id="backButton" onclick="backToOptions()" style="width: 100%;">BACK</button>
+				</div>
 			</div>
 		</div>
 		

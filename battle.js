@@ -66,6 +66,15 @@ document.addEventListener('click', function () {
 	playSound('sounds/battle.mp3');
 });
 
+function backToOptions () {
+	playSound('sounds/select.mp3');
+
+	document.getElementById("optionText").style.display = "block";
+	document.getElementById("optionButtonsArea").style.display = "block";
+	document.getElementById("moveSelect").style.display = "none";
+	document.getElementById("movePPContainer").style.display = "none";
+}
+
 // Changes battle ui to show the moves your pokemon knows after you select "FIGHT"
 function fightSelected() {
 	playSound('sounds/select.mp3');
@@ -73,7 +82,7 @@ function fightSelected() {
 	document.getElementById("optionText").style.display = "none";
 	document.getElementById("optionButtonsArea").style.display = "none";
 	document.getElementById("moveSelect").style.display = "block";
-	document.getElementById("movePPId").style.display = "block";
+	document.getElementById("movePPContainer").style.display = "flex";
 }
 
 function swapSelected() {
