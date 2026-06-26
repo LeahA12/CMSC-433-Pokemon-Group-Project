@@ -1,25 +1,32 @@
-/* Leah's idea */
+/* Battle Container of background image, player HP/Name box, opponent HP/Name box, & pokemon sprites */
+.battleScreen {
+	position: relative; /* reference point for any absolute positioning */
+	top: 0;
+	left: 0;
+}
 
-.parent {
-	position: relative;
-	top: 0;
-	left: 0;
-}
+/* Background Battle Arena Image -> has HP/Name boxes overlayed on top */
 .emptyBattle {
-	position: relative;
+	position: relative; /* reference point for any absolute positioning */
 	top: 0;
 	left: 0;
 }
+
+/* Player Status HP/Name Box -> overlayed at bottom-right corner of Battle Image */
 .playerStatus {
-	position: absolute;
+	position: absolute; /* positioned relative to .battleScreen */
 	top: 190px;
 	left: 370px;
 }
+
+/* Bot-Opponent Status HP/Name Box -> overlayed at top-left corner of Battle Image */
 .opponentStatus {
-	position: absolute;
+	position: absolute; /* positioned relative to .battleScreen */
 	top: 40px;
 	left: 45px;
 }
+
+/* ... */
 .optionSelect {
 	position: absolute;
 	top: 292px;
@@ -28,6 +35,8 @@
 	height: 123px;
 	overflow: auto;
 }
+
+/* ... */
 .optionText {
 	width: 45%;
 	background-color: #F7F7FA;
@@ -39,6 +48,8 @@
 	align-content: center;
 	margin: 0.5%;
 }
+
+/* ... */
 .optionButtonsArea {
 	width: 50%;
 	background-color: #999999;
@@ -49,12 +60,15 @@
 	overflow: auto;
 	margin: 0.5%;
 }
+
 /* When one of these is pressed, optionText hides and optionButtonsArea hides */
 .startOptions {
 	width: 50%;
 	height: 50%;
 	float: left;
 }
+
+/* ... */
 .moveSelect {
 	width: 62%;
 	background-color: #F7F7FA;
@@ -65,6 +79,8 @@
 	overflow: auto;
 	margin: 0.5%;
 }
+
+/* ... */
 .movePP {
 	width: 33%;
 	background-color: #F7F7FA;
@@ -76,11 +92,15 @@
 	text-align: center;
 	align-content: center;
 }
+
+/* ... */
 .moveOptions {
 	width: 50%;
 	height: 50%;
 	float: left;
 }
+
+/* ... */
 .swapPokemonScreen {
 	position: relative;
 	top: 0;
@@ -90,6 +110,8 @@
 	height: 416px;
 	overflow: auto;
 }
+
+/* ... */
 .currPoke {
 	position: absolute;
 	top: 60px;
@@ -98,6 +120,8 @@
 	height: 30%;
 	background-color: #5490CC;
 }
+
+/* ... */
 .party {
 	float: right;
 	margin: 1% 2% 1% 1%;
@@ -105,6 +129,8 @@
 	height: 10%;
 	background-color: #A3D1FF;
 }
+
+/* ... */
 .swapPokeText {
 	width: 70%;
 	background-color: #F7F7FA;
@@ -117,6 +143,8 @@
 	align-content: center;
 	margin: 0.5% 1% 0.5% 3.5%;
 }
+
+/* ... */
 .backToOptions {
 	float: left;
 	width: 20%;
@@ -127,28 +155,4 @@
 	align-content: center;
 	background-color: #7D72A3;
 	margin: 0.5%;
-}
-
-/* Max's idea w/some edits to fit BattleCanvas */
-
-.battleBox {
-  width: 500px;
-  height: 416px;
-}
-
-.column {
-  float: left;
-  width: 600px;
-  height: 416px;
-  border: 1px solid #000000;
-}
-
-.playerStatus_Max, .opponentStatus_Max {
-  width: 20%;
-}
-
-.battleArena {
-  width: 630px;
-  border-left: none;
-  border-right: none;
 }
