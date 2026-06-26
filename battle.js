@@ -3,6 +3,11 @@ if (mySpritesCanvas) {
 	var canvasWidth = mySpritesCanvas.width;
 	var canvasHeight = mySpritesCanvas.height;
 	var context = mySpritesCanvas.getContext("2d");
+	
+	// Adding this line so the pokemon sprites are not fuzzy
+	//    NOTE: I understood how this property worked via this link 
+	//    https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled
+	context.imageSmoothingEnabled = false;
 }
 var pokeScaleNum = 2.6; // found this by doing trial and error
 
