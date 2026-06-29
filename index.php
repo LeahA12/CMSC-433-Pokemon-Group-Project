@@ -44,7 +44,7 @@
 					<button class="startOptions" id="fightButton" onclick="fightSelected()">FIGHT</button>
 					<button class="startOptions" id="bagButton">BAG</button>
 					<button class="startOptions" id="pokemonButton" onclick="swapSelected()">POKEMON</button>
-					<button class="startOptions" id="runButton">RUN</button>
+					<button class="startOptions" id="runButton" onclick="attemptEscape()">RUN</button>
 				</div>
 				
 				<!-- -->
