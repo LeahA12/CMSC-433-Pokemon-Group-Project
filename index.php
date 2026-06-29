@@ -58,7 +58,13 @@
 				<!-- -->
 				<div class="movePPContainer" id="movePPContainer">
 					<!-- <div class="movePP" id="movePPId">PP<br>X/Y</div> -->
-					<button class="moveOptions" id="backButton" onclick="backToOptions()" style="width: 100%;">BACK</button>
+					<button class="moveOptions" id="backButton" onclick="backToOptions()" style="width: 100%; height: 100%;">BACK</button>
+				</div>
+				<div class="moveSelect" id="runText" style="display: none;">
+					NO! THERE'S NO RUNNING FROM A TRAINER BATTLE!
+				</div>
+				<div class="movePPContainer" id="runBackContainer">
+					<button class="moveOptions" id="backButton" onclick="backToOptions()" style="width: 100%; height: 100%;">BACK</button>
 				</div>
 			</div>
 		</div>
