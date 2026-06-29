@@ -62,7 +62,7 @@
 				</div>
 
 				<!-- -->
-				<div class="moveSelect" id="runText" style="display: none;">
+				<div class="moveSelect" id="runText" style="display: none; text-align: center; align-content: center;">
 					NO! THERE'S NO RUNNING FROM A TRAINER BATTLE!
 				</div>
 				<div class="movePPContainer" id="runBackContainer" style="display: none;">
