@@ -67,3 +67,6 @@ function battleEnd() {
         body: JSON.stringify({  })
     });
 }
+
+// ignore this its testing putting a variable in the html file -- will be deleted
+var nameTest1 = "TOXTRICITY";

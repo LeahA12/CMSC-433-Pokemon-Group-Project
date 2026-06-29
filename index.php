@@ -37,7 +37,7 @@
 		  	<div class="optionSelect">
 				
 				<!-- -->
-				<div class="optionText" id="optionText">WHAT WILL [POKEMON] DO?</div>
+				<div class="optionText" id="optionText">WHAT WILL ${nameTest1} DO?</div>
 				
 				<!-- -->
 				<div class="optionButtonsArea" id="optionButtonsArea"> 
