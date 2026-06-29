@@ -65,6 +65,8 @@ function backToOptions () {
 	document.getElementById("optionButtonsArea").style.display = "block";
 	document.getElementById("moveSelect").style.display = "none";
 	document.getElementById("movePPContainer").style.display = "none";
+	document.getElementById("runText").style.display = "none";
+	document.getElementById("runBackContainer").style.display = "none";
 }
 
 // Changes battle ui to show the moves your pokemon knows after you select "FIGHT"
@@ -89,6 +91,13 @@ function cancelSwap() {
 	
 	document.getElementById("battleScreen").style.display = "block";
 	document.getElementById("swapPokemonScreen").style.display = "none";
+}
+
+function attemptEscape() {
+	document.getElementById("optionText").style.display = "none";
+	document.getElementById("optionButtonsArea").style.display = "none";
+	document.getElementById("runText").style.display = "block";
+	document.getElementById("runBackContainer").style.display = "none";
 }
 
 // Function to use the selected attack/move
