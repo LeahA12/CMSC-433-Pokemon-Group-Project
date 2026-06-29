@@ -69,4 +69,5 @@ function battleEnd() {
 }
 
 // ignore this its testing putting a variable in the html file -- will be deleted
-var nameTest1 = "TOXTRICITY";
+var testName1 = "TOXTRICITY";
+document.getElementById("optionText").textContent = "WHAT WILL ${testName1} DO?";
