@@ -68,7 +68,7 @@ function battleEnd() {
     });
 }
 
-/*
+
 // ignore this its testing putting a variable in the html file -- will be deleted
 // var testName1 = "TOXTRICITY";
 // document.getElementById("optionText").textContent = `WHAT WILL ${testName1} DO?`;
@@ -83,6 +83,5 @@ document.getElementById("move1Button").textContent = testMoveArray[0].name;
 document.getElementById("move2Button").textContent = testMoveArray[1].name;
 document.getElementById("move3Button").textContent = testMoveArray[2].name;
 document.getElementById("move4Button").textContent = testMoveArray[3].name;
-*/
 
-document.getElementById("optionText").textContent = `WHAT WILL ${pokemon[0].name} DO?`;
+// document.getElementById("optionText").textContent = `WHAT WILL ${pokemon[0].name} DO?`;
