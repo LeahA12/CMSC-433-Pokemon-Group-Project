@@ -97,7 +97,7 @@ function attemptEscape() {
 	document.getElementById("optionText").style.display = "none";
 	document.getElementById("optionButtonsArea").style.display = "none";
 	document.getElementById("runText").style.display = "block";
-	document.getElementById("runBackContainer").style.display = "none";
+	document.getElementById("runBackContainer").style.display = "block";
 }
 
 // Function to use the selected attack/move
