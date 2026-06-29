@@ -72,4 +72,13 @@ function battleEnd() {
 // var testName1 = "TOXTRICITY";
 // document.getElementById("optionText").textContent = `WHAT WILL ${testName1} DO?`;
 var testPoke = new Pokemon("TOXTRICITY", "ELECTRIC", "POISON", 75, 98, 70, 114, 70, 75);
+const testMoveArray = new Array();
+testMoveArray.push(new Move("BOOMBURST", 140, "NORMAL", "SPECIAL"));
+testMoveArray.push(new Move("POISON JAB", 80, "POISON", "PHYSICAL"));
+testMoveArray.push(new Move("SHOCK WAVE", 60, "ELECTRIC", "SPECIAL"));
+testMoveArray.push(new Move("VENOSHOCK", 65, "POISON", "SPECIAL", "POISON"));
 document.getElementById("optionText").textContent = `WHAT WILL ${testPoke.name} DO?`;
+document.getElementById("move1Button").textContent = testMoveArray[0].name;
+document.getElementById("move2Button").textContent = testMoveArray[1].name;
+document.getElementById("move3Button").textContent = testMoveArray[2].name;
+document.getElementById("move4Button").textContent = testMoveArray[3].name;
