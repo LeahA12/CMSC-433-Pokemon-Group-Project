@@ -38,9 +38,21 @@ class Move {
 // array of pokemon
 const pokemon = new Array();
 
-// testing drawing player & opponent sprites
-drawPlayerSprite("treecko");
-drawOppSprite("swampert");
+// testing player & opponent sprites animations
+window.addEventListener('load', function () {
+	drawPlayerSprite("treecko");
+	drawOppSprite("swampert");
+	// automatically triggering the hit animations
+	//    NOTE: 2000 milliseconds = 2 seconds
+	setTimeout(function () {
+		hitPlayerSprite("treecko");
+		setTimeout(function () {
+			hitOppSprite("swampert");
+		}, 2000); 
+	}, 2000); 
+});
+//faintPlayerSprite("treecko");
+//faintOppSprite("swampert");
 
 document.addEventListener('click', function () {
 	playSound('sounds/battle.mp3');
