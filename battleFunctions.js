@@ -1,8 +1,9 @@
 /* ANIMATION CODE STARTS */
 const pPokeStartCoords = [110, 142]; // coordinates for where player pokemon sprites are located in "emptyBattle.jpg"
 const oPokeStartCoords = [380, 20]; // coordinates for where opponent pokemon sprites are located in "emptyBattle.jpg"
-const ms_btwn_shakes = 100; // amt of time in ms that the frame stays before next frame
-const total_shake_ms = 1000; // amt of time in ms that the whole shake runs before stopping
+const ms_btwn_shakes = 90; // amt of time in ms that the frame stays before moving left/right
+const ms_btwn_flashes = 140; // amt of time in ms that the frame stays before opacity is decreased
+const total_hit_ms = 1200; // amt of time in ms that the whole shake & flash runs before stopping
 const pokeScaleNum = 2.6; // to make pokemon look right size in emerald battle arena - found this by doing trial and error
 
 var pCanvas = document.getElementById("pPokeSpriteCanvas");
@@ -23,7 +24,7 @@ if (pCanvas && oCanvas) {
 	pContext.imageSmoothingEnabled = false;
 	oContext.imageSmoothingEnabled = false;
 }
-var pTimerID, oTimerID;
+var pShakeTimerID, pFlashTimerID, oShakeTimerID, oFlashTimerID;
 var pPokeCurrCoords = [pPokeStartCoords[0], pPokeStartCoords[1]]; // where player sprite is located on canvas currently
 var oPokeCurrCoords = [oPokeStartCoords[0], oPokeStartCoords[1]]; // where opponent sprite is located on canvas currently
 
@@ -50,8 +51,8 @@ function drawPlayerSprite(pokeName){
 // Animate Player's chosen pokemon getting Hit (will shake and flash!)
 //    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
 function hitPlayerSprite(pokeName){
-	// (1) CHECK IF ALREADY RUNNING: don't start a shake on top of a running animation
-	if (pTimerID){
+	// (1) CHECK IF ALREADY RUNNING: don't start a second shake/flash on top of a running shake/flash
+	if (pShakeTimerID || pFlashTimerID){
 		return;
 	}
 	
@@ -62,26 +63,40 @@ function hitPlayerSprite(pokeName){
 	// Wait for sprite to finish loading before animating!
 	pSprite.addEventListener('load', function () {
 		var pixels_to_move = 7; // amount of pixels to move left and right
+		var isFullOpacity = true; // represents whether the CSS canvas style.opacity value is "1.0" or not
 		
-		// (3) ANIMATE SHAKE: Every 100ms (b/c ms_btwn_shakes=100), move sprite right or left
+		// (3) ANIMATE FLASH: Every 140ms (b/c ms_btwn_flashes=140), alternate the CSS opacity btwn full and decreased
+		pFlashTimerID = setInterval ( () => {
+			if (isFullOpacity) {
+				// If at FULL opacity, change it to DECREASED opacity
+				pCanvas.style.opacity = "0.5";
+				isFullOpacity = false;
+			}else{		
+				// If at DECREASED opacity, change it to FULL opacity
+				pCanvas.style.opacity = "1.0";
+				isFullOpacity = true;
+			}
+		}, ms_btwn_flashes );
+		
+		// (4) ANIMATE SHAKE: Every 90ms (b/c ms_btwn_shakes=90), move sprite right or left
 		//    Move sprite LEFT if sprite just moved RIGHT
 		//    Move sprite RIGHT if sprite just moved LEFT
-		// (3A) START ANIMATION BY MOVING SPRITE RIGHT FIRST: this causes the shake to start
+		// (4A) START ANIMATION BY MOVING SPRITE RIGHT FIRST: this causes the shake to start
 		pPokeCurrCoords[0] = pPokeStartCoords[0] + pixels_to_move;
-		pTimerID = setInterval ( () => {
-			// (3B) CLEAR PREV SPRITE: prevents there being multiple sprites
+		pShakeTimerID = setInterval ( () => {
+			// (4B) CLEAR PREV SPRITE: prevents there being multiple sprites
 			pContext.clearRect(0, 0, pCanvasWidth, pCanvasHeight);
 			
-			// (3C) DRAW SPRITE ONTO CANVAS: use pPokeCurrCoords to keep track where sprite is currently 
+			// (4C) DRAW SPRITE ONTO CANVAS: use pPokeCurrCoords to keep track where sprite is currently 
 			pContext.drawImage(
 				pSprite, 
 				pPokeCurrCoords[0], 
 				pPokeCurrCoords[1], 
 				pSprite.width*(pokeScaleNum), 
 				pSprite.height*(pokeScaleNum)
-			); 
+			);
 			
-			// (3D) MOVE SPRITE LEFT OR RIGHT: use pPokeCurrCoords to keep track where sprite is currently 
+			// (4D) MOVE SPRITE LEFT OR RIGHT: use pPokeCurrCoords to keep track where sprite is currently 
 			//    Move sprite LEFT if sprite just moved RIGHT
 			//        sprite just moved RIGHT = curr x coords is > starting x coords
 			//    Move sprite RIGHT if sprite just moved LEFT
@@ -95,13 +110,18 @@ function hitPlayerSprite(pokeName){
 			}
 		}, ms_btwn_shakes );
 		
-		// (4) STOP SHAKE ANIMATION ONCE 1 SECOND PASSED
+		// (5) STOP SHAKE ANIMATION ONCE 1.2 SECONDS PASSED
 		setTimeout( () => {
-			// this function is only entered once total_shake_ms expires
-			// (4A) STOP SHAKE ANIMATION
-			stopAnimate(pTimerID);
+			// this function is only entered once total_hit_ms expires
+			// (5A) STOP SHAKE & FLASH ANIMATIONS: stop the timers & set them to null
+			clearInterval(pShakeTimerID);
+			clearInterval(pFlashTimerID);
+			pShakeTimerID = null;
+			pFlashTimerID = null;
 			
-			// (4B) CLEAR PREV SPRITE & REDRAW AT START: so sprite doesn't freeze at shifted coordinate
+			// (5B) CLEAR PREV SPRITE & REDRAW AT START W/FULL OPACITY: so sprite doesn't freeze at shifted coordinate or decreased opacity
+			pCanvas.style.opacity = "1.0";
+			isFullOpacity = true;
 			pContext.clearRect(0, 0, pCanvasWidth, pCanvasHeight);
 			pContext.drawImage(
 				pSprite, 
@@ -110,15 +130,15 @@ function hitPlayerSprite(pokeName){
 				pSprite.width*(pokeScaleNum), 
 				pSprite.height*(pokeScaleNum)
 			);
-		}, total_shake_ms );
+		}, total_hit_ms );
 	});
 }
 
 // Animate Opponent's chosen pokemon getting Hit (will shake and flash!)
 //    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
 function hitOppSprite(pokeName){
-	// (1) CHECK IF ALREADY RUNNING: don't start a shake on top of a running animation
-	if (oTimerID){
+	// (1) CHECK IF ALREADY RUNNING: don't start a second shake/flash on top of a running shake/flash
+	if (oShakeTimerID || oFlashTimerID){
 		return;
 	}
 	
@@ -129,17 +149,31 @@ function hitOppSprite(pokeName){
 	// Wait for sprite to finish loading before animating!
 	oSprite.addEventListener('load', function () {
 		var pixels_to_move = 7; // amount of pixels to move left and right
+		var isFullOpacity = true; // represents whether the CSS canvas style.opacity value is "1.0" or not
 		
-		// (3) ANIMATE SHAKE: Every 100ms (b/c ms_btwn_shakes=100), move sprite right or left
+		// (3) ANIMATE FLASH: Every 140ms (b/c ms_btwn_flashes=140), alternate the CSS opacity btwn full and decreased
+		oFlashTimerID = setInterval ( () => {
+			if (isFullOpacity) {
+				// If at FULL opacity, change it to DECREASED opacity
+				oCanvas.style.opacity = "0.5";
+				isFullOpacity = false;
+			}else{		
+				// If at DECREASED opacity, change it to FULL opacity
+				oCanvas.style.opacity = "1.0";
+				isFullOpacity = true;
+			}
+		}, ms_btwn_flashes );
+		
+		// (4) ANIMATE SHAKE: Every 90ms (b/c ms_btwn_shakes=90), move sprite right or left
 		//    Move sprite LEFT if sprite just moved RIGHT
 		//    Move sprite RIGHT if sprite just moved LEFT
-		// (3A) START ANIMATION BY MOVING SPRITE RIGHT FIRST: this causes the shake to start
+		// (4A) START ANIMATION BY MOVING SPRITE RIGHT FIRST: this causes the shake to start
 		oPokeCurrCoords[0] = oPokeStartCoords[0] + pixels_to_move;
-		oTimerID = setInterval ( () => {
-			// (3B) CLEAR PREV SPRITE: prevents there being multiple sprites
+		oShakeTimerID = setInterval ( () => {
+			// (4B) CLEAR PREV SPRITE: prevents there being multiple sprites
 			oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
 			
-			// (3C) DRAW SPRITE ONTO CANVAS: use oPokeCurrCoords to keep track where sprite is currently 
+			// (4C) DRAW SPRITE ONTO CANVAS: use oPokeCurrCoords to keep track where sprite is currently 
 			oContext.drawImage(
 				oSprite, 
 				oPokeCurrCoords[0], 
@@ -148,7 +182,7 @@ function hitOppSprite(pokeName){
 				oSprite.height*(pokeScaleNum)
 			); 
 			
-			// (3D) MOVE SPRITE LEFT OR RIGHT: use oPokeCurrCoords to keep track where sprite is currently 
+			// (4D) MOVE SPRITE LEFT OR RIGHT: use oPokeCurrCoords to keep track where sprite is currently 
 			//    Move sprite LEFT if sprite just moved RIGHT
 			//        sprite just moved RIGHT = curr x coords is > starting x coords
 			//    Move sprite RIGHT if sprite just moved LEFT
@@ -162,13 +196,18 @@ function hitOppSprite(pokeName){
 			}
 		}, ms_btwn_shakes );
 		
-		// (4) STOP SHAKE ANIMATION ONCE 1 SECOND PASSED
+		// (5) STOP SHAKE ANIMATION ONCE 1.2 SECONDS PASSED
 		setTimeout( () => {
-			// this function is only entered once total_shake_ms expires
-			// (4A) STOP SHAKE ANIMATION
-			stopAnimate(oTimerID);
+			// this function is only entered once total_hit_ms expires
+			// (5A) STOP SHAKE & FLASH ANIMATIONS: stop the timers & set them to null
+			clearInterval(oShakeTimerID);
+			clearInterval(oFlashTimerID);
+			oShakeTimerID = null;
+			oFlashTimerID = null;
 			
-			// (4B) CLEAR PREV SPRITE & REDRAW AT START: so sprite doesn't freeze at shifted coordinate
+			// (5B) CLEAR PREV SPRITE & REDRAW AT START W/FULL OPACITY: so sprite doesn't freeze at shifted coordinate or decreased opacity
+			oCanvas.style.opacity = "1.0";
+			isFullOpacity = true;
 			oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
 			oContext.drawImage(
 				oSprite, 
@@ -177,7 +216,7 @@ function hitOppSprite(pokeName){
 				oSprite.width*(pokeScaleNum), 
 				oSprite.height*(pokeScaleNum)
 			);
-		}, total_shake_ms );
+		}, total_hit_ms );
 	});
 }
 
@@ -199,14 +238,6 @@ function drawOppSprite(pokeName){
 			oSprite.height*(pokeScaleNum)
 		); 
 	});
-}
-
-function stopAnimate(timerID) {
-	// stop the timer
-	clearInterval(timerID);
-	
-	// clear the timer flag ID
-	timerID = null;
 }
 
 /* ANIMATION CODE ENDS */
