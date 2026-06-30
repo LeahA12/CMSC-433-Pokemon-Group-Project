@@ -64,7 +64,64 @@ function startGame() {
 	fetch("database.php")
         .then((response) => response.json())
         .then((data) => {
-            
+            // loop 12 times to get variable named keys
+			for (let i = 1; i <= 12; i++) {
+				let currMoves = new Array();
+
+				let currMove1Name = data["move1Name"+i];
+				let currMove1Amount = data["move1Amount"+i];
+				let currMove1Type = data["move1Type"+i];
+				let currMove1Style = data["move1Style"+i];
+				let currMove1Status = data["move1Status"+i];
+
+				currMoves.push(new Move(currMove1Name, currMove1Amount, currMove1Type, currMove1Style, currMove1Status));
+
+				let currMove2Name = data["move2Name"+i];
+				let currMove2Amount = data["move2Amount"+i];
+				let currMove2Type = data["move2Type"+i];
+				let currMove2Style = data["move2Style"+i];
+				let currMove2Status = data["move2Status"+i];
+
+				currMoves.push(new Move(currMove2Name, currMove2Amount, currMove2Type, currMove2Style, currMove2Status));
+
+				let currMove3Name = data["move3Name"+i];
+				let currMove3Amount = data["move3Amount"+i];
+				let currMove3Type = data["move3Type"+i];
+				let currMove3Style = data["move3Style"+i];
+				let currMove3Status = data["move3Status"+i];
+
+				currMoves.push(new Move(currMove3Name, currMove3Amount, currMove3Type, currMove3Style, currMove3Status));
+
+				let currMove4Name = data["move4Name"+i];
+				let currMove4Amount = data["move4Amount"+i];
+				let currMove4Type = data["move4Type"+i];
+				let currMove4Style = data["move4Style"+i];
+				let currMove4Status = data["move4Status"+i];
+
+				currMoves.push(new Move(currMove4Name, currMove4Amount, currMove4Type, currMove4Style, currMove4Status));
+
+				let currName = data["name"+i];
+				let currType1 = data["type1"+i];
+				let currType2 = data["type2"+i];
+				let currHP = data["hp"+i];
+				let currAttack = data["attack"+i];
+				let currDefense = data["defense"+i];
+				let currSPAttack = data["sp_attack"+i];
+				let currSPDefense = data["sp_defense"+i];
+				let currSpeed = data["speed"+i];
+				let currStatus = data["status"+i];
+
+				pokemon.push(new Pokemon (
+					currName, currType1, currType2, currHP,
+					currAttack, currDefense, currSPAttack,
+					currSPDefense, currSpeed, currStatus,
+					currMoves
+				));
+			}
+
+			// here we can call whatever function then displays those pokemon
+			// and lets you pick some to make a team, which is then made into
+			// another array that is passed into the player object
         })
         .catch(console.error)
 }
