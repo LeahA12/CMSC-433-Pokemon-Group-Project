@@ -20,8 +20,11 @@
 			-->
 			<img class="emptyBattle" src="emptyBattle.jpg" width="630" height="416"/>
 			
-			<!-- The Transparent Canvas W/Player & Opponent Pokemon Sprites [layered on top of Battle Arena] -->
-			<canvas id="pokeSpritesCanvas" width="630" height="416"></canvas>
+			<!-- The Transparent Canvas W/Player's Pokemon Sprites [layered on top of Battle Arena] -->
+			<canvas id="pPokeSpriteCanvas" width="630" height="416"></canvas>
+			
+			<!-- The Transparent Canvas W/Opponent's Pokemon Sprites [layered on top of Battle Arena] -->
+			<canvas id="oPokeSpriteCanvas" width="630" height="416"></canvas>
 			
 			<!-- The Player's HP/Name box [layered on top of Battle Arena (lower-right)] -->
 			<div class="playerStatus">
