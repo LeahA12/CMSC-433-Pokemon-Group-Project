@@ -119,7 +119,7 @@ function startGame() {
 				));
 			}
 
-			// here we can call whatever function then displays those pokemon
+			// here we can call whatever function that displays those pokemon
 			// and lets you pick some to make a team, which is then made into
 			// another array that is passed into the player object
         })
