@@ -74,6 +74,7 @@
 	width: 50%;
 	height: 50%;
 	float: left;
+	border: none;
 }
 
 /* ... */
@@ -117,6 +118,7 @@
 	width: 50%;
 	height: 50%;
 	float: left;
+	border: none;
 }
 
 /* ... */
