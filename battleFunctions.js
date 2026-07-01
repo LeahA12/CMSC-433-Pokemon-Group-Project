@@ -545,11 +545,581 @@ function attemptEscape() {
 }
 
 // Function to use the selected attack/move
-// move is an int (1-4)
+/*
+	This whole section is VERY unfinished and full of placeholder variables.
+	Some lines of code may even be entirely relocated into different parts of the program.
+	I'll update what has changed here until the final build.
+*/
 function useMove(move) {
+	var player = new Player // REPLACE THIS WITH THE ACTUAL ACTIVE PLAYER OBJECT
+	var opponent = new Player // REPLACE THIS WITH THE ACTUAL ACTIVE OPPONENT OBJECT
+	var activePokemon = player.activemon;
+	var opponentPokemon = opponent.activemon;
+
+
+
 	playSound('sounds/select.mp3');
+	// may move these elsewhere
+	var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
+	var oppDamage = damageCalculation(opponentPokemon.moves[rand(0,3)], opponentPokemon, activePokemon);
+	
+	
+}
 
+// Function that calculates the upper bound of battle damage from using a move on a pokemon, using the formula and rules from the games
 
+function damageCalculation(move, user, target) {
+	var atk = 1;
+	var def = 1;
+	// Determines whether to use physical or special stats for damage calc. Does not factor in exceptions like psyshock or body press.
+	if (move.style == PHYSICAL) {
+		atk = user.attack;
+		def = target.defense;
+	}
+	if (move.style == SPECIAL) {
+		atk = user.sp_attack;
+		def = target.sp_defense;
+	}
 
-
+	// Base damage calculation
+	var damage = (((((2 * user.level / 5) + 2) * move.power * atk / def) / 50) + 2);
+	
+	// A damaging move must always do at least 1 damage
+	if (damage < 1) {
+		damage = 1;
+	}
+	
+	// Same Type Attack Bonus and type effectiveness
+	if (move.type == user.type1 || move.type == user.type2) {
+		damage = damage * 1.5;
+	}
+	damage = damage * typeEffectiveness(move, opponentPokemon);
+	
+	// Status moves do not deal damage
+	if (move.style == STATUS) {
+		damage = 0;
+	}
+	
+	// In this simulator, each move's additional effect only has a 10% chance of going off. Don't bother using lava plume or scald.
+	if (move.additionalEffect) {
+		var chance = randomInt(100)
+		if (chance < 90) {
+			// apply additional effect
+		}
+	}
+	// Note: In the actual games, after damage is calculated, there is an additional roll for the final value. The
+	// actual damage can be anywhere between 85% and 100% of the final value, with a 1/16 chance of hitting each
+	// percentage. This will be reflected in the battle loop, not here in damageCalculation, as this returns an int.
+	return damage;
+}
+// Helper function to calculate type effectiveness. Takes a move and a target pokemon.
+function typeEffectiveness(move, target) {
+	var eff = 1;
+	var moveType = move.type;
+	var targetType1 = target.type1;
+	var targetType2 = target.type2;
+	var types = [target.type1, target.type2];
+	// Puts each of the target's types in an array, then iterates over it for type effectiveness
+	// Each type matchup is hardcoded. Open at your own risk. It's long.
+	types.forEach((type, i) => {
+		switch (type) {
+			case NULL:
+				eff = eff;
+				break;
+			case "Normal":
+				switch (moveType) {
+					case "Fighting":
+						eff = eff * 2;
+						break;
+					case "Ghost":
+						eff = 0;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Fire":
+				switch (moveType) {
+					case "Fire":
+						eff = eff / 2;
+						break;
+					case "Water":
+						eff = eff * 2;
+						break;
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Ice":
+						eff = eff / 2;
+						break;
+					case "Ground":
+						eff = eff * 2;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Rock":
+						eff = eff * 2;
+						break;
+					case "Steel":
+						eff = eff / 2;
+						break;
+					case "Fairy":
+						eff = eff / 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Water":
+				switch (moveType) {
+					case "Fire":
+						eff = eff / 2;
+						break;
+					case "Water":
+						eff = eff / 2;
+						break;
+					case "Electric":
+						eff = eff * 2;
+						break;
+					case "Grass":
+						eff = eff * 2;
+						break;
+					case "Ice":
+						eff = eff / 2;
+						break;
+					case "Steel":
+						eff = eff / 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Electric":
+				switch (moveType) {
+					case "Electric":
+						eff = eff / 2;
+						break;
+					case "Ground":
+						eff = eff * 2;
+						break;
+					case "Flying":
+						eff = eff / 2;
+						break;
+					case "Steel":
+						eff = eff / 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Grass":
+				switch (moveType) {
+					case "Fire":
+						eff = eff * 2;
+						break;
+					case "Water":
+						eff = eff / 2;
+						break;
+					case "Electric":
+						eff = eff / 2;
+						break;
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Ice":
+						eff = eff * 2;
+						break;
+					case "Poison":
+						eff = eff * 2;
+						break;
+					case "Ground":
+						eff = eff / 2;
+						break;
+					case "Flying":
+						eff = eff * 2;
+						break;
+					case "Bug":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Ice":
+				switch (moveType) {
+					case "Fire":
+						eff = eff * 2;
+						break;
+					case "Ice":
+						eff = eff / 2;
+						break;
+					case "Fighting":
+						eff = eff * 2;
+						break;
+					case "Rock":
+						eff = eff * 2;
+						break;
+					case "Steel":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Fighting":
+				switch (moveType) {
+					case "Flying":
+						eff = eff * 2;
+						break;
+					case "Psychic":
+						eff = eff * 2;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Rock":
+						eff = eff / 2;
+						break;
+					case "Dark":
+						eff = eff / 2;
+						break;
+					case "Fairy":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Poison":
+				switch (moveType) {
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Fighting":
+						eff = eff / 2;
+						break;
+					case "Poison":
+						eff = eff / 2;
+						break;
+					case "Ground":
+						eff = eff * 2;
+						break;
+					case "Psychic":
+						eff = eff * 2;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Fairy":
+						eff = eff / 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Ground":
+				switch (moveType) {
+					case "Water":
+						eff = eff * 2;
+						break;
+					case "Electric":
+						eff = 0;
+						break;
+					case "Grass":
+						eff = eff * 2;
+						break;
+					case "Ice":
+						eff = eff * 2;
+						break;
+					case "Poison":
+						eff = eff / 2;
+						break;
+					case "Rock":
+						eff = eff / 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Flying":
+				switch (moveType) {
+					case "Electric":
+						eff = eff * 2;
+						break;
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Ice":
+						eff = eff * 2;
+						break;
+					case "Fighting":
+						eff = eff / 2;
+						break;
+					case "Ground":
+						eff = 0;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Rock":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Psychic":
+				switch (moveType) {
+					case "Fighting":
+						eff = eff / 2;
+						break;
+					case "Psychic":
+						eff = eff / 2;
+						break;
+					case "Bug":
+						eff = eff * 2;
+						break;
+					case "Ghost":
+						eff = eff * 2;
+						break;
+					case "Dark":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Bug":
+				switch (moveType) {
+					case "Fire":
+						eff = eff * 2;
+						break;
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Fighting":
+						eff = eff / 2;
+						break;
+					case "Ground":
+						eff = eff / 2;
+						break;
+					case "Flying":
+						eff = eff * 2;
+						break;
+					case "Rock":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Rock":
+				switch (moveType) {
+					case "Normal":
+						eff = eff / 2;
+						break;
+					case "Fire":
+						eff = eff / 2;
+						break;
+					case "Water":
+						eff = eff * 2;
+						break;
+					case "Grass":
+						eff = eff * 2;
+						break;
+					case "Fighting":
+						eff = eff * 2;
+						break;
+					case "Poison":
+						eff = eff / 2;
+						break;
+					case "Ground":
+						eff = eff * 2;
+						break;
+					case "Flying":
+						eff = eff / 2;
+						break;
+					case "Steel":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Ghost":
+				switch (moveType) {
+					case "Normal":
+						eff = 0;
+						break;
+					case "Fighting":
+						eff = 0;
+						break;
+					case "Poison":
+						eff = eff / 2;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Ghost":
+						eff = eff * 2;
+						break;
+					case "Dark":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Dragon":
+				switch (moveType) {
+					case "Fire":
+						eff = eff / 2;
+						break;
+					case "Water":
+						eff = eff / 2;
+						break;
+					case "Electric":
+						eff = eff / 2;
+						break;
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Ice":
+						eff = eff * 2;
+						break;
+					case "Dragon":
+						eff = eff * 2;
+						break;
+					case "Fairy":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Dark":
+				switch (moveType) {
+					case "Fighting":
+						eff = eff * 2;
+						break;
+					case "Psychic":
+						eff = 0;
+						break;
+					case "Bug":
+						eff = eff * 2;
+						break;
+					case "Ghost":
+						eff = eff / 2;
+						break;
+					case "Dark":
+						eff = eff / 2;
+						break;
+					case "Fairy":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Steel":
+				switch (moveType) {
+					case "Normal":
+						eff = eff / 2;
+						break;
+					case "Fire":
+						eff = eff * 2;
+						break;
+					case "Grass":
+						eff = eff / 2;
+						break;
+					case "Ice":
+						eff = eff / 2;
+						break;
+					case "Fighting":
+						eff = eff * 2;
+						break;
+					case "Poison":
+						eff = 0;
+						break;
+					case "Ground":
+						eff = eff * 2;
+						break;
+					case "Flying":
+						eff = eff / 2;
+						break;
+					case "Psychic":
+						eff = eff / 2;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Rock":
+						eff = eff / 2;
+						break;
+					case "Dragon":
+						eff = eff / 2;
+						break;
+					case "Steel":
+						eff = eff / 2;
+						break;
+					case "Fairy":
+						eff = eff / 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			case "Fairy":
+				switch (moveType) {
+					case "Fighting":
+						eff = eff;
+						break;
+					case "Poison":
+						eff = eff / 2;
+						break;
+					case "Bug":
+						eff = eff / 2;
+						break;
+					case "Dragon":
+						eff = 0;
+						break;
+					case "Dark":
+						eff = eff / 2;
+						break;
+					case "Steel":
+						eff = eff * 2;
+						break;
+					default:
+						eff = eff;
+						break;
+				}
+				break;
+			default:
+				break;
+		}
+	});
+	// Returns an int with the value of the effectiveness multiplier
+	return eff;
+}
+// Helper for random number
+function randomInt(max) {
+  return Math.floor(Math.random() * max);
 }

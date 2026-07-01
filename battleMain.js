@@ -1,7 +1,8 @@
 // player class containing array of pokemon (team)
 class Player {
-	constructor(team) {
+	constructor(team, currIndex) {
 		this.team = team;
+		this.currIndex = currIndex;
 	}
 }
 
@@ -124,6 +125,7 @@ function startGame() {
 			// here we can call whatever function that displays those pokemon
 			// and lets you pick some to make a team, which is then made into
 			// another array that is passed into the player object
+			
         })
         .catch(console.error)
 }
@@ -137,6 +139,18 @@ function battleEnd() {
         },
         body: JSON.stringify({  })
     });
+}
+
+// The function in which the actual battle logic happens
+function battleLoop(player, opponent) {
+	// start the battle
+	var playerMon = player.team[player.currIndex];
+	var opponentMon = opponent.team[0];
+
+	// Build a while loop that checks each player's team for a pokemon with at least 1 health
+
+	// Once that loop breaks, the game ends
+
 }
 
 
