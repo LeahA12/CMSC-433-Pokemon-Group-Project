@@ -4,6 +4,8 @@ const oPokeStartCoords = [380, 20]; // coordinates for where opponent pokemon sp
 const ms_btwn_shakes = 90; // amt of time in ms that the frame stays before moving left/right
 const ms_btwn_flashes = 140; // amt of time in ms that the frame stays before opacity is decreased
 const ms_btwn_bobs = 400; // amt of time in ms that the frame stays before moving up/down
+const ms_btwn_fades = 120; // amt of time in ms that the frame stays before its opacity is decreased by 0.1
+const ms_btwn_drops = 60; // amt of time in ms that the frame stays before moving down
 const total_hit_ms = 1200; // amt of time in ms that the whole shake & flash runs before stopping
 const pokeScaleNum = 2.6; // to make pokemon look right size in emerald battle arena - found this by doing trial and error
 
@@ -25,7 +27,7 @@ if (pCanvas && oCanvas) {
 	pContext.imageSmoothingEnabled = false;
 	oContext.imageSmoothingEnabled = false;
 }
-var pShakeTimerID, pFlashTimerID, pIdleTimerID, oShakeTimerID, oFlashTimerID, oIdleTimerID;
+var pShakeTimerID, pFlashTimerID, pIdleTimerID, pFadeTimerID, pDropTimerID, oShakeTimerID, oFlashTimerID, oIdleTimerID, oFadeTimerID, oDropTimerID;
 var pPokeCurrCoords = [pPokeStartCoords[0], pPokeStartCoords[1]]; // where player sprite is located on canvas currently
 var oPokeCurrCoords = [oPokeStartCoords[0], oPokeStartCoords[1]]; // where opponent sprite is located on canvas currently
 
@@ -197,11 +199,11 @@ function hitPlayerSprite(pokeName){
 		// (4) ANIMATE FLASH: Every 140ms (b/c ms_btwn_flashes=140), alternate the CSS opacity btwn full and decreased
 		pFlashTimerID = setInterval ( () => {
 			if (isFullOpacity) {
-				// If at FULL opacity, change it to DECREASED opacity
+				// If at FULL opacity, change it to HALVED opacity
 				pCanvas.style.opacity = "0.5";
 				isFullOpacity = false;
 			}else{		
-				// If at DECREASED opacity, change it to FULL opacity
+				// If at HALVED opacity, change it to FULL opacity
 				pCanvas.style.opacity = "1.0";
 				isFullOpacity = true;
 			}
@@ -283,11 +285,11 @@ function hitOppSprite(pokeName){
 		// (4) ANIMATE FLASH: Every 140ms (b/c ms_btwn_flashes=140), alternate the CSS opacity btwn full and decreased
 		oFlashTimerID = setInterval ( () => {
 			if (isFullOpacity) {
-				// If at FULL opacity, change it to DECREASED opacity
+				// If at FULL opacity, change it to HALVED opacity
 				oCanvas.style.opacity = "0.5";
 				isFullOpacity = false;
 			}else{		
-				// If at DECREASED opacity, change it to FULL opacity
+				// If at HALVED opacity, change it to FULL opacity
 				oCanvas.style.opacity = "1.0";
 				isFullOpacity = true;
 			}
@@ -340,6 +342,140 @@ function hitOppSprite(pokeName){
 			oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
 			drawOppSprite(pokeName); // continues the idle animation!
 		}, total_hit_ms );
+	});
+}
+
+// Animate Player's chosen pokemon Fainting (fade in opacity, then drop downward until offscreen)
+//    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
+function faintPlayerSprite(pokeName){
+	// (1) CHECK IF ALREADY RUNNING: don't start a second fade/drop on top of a running fade/drop
+	if (pFadeTimerID || pDropTimerID){
+		return;
+	}
+	
+	// (2) END THE IDLE ANIMATION: stop the timer & set it to null
+	if (pIdleTimerID){
+		clearInterval(pIdleTimerID);
+		pIdleTimerID = null;
+	}
+	
+	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
+	var pSprite = new Image();
+	pSprite.src = "sprites/" + pokeName + "Back.png";
+
+	// Wait for sprite to finish loading before animating!
+	pSprite.addEventListener('load', function () {
+		var pixels_to_move = 7; // amount of pixels to move down for each drop
+		var curr_opacity_tracker = 1.0;
+		var opacity_amt_to_decrease = 0.1;
+		
+		// (4) ANIMATE FADE: Every 120ms (b/c ms_btwn_fades=120), decrease the CSS opacity by 0.1 until at 0.4
+		pFadeTimerID = setInterval ( () => {
+			// (4A) CHECK IF AT 0.4 OPACITY: only decrease opacity if it is NOT 0.4  
+			if (curr_opacity_tracker > 0.4){
+				// (4B) DECREASE OPACITY BY 0.1
+				curr_opacity_tracker = curr_opacity_tracker - opacity_amt_to_decrease;
+				pCanvas.style.opacity = curr_opacity_tracker;
+			}else{
+				// (4C) STOP FADE-ANIMATION B/C SPRITE IS AT 0.4 OPACITY
+				clearInterval(pFadeTimerID);
+				pFadeTimerID = null;
+				
+				// (5) ANIMATE DROP AFTER FADE: Every 60ms (b/c ms_btwn_drops=60), move sprite down 7 pixels until offscreen
+				pDropTimerID = setInterval ( () => {
+					// (5A) CLEAR PREV SPRITE: prevents there being multiple sprites
+					pContext.clearRect(0, 0, pCanvasWidth, pCanvasHeight);
+					
+					// (5B) CHECK IF OFFSCREEN: only draw sprite if it has NOT reached off screen
+					//    btw, pPokeCurrCoords is used to keep track where sprite is currently 
+					if (pPokeCurrCoords[1] < pCanvasHeight){
+						// (5C) DRAW SPRITE ONTO CANVAS W/0.4 OPACITY: use pPokeCurrCoords
+						pCanvas.style.opacity = "0.4";
+						pContext.drawImage(
+							pSprite, 
+							pPokeCurrCoords[0], 
+							pPokeCurrCoords[1], 
+							pSprite.width*(pokeScaleNum), 
+							pSprite.height*(pokeScaleNum)
+						);
+						
+						// (5D) MOVE SPRITE DOWN (until off screen): us pPokeCurrCoords
+						pPokeCurrCoords[1] = pPokeCurrCoords[1] + pixels_to_move;
+					}else{
+						// (5E) STOP DROP-ANIMATION B/C SPRITE IS NOW OFFSCREEN
+						clearInterval(pDropTimerID);
+						pDropTimerID = null;
+					}
+				}, ms_btwn_drops );
+			}
+		}, ms_btwn_fades );
+	});
+}
+
+// Animate Opponent's chosen pokemon Fainting (fade in opacity, then drop downward until offscreen)
+//    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
+function faintOppSprite(pokeName){
+	// (1) CHECK IF ALREADY RUNNING: don't start a second fade/drop on top of a running fade/drop
+	if (oFadeTimerID || oDropTimerID){
+		return;
+	}
+	
+	// (2) END THE IDLE ANIMATION: stop the timer & set it to null
+	if (oIdleTimerID){
+		clearInterval(oIdleTimerID);
+		oIdleTimerID = null;
+	}
+	
+	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
+	var oSprite = new Image();
+	oSprite.src = "sprites/" + pokeName + "Front.png";
+
+	// Wait for sprite to finish loading before animating!
+	oSprite.addEventListener('load', function () {
+		var pixels_to_move = 7; // amount of pixels to move down for each drop
+		var curr_opacity_tracker = 1.0;
+		var opacity_amt_to_decrease = 0.1;
+		
+		// (4) ANIMATE FADE: Every 120ms (b/c ms_btwn_fades=120), decrease the CSS opacity by 0.1 until at 0.4
+		oFadeTimerID = setInterval ( () => {
+			// (4A) CHECK IF AT 0.4 OPACITY: only decrease opacity if it is NOT 0.4  
+			if (curr_opacity_tracker > 0.4){
+				// (4B) DECREASE OPACITY BY 0.1
+				curr_opacity_tracker = curr_opacity_tracker - opacity_amt_to_decrease;
+				oCanvas.style.opacity = curr_opacity_tracker;
+			}else{
+				// (4C) STOP FADE-ANIMATION B/C SPRITE IS AT 0.4 OPACITY
+				clearInterval(oFadeTimerID);
+				oFadeTimerID = null;
+				
+				// (5) ANIMATE DROP AFTER FADE: Every 60ms (b/c ms_btwn_drops=60), move sprite down 7 pixels until offscreen
+				oDropTimerID = setInterval ( () => {
+					// (5A) CLEAR PREV SPRITE: prevents there being multiple sprites
+					oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
+					
+					// (5B) CHECK IF OFFSCREEN: only draw sprite if it has NOT reached off screen
+					//    btw, oPokeCurrCoords is used to keep track where sprite is currently 
+					if (oPokeCurrCoords[1] < oCanvasHeight){
+						// (5C) DRAW SPRITE ONTO CANVAS W/0.4 OPACITY: use oPokeCurrCoords
+						oCanvas.style.opacity = "0.4";
+						oContext.drawImage(
+							oSprite, 
+							oPokeCurrCoords[0], 
+							oPokeCurrCoords[1], 
+							oSprite.width*(pokeScaleNum), 
+							oSprite.height*(pokeScaleNum)
+						);
+						
+						// (5D) MOVE SPRITE DOWN (until off screen): us oPokeCurrCoords
+						oPokeCurrCoords[1] = oPokeCurrCoords[1] + pixels_to_move;
+					}else{
+						// (5E) STOP DROP-ANIMATION B/C SPRITE IS NOW OFFSCREEN
+						clearInterval(oDropTimerID);
+						oDropTimerID = null;
+					}
+				}, ms_btwn_drops );
+			}
+		}, ms_btwn_fades );
 	});
 }
 
