@@ -620,6 +620,7 @@ function oppTakesHit(pokemon, damage){
 
 	if (pokemon.currHP <= 0) {
 		pokemon.status = "Fainted";
+		computer.team.shift();
 	}
 }
 function playerTakesHit(pokemon, damage){
