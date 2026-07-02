@@ -217,14 +217,14 @@ function startGame () {
 	let computerSelect = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 	// shuffle array
-	for (let i = 0; i < 12; i++) {
+	for (let i = 0; i < playerSelect.length; i++) {
 		let randNum = Math.floor(Math.random() * 12);
 
 		[playerSelect[i], computerSelect[randNum]] = [computerSelect[randNum], playerSelect[i]];
 	}
 
 	// remove overlapping values
-	computer = computerSelect.filter(curr => !(playerSelect.includes(curr)));
+	//computer = computerSelect.filter(curr => !(playerSelect.includes(curr)));
 
 	var userTeam = new Array();
 	var computerTeam = new Array();
@@ -308,7 +308,7 @@ function battleLoop() {
 		// check if either team has died
 		for (let i = 0; i < user.team.length; i++) {
 			if (user.team[i].status == "Fainted") {
-				playerLiving--;
+				userLiving--;
 			}
 		}
 
