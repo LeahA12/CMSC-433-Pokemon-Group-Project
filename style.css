@@ -22,15 +22,51 @@
 /* Player Status HP/Name Box -> overlayed at bottom-right corner of Battle Image */
 .playerStatus {
 	position: absolute; /* positioned relative to .battleScreen */
-	top: 190px;
-	left: 370px;
+	top: 195px;
+	left: 356px;
+	width: 235px;
+	height: 80px;
 }
 
 /* Bot-Opponent Status HP/Name Box -> overlayed at top-left corner of Battle Image */
 .opponentStatus {
 	position: absolute; /* positioned relative to .battleScreen */
 	top: 40px;
-	left: 45px;
+	left: 35px;
+	width: 235px;
+	height: 60px;
+}
+
+/* Player's & Opponent's Pokemon's Name -> positioned correctly so no overlap w/HP Bar */
+.pPokeName, .oPokeName {
+	position: absolute; /* positioned relative to .battleScreen */
+	top: -3px;
+	left: 12px;
+}
+
+/* Player's & Opponent's HP Bar's Outer Line -> positioned correctly so no overlap w/Poke Name */
+.pHP_Outer, .oHP_Outer {
+	position: absolute; /* positioned relative to .battleScreen */
+	top: 28px;
+	left: 10px;
+	width: 200px;
+	height: 8px; 
+	border: 2px solid #000000; /* The Outer Line of the HP Bar is 2px thick and is black */
+}
+
+/* Player's & Opponent's HP Bar's Inner Fill */
+.pHP_InnerFill, .oHP_InnerFill {
+	position: absolute; /* positioned relative to .battleScreen */
+	width: 100%; /* full HP */
+	height: 100%; /* full HP */
+	background-color: limegreen;
+}
+
+/* Player's & Opponent's HP Bar's Numbers -> positioned correctly so no overlap w/Poke Name or HP Bar */
+.pHP_Nums, .oHP_Nums {
+	position: absolute; /* positioned relative to .battleScreen */
+	top: 28px;
+	left: 12px;
 }
 
 /* ... */
