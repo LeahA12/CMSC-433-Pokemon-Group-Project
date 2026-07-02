@@ -483,6 +483,111 @@ function faintOppSprite(pokeName){
 
 
 
+
+/* HP/NAME BOXES CODE STARTS */
+
+var pPokeName = document.getElementById("pPokeName");
+var oPokeName = document.getElementById("oPokeName");
+var pHP_fill = document.getElementById("pHP_InnerFill");
+var oHP_fill = document.getElementById("oHP_InnerFill");
+var pHP_nums = document.getElementById("pHP_Nums");
+var oHP_nums = document.getElementById("oHP_Nums");
+
+// NEED TO BE REPLACED LATER: Hardcoded HP info for player's treecko & opponent's swampert
+var pMaxHP = 40; // https://pokemondb.net/pokedex/treecko
+var pCurrHP = pMaxHP;
+var oMaxHP = 100; // https://pokemondb.net/pokedex/swampert
+var oCurrHP = oMaxHP;
+
+// Increase or Decrease the HP Bar 
+//    amt: neg for damage or pos for healing
+//    isPlayer: is 1 if pokemon is player's pokemon, zero otherwise
+//    isOpponent: is 1 if pokemon is opponent's pokemon, zero otherwise
+function changeHPBy(amt, isPlayer, isOpponent){
+	// (1) ERROR CASE CHECK: isPlayer and isOpponent cannot both be 1 or 0
+	if (isPlayer == isOpponent){
+		return;
+	}
+	
+	if (isPlayer == 1 && isOpponent == 0){
+		// (2A) UPDATE CURR POKE'S HP
+		pCurrHP += amt;
+		
+		// (2B) MAKE SURE CURR-HP DOESN'T GO BELOW ZERO
+		if (pCurrHP < 0){
+			pCurrHP = 0;
+		}
+		
+		// (2C) MAKE SURE CURR-HP DOESN'T GO ABOVE MAX-HP
+		if (pCurrHP > pMaxHP){
+			pCurrHP = pMaxHP;
+		}
+		
+		// (2D) CALCULATE THE PERCENT OF AMT TO CHANGE HP
+		var percentAmt = (pCurrHP / pMaxHP) * 100;
+		
+		// (2E) CHANGE CSS PARTS OF HP BAR
+		pHP_fill.style.width = percentAmt + "%";
+		
+		// (2D) CHANGE HP NUMBERS BELOW HP BAR
+		pHP_Nums.style.fontSize = "14px";
+		pHP_Nums.textContent = pCurrHP + " / " + pMaxHP;
+	}
+	else if (isPlayer == 0 && isOpponent == 1){
+		// (2A) UPDATE CURR POKE'S HP
+		oCurrHP += amt;
+		
+		// (2B) MAKE SURE CURR-HP DOESN'T GO BELOW ZERO
+		if (oCurrHP < 0){
+			oCurrHP = 0;
+		}
+		
+		// (2C) MAKE SURE CURR-HP DOESN'T GO ABOVE MAX-HP
+		if (oCurrHP > oMaxHP){
+			oCurrHP = oMaxHP;
+		}
+		
+		// (2D) CALCULATE THE PERCENT OF AMT TO CHANGE HP
+		var percentAmt = (oCurrHP / oMaxHP) * 100;
+		
+		// (2E) CHANGE CSS PARTS OF HP BAR
+		oHP_fill.style.width = percentAmt + "%";
+		
+		// (2D) CHANGE HP NUMBERS BELOW HP BAR
+		oHP_Nums.style.fontSize = "14px";
+		oHP_Nums.textContent = oCurrHP + " / " + oMaxHP;
+	}
+}
+
+// Change the pokemon's name
+//    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
+//    isPlayer: is 1 if pokemon is player's pokemon, zero otherwise
+//    isOpponent: is 1 if pokemon is opponent's pokemon, zero otherwise
+function changePokeName(pokeName, isPlayer, isOpponent){
+	// (1) ERROR CASE CHECK: isPlayer and isOpponent cannot both be 1 or 0
+	if (isPlayer == isOpponent){
+		return;
+	}
+	
+	if (isPlayer == 1 && isOpponent == 0){
+		// (2) CHANGE PLAYER'S POKEMON'S NAME: 
+		//    make sure to make font size smaller than default so HP Bar can fit in box
+		pPokeName.style.fontSize = "14px";
+		pPokeName.style.fontWeight = "bold";
+		pPokeName.textContent = pokeName.toUpperCase();
+	}else if (isPlayer == 0 && isOpponent == 1){
+		// (3) CHANGE OPPONENT'S POKEMON'S NAME
+		//    make sure to make font size smaller than default so HP Bar can fit in box
+		oPokeName.style.fontSize = "14px";
+		oPokeName.style.fontWeight = "bold";
+		oPokeName.textContent = pokeName.toUpperCase();
+	}
+}
+
+/* HP/NAME BOXES CODE ENDS */
+
+
+
 var soundCache = {};
 
 function playSound (src, volume) {
