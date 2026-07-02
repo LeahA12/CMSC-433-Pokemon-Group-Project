@@ -51,6 +51,7 @@ function goToChoose12Screen() {
 
     document.getElementById("startScreen").style.display = "none";
     document.getElementById("chooseScreen").style.display = "block";
+	document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
 }
 
 // Going from 12 Pokemon Selection Screen to the Battle Arena Screen
@@ -58,12 +59,12 @@ function goToBattleScreen() {
 	if (playerSelect.length < 3) {
 		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
 		document.getElementById("confirmTeamButton").innerHTML = "<b>Select atleast 3 Pokemon.</b>";
-		document.getElementById("confirmTeamButton").onclick = "";
+		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
 
 		setTimeout(() => {
 			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = goToBattleScreen;
+			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
 		}, 3000);
 
 	} else {
@@ -84,12 +85,12 @@ function pickPokemon(choice) {
     if (playerSelect.length == 6) {
 		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
 		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
-		document.getElementById("confirmTeamButton").onclick = "";
+		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
 
 		setTimeout(() => {
 			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = goToBattleScreen;
+			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
 		}, 3000);
 
 	} else if (playerSelect.includes(choice - 1)) {
