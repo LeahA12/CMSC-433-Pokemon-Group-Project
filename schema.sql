@@ -1,5 +1,8 @@
 -- this file will contain all the commands to set up the database *DATABASE SHOULD BE NAMED proj3*
-CREATE TABLE attacks (
+
+CREATE DATABASE IF NOT EXISTS proj3test;
+
+CREATE TABLE IF NOT EXISTS attacks (
     attack_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL, -- Name
     amount INT DEFAULT NULL, -- Base damage
@@ -8,7 +11,7 @@ CREATE TABLE attacks (
     status VARCHAR(20) DEFAULT NULL -- Poison opponent, paralyze opponent, etc.
 );
 
-CREATE TABLE pokemon (
+CREATE TABLE IF NOT EXISTS pokemon (
     poke_id INT AUTO_INCREMENT PRIMARY KEY, -- Index number
     name VARCHAR(30) NOT NULL, -- Pokemon name
     type1 VARCHAR(20) NOT NULL, -- Pokemon primary type
@@ -34,7 +37,7 @@ CREATE TABLE pokemon (
     FOREIGN KEY (move4_id) REFERENCES attacks(attack_id) -- Move4 FK to attack table
 );
 
-CREATE TABLE player (
+CREATE TABLE IF NOT EXISTS player (
     player_id INT AUTO_INCREMENT PRIMARY KEY, -- Player ID
     type BOOLEAN DEFAULT 0, -- Human or robot, If robot, type == 1
     poke1_id INT NOT NULL, -- Pokemon1 ID
