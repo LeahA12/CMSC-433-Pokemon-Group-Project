@@ -28,12 +28,20 @@
 			
 			<!-- The Player's HP/Name box [layered on top of Battle Arena (lower-right)] -->
 			<div class="playerStatus">
-				<p>Player pokemon status</p> 
+				<p class="pPokeName" id="pPokeName"></p>
+				<div class="pHP_Outer">
+					<div class="pHP_InnerFill" id="pHP_InnerFill"></div>
+				</div>
+				<p class="pHP_Nums" id="pHP_Nums"></p>
 			</div>
 		  	
 			<!-- The Bot Opponent's HP/Name box [layered on top of Battle Arena (upper-left)] -->
 			<div class="opponentStatus">
-				<p>Opponent pokemon status</p> 
+				<p class="oPokeName" id="oPokeName"></p>
+				<div class="oHP_Outer">
+					<div class="oHP_InnerFill" id="oHP_InnerFill"></div>
+				</div>
+				<p class="oHP_Nums" id="oHP_Nums"></p>
 			</div>
 			
 			<!-- -->
