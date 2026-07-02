@@ -68,6 +68,8 @@ function goToBattleScreen() {
 		}, 3000);
 
 	} else {
+		console.log(playerSelect);
+
 		startGame();
 	}
 }
@@ -81,8 +83,19 @@ function goToStartScreen() {
 // Placeholder for when a mini sprite selection is clicked
 function pickPokemon(choice) {
     console.log("Picked Pokemon slot number: " + choice);
-	
-	if (playerSelect.includes(choice - 1)) {
+
+    if (playerSelect.length == 6) {
+		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
+		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
+		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
+
+		setTimeout(() => {
+			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgray";
+			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
+			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
+		}, 3000);
+
+	} else if (playerSelect.includes(choice - 1)) {
 		let index = playerSelect.indexOf(choice - 1);
 
 		if (index > -1) {
@@ -91,10 +104,12 @@ function pickPokemon(choice) {
 		
 		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgray";
 
-	} else if (playerSelect.length < 6) {
+	} else {
 		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgreen";
 		playerSelect.push(choice - 1);
 	}
+
+	console.log(playerSelect);
 }
 
 // automatically trigger player & opponent sprites animations (hit & faint)
@@ -203,25 +218,22 @@ function loadGame() {
 }
 
 function startGame () {
-	var computerSelect = new Array();
+	let computerSelect = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-	// get random pokemon not selected by player
-	// matching player size, in the case that the player
-	// selected 6 pokemon this is inefficient but whatever
-	for (let i = 0; i < playerSelect.length; i++) {
+	// shuffle array
+	for (let i = 0; i < 12; i++) {
 		let randNum = Math.floor(Math.random() * 12);
 
-		while (playerSelect.includes(randNum) || computerSelect.includes(randNum)) {
-			randNum = Math.floor(Math.random() * 12);
-		}
-
-		computerSelect.push(randNum);
+		[playerSelect[i], computerSelect[randNum]] = [computerSelect[randNum], playerSelect[i]];
 	}
+
+	// remove overlapping values
+	computer = computerSelect.filter(curr => !(playerSelect.includes(curr)));
 
 	var userTeam = new Array();
 	var computerTeam = new Array();
 
-	for (let i = 0; i < 6; i++) {
+	for (let i = 0; i < playerSelect.length; i++) {
 		userTeam.push(pokemon[playerSelect[i]]);
 		computerTeam.push(pokemon[computerSelect[i]]);
 	}

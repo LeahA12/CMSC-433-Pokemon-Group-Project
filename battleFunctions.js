@@ -605,11 +605,19 @@ function oppTakesHit(pokemon, damage){
 	pokemon.currHP -= damage;
 	hitOppSprite(pokemon.name);
 	changeHPBy(pokemon, false);
+
+	if (pokemon.currHP <= 0) {
+		pokemon.status = "Fainted";
+	}
 }
 function playerTakesHit(pokemon, damage){
 	pokemon.currHP -= damage;
 	hitOppSprite(pokemon.name);
 	changeHPBy(pokemon, true);
+
+	if (pokemon.currHP <= 0) {
+		pokemon.status = "Fainted";
+	}
 }
 
 
