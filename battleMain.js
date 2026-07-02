@@ -310,7 +310,9 @@ function battleLoop() {
 			if (user.team[i].status == "Fainted") {
 				playerLiving--;
 			}
+		}
 
+		for (let i = 0; i < computer.team.length; i++) {
 			if (computer.team[i].status == "Fainted") {
 				computerLiving--;
 			}
