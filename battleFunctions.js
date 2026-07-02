@@ -587,6 +587,17 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 /* HP/NAME BOXES CODE ENDS */
 
 
+// Functions that combine hit animation & HP Bar dropping in greenness
+function oppTakesHit(damage, pokeName){
+	hitOppSprite(pokeName);
+	changeHPBy(-damage, 0, 1);
+}
+function playerTakesHit(damage, pokeName){
+	hitPlayerSprite(pokeName);
+	changeHPBy(-damage, 1, 0);
+}
+
+
 
 var soundCache = {};
 
