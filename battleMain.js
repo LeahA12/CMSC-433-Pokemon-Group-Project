@@ -64,7 +64,7 @@ function goToBattleScreen() {
 			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
 			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
-		}, 5000);
+		}, 3000);
 
 	} else {
 		startGame();
@@ -90,18 +90,11 @@ function pickPokemon(choice) {
 			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
 			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
-		}, 5000);
+		}, 3000);
 
 	} else if (playerSelect.includes(choice - 1)) {
-		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
-		document.getElementById("confirmTeamButton").innerHTML = "<b>Please chooose unique Pokemon.</b>";
-		document.getElementById("confirmTeamButton").onclick = "";
-
-		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
-			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
-		}, 5000);
+		playerSelect = playerSelect.filter((curr) => curr == choice - 1);
+		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgrey";
 
 	} else {
 		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgreen";
