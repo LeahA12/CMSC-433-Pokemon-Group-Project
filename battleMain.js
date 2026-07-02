@@ -38,6 +38,8 @@ class Move {
 
 // array of pokemon
 const pokemon = new Array();
+var user = new Player();
+var computer = new Player();
 
 // automatically trigger player & opponent sprites animations (hit & faint)
 window.addEventListener('load', function () {
@@ -144,7 +146,7 @@ function loadGame() {
 }
 
 function startGame () {
-	loadPlayerPokemon(pokemon[Math.random() * pokemon.length | 0])
+	loadPlayerPokemon(pokemon[Math.random() * pokemon.length | 0]);
 }
 
 // sends updated pokemon information back to database
