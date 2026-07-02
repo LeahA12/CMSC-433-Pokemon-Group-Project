@@ -46,32 +46,32 @@ var computer = new Player();
 // automatically trigger player & opponent sprites animations (hit & faint)
 window.addEventListener('load', function () {
 	
-	drawPlayerSprite("treecko");
-	changePokeName("treecko", 1, 0);
+	// drawPlayerSprite("treecko");
+	// changePokeName("treecko", 1, 0);
 	
-	drawOppSprite("swampert");
-	changePokeName("swampert", 0, 1);
+	// drawOppSprite("swampert");
+	// changePokeName("swampert", 0, 1);
 	
-	setTimeout(function () {
-		playerTakesHit(20, "treecko");
-		setTimeout(function () {
-			playerTakesHit(20, "treecko");
-			setTimeout(function () {
-				faintPlayerSprite("treecko");
+	// setTimeout(function () {
+	// 	playerTakesHit(20, "treecko");
+	// 	setTimeout(function () {
+	// 		playerTakesHit(20, "treecko");
+	// 		setTimeout(function () {
+	// 			faintPlayerSprite("treecko");
 
-				setTimeout(function () {
-					oppTakesHit(50, "swampert");
-					setTimeout(function () {
-						oppTakesHit(50, "swampert");
-						setTimeout(function () {
-							faintOppSprite("swampert");
-						}, 3000); 
-					}, 3000);
-				}, 3000);
+	// 			setTimeout(function () {
+	// 				oppTakesHit(50, "swampert");
+	// 				setTimeout(function () {
+	// 					oppTakesHit(50, "swampert");
+	// 					setTimeout(function () {
+	// 						faintOppSprite("swampert");
+	// 					}, 3000); 
+	// 				}, 3000);
+	// 			}, 3000);
 			
-			}, 3000); 
-		}, 3000);
-	}, 2000);
+	// 		}, 3000); 
+	// 	}, 3000);
+	// }, 2000);
 });
 
 document.addEventListener('click', function () {
@@ -151,10 +151,10 @@ function startGame () {
 	var randomSelection = new Array();
 
 	for (let i = 0; i < 12; i++) {
-		let randNum = Math.floor(Math.random * 12);
+		let randNum = Math.floor(Math.random() * 12);
 
 		while (randomSelection.includes(randNum)) {
-			randNum = Math.floor(Math.random * 12);
+			randNum = Math.floor(Math.random() * 12);
 		}
 
 		randomSelection.push(randNum);
@@ -189,7 +189,7 @@ function battleLoop() {
 	var playerMon = user.team[user.currIndex];
 	var opponentMon = computer.team[0];
 
-	loadPlayerPokemon(user.team[user.currIndex]);
+	loadPokemon(user.team[user.currIndex], true);
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
 	// Render the battle menu from the "what will ___ do?" screen
 	// If a move is selected, call useMove(selection)

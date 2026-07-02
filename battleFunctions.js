@@ -37,7 +37,7 @@ var oPokeCurrCoords = [oPokeStartCoords[0], oPokeStartCoords[1]]; // where oppon
 //          we need to make sprite 2.6 times bigger.
 function drawPlayerSprite(pokeName){
 	var pSprite = new Image();
-	pSprite.src = "sprites/" + pokeName + "Back.png";
+	pSprite.src = "https://img.pokemondb.net/sprites/emerald/back-normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before drawing!
 	pSprite.addEventListener('load', function () {
@@ -58,7 +58,7 @@ function drawPlayerSprite(pokeName){
 //          we need to make sprite 2.6 times bigger.
 function drawOppSprite(pokeName){
 	var oSprite = new Image();
-	oSprite.src = "sprites/" + pokeName + "Front.png";
+	oSprite.src = "https://img.pokemondb.net/sprites/emerald/normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before drawing!
 	oSprite.addEventListener('load', function () {
@@ -83,7 +83,7 @@ function idlePlayerSprite(pokeName){
 	
 	// (2) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var pSprite = new Image();
-	pSprite.src = "sprites/" + pokeName + "Back.png";
+	pSprite.src = "https://img.pokemondb.net/sprites/emerald/back-normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before animating!
 	pSprite.addEventListener('load', function () {
@@ -133,7 +133,7 @@ function idleOppSprite(pokeName){
 	
 	// (2) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var oSprite = new Image();
-	oSprite.src = "sprites/" + pokeName + "Front.png";
+	oSprite.src = "https://img.pokemondb.net/sprites/emerald/normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before animating!
 	oSprite.addEventListener('load', function () {
@@ -189,7 +189,7 @@ function hitPlayerSprite(pokeName){
 	
 	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var pSprite = new Image();
-	pSprite.src = "sprites/" + pokeName + "Back.png";
+	pSprite.src = "https://img.pokemondb.net/sprites/emerald/back-normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before animating!
 	pSprite.addEventListener('load', function () {
@@ -275,7 +275,7 @@ function hitOppSprite(pokeName){
 	
 	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var oSprite = new Image();
-	oSprite.src = "sprites/" + pokeName + "Front.png";
+	oSprite.src = "https://img.pokemondb.net/sprites/emerald/normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before animating!
 	oSprite.addEventListener('load', function () {
@@ -361,7 +361,7 @@ function faintPlayerSprite(pokeName){
 	
 	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var pSprite = new Image();
-	pSprite.src = "sprites/" + pokeName + "Back.png";
+	pSprite.src = "https://img.pokemondb.net/sprites/emerald/back-normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before animating!
 	pSprite.addEventListener('load', function () {
@@ -428,7 +428,7 @@ function faintOppSprite(pokeName){
 	
 	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var oSprite = new Image();
-	oSprite.src = "sprites/" + pokeName + "Front.png";
+	oSprite.src = "https://img.pokemondb.net/sprites/emerald/normal/" + pokeName.toLowerCase() + ".png";
 
 	// Wait for sprite to finish loading before animating!
 	oSprite.addEventListener('load', function () {
@@ -662,15 +662,23 @@ function attemptEscape() {
 	document.getElementById("runBackContainer").style.display = "block";
 }
 
-function loadPlayerPokemon (pokemon) {
-	var moves = pokemon.moves;
+function loadPokemon (pokemon, isPlayer) {
+	if (isPlayer) {
+		var moves = pokemon.moves;
+	
+		var optionText = document.getElementById("optionText");
+		optionText.textContent = `WHAT WILL ${pokemon.name.toUpperCase()} DO?`;
+	
+		for (let i = 0; i < 4; i++) {
+			var moveButton = document.getElementById(`move${i + 1}Button`);
+			moveButton.textContent = moves[i].name.toUpperCase();
+		}
 
-	var optionText = document.getElementById("optionText");
-	optionText.textContent = `WHAT WILL ${pokemon.name} DO?`;
-
-	for (let i = 0; i < 4; i++) {
-		var moveButton = document.getElementById(`move${i + 1}Button`);
-		moveButton.textContent = moves[i].name;
+		drawPlayerSprite(pokemon.name);
+		changePokeName(pokemon.name, 1, 0);
+	} else {
+		drawOppSprite(pokemon.name);
+		changePokeName(pokemon.name, 0, 1);
 	}
 }
 

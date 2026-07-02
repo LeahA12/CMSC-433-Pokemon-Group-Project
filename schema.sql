@@ -239,7 +239,6 @@ INSERT INTO pokemon (name, type1, type2, hp, attack, defense, sp_attack, sp_defe
 ('Seaking', 'Water', NULL, 80, 92, 65, 65, 80, 68, 1, 0, 21, 44, 20, 1),
 ('Staryu', 'Water', NULL, 30, 45, 55, 70, 55, 85, 1, 0, 6, 1, 20, 21),
 ('Starmie', 'Water', 'Psychic', 60, 75, 85, 100, 85, 115, 1, 0, 21, 44, 9, 61),
-('Mr. Mime', 'Psychic', 'Fairy', 40, 45, 65, 100, 120, 90, 1, 0, 9, 58, 72, 59),
 ('Jynx', 'Ice', 'Psychic', 35, 20, 35, 110, 95, 95, 1, 0, 22, 9, 23, 61),
 ('Electabuzz', 'Electric', NULL, 65, 83, 57, 95, 85, 105, 1, 0, 24, 9, 23, 61),
 ('Magby', 'Fire', NULL, 65, 112, 57, 98, 66, 72, 1, 0, 3, 1, 25, 11),
