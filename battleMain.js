@@ -14,7 +14,8 @@ class Pokemon {
 		this.type2 = type2;
 		// A pokemon's actual stats are calculated based on its base stats
 		// We'll be treating every pokemon as level 100, 31 IVs, 0 EVs for balance sake
-		this.hp = (2 * hp + 31) + 110;
+		this.currHP = (2 * hp + 31) + 110;
+		this.maxHP = (2 * hp + 31) + 110
 		this.attack = (2 * attack + 31) + 5;
 		this.defense = (2 * defense + 31) + 5;
 		this.sp_attack = (2 * sp_attack + 31) + 5;

@@ -493,25 +493,14 @@ var oHP_fill = document.getElementById("oHP_InnerFill");
 var pHP_nums = document.getElementById("pHP_Nums");
 var oHP_nums = document.getElementById("oHP_Nums");
 
-// NEED TO BE REPLACED LATER: Hardcoded HP info for player's treecko & opponent's swampert
-var pMaxHP = 40; // https://pokemondb.net/pokedex/treecko
-var pCurrHP = pMaxHP;
-var oMaxHP = 100; // https://pokemondb.net/pokedex/swampert
-var oCurrHP = oMaxHP;
-
 // Increase or Decrease the HP Bar 
-//    amt: neg for damage or pos for healing
+//	  pokemon: pokemon being drawn
 //    isPlayer: is 1 if pokemon is player's pokemon, zero otherwise
-//    isOpponent: is 1 if pokemon is opponent's pokemon, zero otherwise
-function changeHPBy(amt, isPlayer, isOpponent){
-	// (1) ERROR CASE CHECK: isPlayer and isOpponent cannot both be 1 or 0
-	if (isPlayer == isOpponent){
-		return;
-	}
-	
-	if (isPlayer == 1 && isOpponent == 0){
+function changeHPBy(pokemon, isPlayer){
+	if (isPlayer){
 		// (2A) UPDATE CURR POKE'S HP
-		pCurrHP += amt;
+		let pCurrHP = pokemon.currHP;
+		let pMaxHP = pokemon.maxHP
 		
 		// (2B) MAKE SURE CURR-HP DOESN'T GO BELOW ZERO
 		if (pCurrHP < 0){
@@ -533,9 +522,9 @@ function changeHPBy(amt, isPlayer, isOpponent){
 		pHP_Nums.style.fontSize = "14px";
 		pHP_Nums.textContent = pCurrHP + " / " + pMaxHP;
 	}
-	else if (isPlayer == 0 && isOpponent == 1){
-		// (2A) UPDATE CURR POKE'S HP
-		oCurrHP += amt;
+	else {
+		let oCurrHP = pokemon.currHP;
+		let oMaxHP = pokemon.maxHP;
 		
 		// (2B) MAKE SURE CURR-HP DOESN'T GO BELOW ZERO
 		if (oCurrHP < 0){
