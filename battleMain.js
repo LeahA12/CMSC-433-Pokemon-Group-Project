@@ -40,8 +40,8 @@ class Move {
 
 // array of pokemon
 const pokemon = new Array();
-var user = new Player();
-var computer = new Player();
+var user;
+var computer;
 
 // automatically trigger player & opponent sprites animations (hit & faint)
 window.addEventListener('load', function () {
@@ -160,13 +160,19 @@ function startGame () {
 		randomSelection.push(randNum);
 	}
 
+	var userTeam = new Array();
+	var computerTeam = new Array();
+
 	for (let i = 0; i < 6; i++) {
-		user.team.push(pokemon[randomSelection[i]]);
+		userTeam.push(pokemon[randomSelection[i]]);
 	}
 
 	for (let i = 6; i < 12; i++) {
-		computer.team.push(pokemon[randomSelection[i]]);
+		computerTeam.push(pokemon[randomSelection[i]]);
 	}
+
+	user = new Player(userTeam, 0);
+	computer = new Player(computerTeam, 0);
 	
 	battleLoop();
 }
