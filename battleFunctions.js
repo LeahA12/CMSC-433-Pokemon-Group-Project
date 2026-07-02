@@ -361,6 +361,8 @@ function hitOppSprite(pokeName){
 			// Reset battle menu options
 			document.getElementById("optionText").style.display = "block";
 			document.getElementById("optionButtonsArea").style.display = "block";
+			document.getElementById("moveSelect").style.display = "none";
+			document.getElementById("movePPContainer").style.display = "none";
 		}, total_hit_ms );
 	});
 }
