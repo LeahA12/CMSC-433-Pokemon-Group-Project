@@ -271,6 +271,7 @@ function battleEnd() {
 // Presently doesn't do anything except create both player objects
 function battleLoop() {
 	// start the battle
+	console.log("Battle loop started");
 	var playerMon = user.team[user.currIndex];
 	var opponentMon = computer.team[0];
 
@@ -304,6 +305,7 @@ function battleLoop() {
 	});
 
 	while (playerAlive && opponentAlive) {
+		console.log("Alive loop started");
 		// Battle logic here
 		
 		var playerLiving = playerMons;
