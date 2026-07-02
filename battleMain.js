@@ -267,7 +267,7 @@ function battleLoop() {
 	// start the battle
 	console.log("Battle loop started");
 	var playerMon = user.team[user.currIndex];
-	var opponentMon = computer.team[0];
+	var opponentMon = computer.team[computer.currIndex];
 
 	loadPokemon(user.team[user.currIndex], true);
 	loadPokemon(computer.team[computer.currIndex], false);
