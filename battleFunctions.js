@@ -283,6 +283,12 @@ function hitOppSprite(pokeName){
 		oIdleTimerID = null;
 	}
 	
+	// Hide battle options
+	document.getElementById("optionText").style.display = "none";
+	document.getElementById("optionButtonsArea").style.display = "none";
+	document.getElementById("moveSelect").style.display = "none";
+	document.getElementById("movePPContainer").style.display = "none";
+
 	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var oSprite = new Image();
 	oSprite.src = "https://img.pokemondb.net/sprites/emerald/normal/" + pokeName.toLowerCase() + ".png";
@@ -351,6 +357,10 @@ function hitOppSprite(pokeName){
 			isFullOpacity = true;
 			oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
 			drawOppSprite(pokeName); // continues the idle animation!
+
+			// Reset battle menu options
+			document.getElementById("optionText").style.display = "block";
+			document.getElementById("optionButtonsArea").style.display = "block";
 		}, total_hit_ms );
 	});
 }
