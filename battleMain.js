@@ -146,6 +146,13 @@ function loadGame() {
 			startGame();
         })
         .catch(console.error)
+
+	for (let i = 0; i < 6; i++) {
+		var pokemonSelect = document.getElementById(`pokemon${i + 1}Button`);
+		pokemonSelect.addEventListener("click", function () {
+			swapToPokemon(i);
+		});
+	}
 }
 
 function startGame () {

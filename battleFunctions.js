@@ -78,7 +78,8 @@ function drawOppSprite(pokeName){
 function idlePlayerSprite(pokeName){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second idle on top of a running idle
 	if (pIdleTimerID){
-		return;
+		clearInterval(pIdleTimerID);
+		pIdleTimerID = null;
 	}
 	
 	// (2) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
@@ -128,7 +129,8 @@ function idlePlayerSprite(pokeName){
 function idleOppSprite(pokeName){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second idle on top of a running idle
 	if (oIdleTimerID){
-		return;
+		clearInterval(oIdleTimerID);
+		oIdleTimerID = null;
 	}
 	
 	// (2) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
@@ -178,7 +180,11 @@ function idleOppSprite(pokeName){
 function hitPlayerSprite(pokeName){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second shake/flash on top of a running shake/flash
 	if (pShakeTimerID || pFlashTimerID){
-		return;
+		clearInterval(pShakeTimerID);
+		clearInterval(pFlashTimerID);
+		
+		pShakeTimerID = null;
+		pFlashTimerID = null;
 	}
 	
 	// (2) PAUSE THE IDLE ANIMATION: stop the timer & set it to null
@@ -264,7 +270,11 @@ function hitPlayerSprite(pokeName){
 function hitOppSprite(pokeName){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second shake/flash on top of a running shake/flash
 	if (oShakeTimerID || oFlashTimerID){
-		return;
+		clearInterval(oShakeTimerID);
+		clearInterval(oFlashTimerID);
+
+		oShakeTimerID = null;
+		oFlashTimerID = null;
 	}
 	
 	// (2) PAUSE THE IDLE ANIMATION: stop the timer & set it to null
@@ -350,7 +360,11 @@ function hitOppSprite(pokeName){
 function faintPlayerSprite(pokeName){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second fade/drop on top of a running fade/drop
 	if (pFadeTimerID || pDropTimerID){
-		return;
+		clearInterval(pFadeTimerID);
+		clearInterval(pDropTimerID);
+
+		pFadeTimerID = null;
+		pDropTimerID = null;
 	}
 	
 	// (2) END THE IDLE ANIMATION: stop the timer & set it to null
@@ -638,7 +652,6 @@ function swapSelected() {
 
 	for (let i = 0; i < user.team.length; i++) {
 		var pokeButton = document.getElementById(`pokemon${i + 1}Button`);
-		console.log(pokeButton, user.team[i].name.toUpperCase());
 		pokeButton.textContent = user.team[i].name.toUpperCase();
 	}
 
@@ -660,6 +673,16 @@ function attemptEscape() {
 	document.getElementById("runBackContainer").style.display = "block";
 }
 
+function swapToPokemon (teamIndex) {
+	playSound('sounds/select.mp3');
+
+	var pokemon = user.team[teamIndex];
+	user.currIndex = teamIndex;
+
+	loadPokemon(pokemon, true);
+	cancelSwap();
+}
+
 function loadPokemon (pokemon, isPlayer) {
 	if (isPlayer) {
 		var moves = pokemon.moves;
@@ -674,11 +697,15 @@ function loadPokemon (pokemon, isPlayer) {
 
 		drawPlayerSprite(pokemon.name);
 		changePokeName(pokemon.name, 1, 0);
+
+		pContext.clearRect(0, 0, pContext.canvas.width, pContext.canvas.height);
 	} else {
 		drawOppSprite(pokemon.name);
 		changePokeName(pokemon.name, 0, 1);
+
+		oContext.clearRect(0, 0, oContext.canvas.width, oContext.canvas.height);
 	}
-	
+
 	changeHPBy(pokemon, isPlayer);
 }
 
