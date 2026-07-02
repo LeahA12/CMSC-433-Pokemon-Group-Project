@@ -53,7 +53,7 @@
 				<!-- -->
 				<div class="optionButtonsArea" id="optionButtonsArea"> 
 					<button class="startOptions" id="fightButton" onclick="fightSelected()">FIGHT</button>
-					<button class="startOptions" id="bagButton">BAG</button>
+					<button class="startOptions" id="bagButton" onclick="openBag()">BAG</button>
 					<button class="startOptions" id="pokemonButton" onclick="swapSelected()">POKEMON</button>
 					<button class="startOptions" id="runButton" onclick="attemptEscape()">RUN</button>
 				</div>
@@ -78,6 +78,14 @@
 				</div>
 				<div class="movePPContainer" id="runBackContainer" style="display: none;">
 					<button class="moveOptions" id="runBackButton" onclick="backToOptions()" style="width: 100%; height: 100%;">BACK</button>
+				</div>
+
+				<!-- -->
+				<div class="moveSelect" id="bagText" style="display: none; text-align: center; align-content: center;">
+					YOU CANNOT USE ITEMS IN A TRAINER BATTLE!
+				</div>
+				<div class="movePPContainer" id="bagBackContainer" style="display: none;">
+					<button class="moveOptions" id="bagBackButton" onclick="backToOptions()" style="width: 100%; height: 100%;">BACK</button>
 				</div>
 			</div>
 		</div>

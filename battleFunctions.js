@@ -627,6 +627,8 @@ function backToOptions () {
 	document.getElementById("movePPContainer").style.display = "none";
 	document.getElementById("runText").style.display = "none";
 	document.getElementById("runBackContainer").style.display = "none";
+	document.getElementById("bagText").style.display = "none";
+	document.getElementById("bagBackContainer").style.display = "none";
 }
 
 // Changes battle ui to show the moves your pokemon knows after you select "FIGHT"
@@ -658,6 +660,13 @@ function attemptEscape() {
 	document.getElementById("optionButtonsArea").style.display = "none";
 	document.getElementById("runText").style.display = "block";
 	document.getElementById("runBackContainer").style.display = "block";
+}
+
+function openBag() {
+	document.getElementById("optionText").style.display = "none";
+	document.getElementById("optionButtonsArea").style.display = "none";
+	document.getElementById("bagText").style.display = "block";
+	document.getElementById("bagBackContainer").style.display = "block";
 }
 
 // Function to use the selected attack/move
