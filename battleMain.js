@@ -40,6 +40,8 @@ class Move {
 
 // array of pokemon
 const pokemon = new Array();
+var user = new Player();
+var computer = new Player();
 
 // automatically trigger player & opponent sprites animations (hit & faint)
 window.addEventListener('load', function () {
