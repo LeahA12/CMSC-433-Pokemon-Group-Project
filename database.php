@@ -1,5 +1,5 @@
 <?php 
-    $connString = "mysql:host=localhost;dbname=proj3test";
+    $connString = "mysql:host=localhost;dbname=proj3";
     $user = "root";
     $pass = "";
 
