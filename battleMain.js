@@ -41,19 +41,36 @@ const pokemon = new Array();
 
 // automatically trigger player & opponent sprites animations (hit & faint)
 window.addEventListener('load', function () {
+	
 	drawPlayerSprite("treecko");
+	changePokeName("treecko", 1, 0);
+	
 	drawOppSprite("swampert");
+	changePokeName("swampert", 0, 1);
+	
 	setTimeout(function () {
+		changeHPBy(-20, 1, 0);
 		hitPlayerSprite("treecko");
 		setTimeout(function () {
-			faintPlayerSprite("treecko");
+			changeHPBy(-20, 1, 0);
+			hitPlayerSprite("treecko");
 			setTimeout(function () {
-				hitOppSprite("swampert");
+				faintPlayerSprite("treecko");
+				
 				setTimeout(function () {
-					faintOppSprite("swampert");
-				}, 2000); 
-			}, 3000);
-		}, 2000); 
+					changeHPBy(-50, 0, 1);
+					hitOppSprite("swampert");
+					setTimeout(function () {
+						changeHPBy(-50, 0, 1);
+						hitOppSprite("swampert");
+						setTimeout(function () {
+							faintOppSprite("swampert");
+						}, 3000); 
+					}, 3000);
+				}, 3000);
+			
+			}, 3000); 
+		}, 3000);
 	}, 2000);
 });
 
