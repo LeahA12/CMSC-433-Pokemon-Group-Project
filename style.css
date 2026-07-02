@@ -265,8 +265,8 @@
 .partyButtonsArea {
 	position: absolute;
 	top: 20px;
-	right: 20px;
-	width: 80%;
+	right: 10px;
+	width: 610px;
 	height: 58%;
 	overflow-y: auto;
 	overflow-x: hidden;
