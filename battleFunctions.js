@@ -1,5 +1,5 @@
 /* ANIMATION CODE STARTS */
-const pPokeStartCoords = [110, 142]; // coordinates for where player pokemon sprites are located in "emptyBattle.jpg"
+const pPokeStartCoords = [110, 160]; // coordinates for where player pokemon sprites are located in "emptyBattle.jpg"
 const oPokeStartCoords = [380, 20]; // coordinates for where opponent pokemon sprites are located in "emptyBattle.jpg"
 const ms_btwn_shakes = 90; // amt of time in ms that the frame stays before moving left/right
 const ms_btwn_flashes = 140; // amt of time in ms that the frame stays before opacity is decreased
@@ -635,6 +635,15 @@ function swapSelected() {
 	
 	document.getElementById("battleScreen").style.display = "none";
 	document.getElementById("swapPokemonScreen").style.display = "block";
+
+	for (let i = 0; i < user.team.length; i++) {
+		var pokeButton = document.getElementById(`pokemon${i + 1}Button`);
+		console.log(pokeButton, user.team[i].name.toUpperCase());
+		pokeButton.textContent = user.team[i].name.toUpperCase();
+	}
+
+	var current = document.getElementById("currPoke");
+	current.textContent = user.team[user.currIndex].name.toUpperCase();
 }
 
 function cancelSwap() {
@@ -669,6 +678,8 @@ function loadPokemon (pokemon, isPlayer) {
 		drawOppSprite(pokemon.name);
 		changePokeName(pokemon.name, 0, 1);
 	}
+	
+	changeHPBy(pokemon, isPlayer);
 }
 
 function openBag() {

@@ -100,12 +100,6 @@
 				<button class="party" id="pokemon4Button">[POKEMON 4]</button>
 				<button class="party" id="pokemon5Button">[POKEMON 5]</button>
 				<button class="party" id="pokemon6Button">[POKEMON 6]</button>
-				<button class="party" id="pokemon7Button">[POKEMON 7]</button>
-				<button class="party" id="pokemon8Button">[POKEMON 8]</button>
-				<button class="party" id="pokemon9Button">[POKEMON 9]</button>
-				<button class="party" id="pokemon10Button">[POKEMON 10]</button>
-				<button class="party" id="pokemon11Button">[POKEMON 11]</button>
-				<button class="party" id="pokemon12Button">[POKEMON 12]</button>
 			</div>
 			<div class="swapBottomBar">
 				<div class="swapPokeText" id="swapPokeText">Choose a POKEMON</div>

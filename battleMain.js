@@ -216,3 +216,8 @@ function battleLoop() {
 }
 
 loadGame();
+
+// make these global variables so
+// battleFunctions.js can access it
+window.user = user;
+window.computer = computer;
