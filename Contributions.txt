@@ -1,8 +1,17 @@
 Update this as you get stuff done! :)
 
-Leah: sprite idle animation, sprite shake & flash animation on hit, battle base ui
+Leah: 
+	- sprite animations (idle bob, hit [shake + flash], faint [fade + drop offscreen])
+	- layered arena (background + sprite canvases + HP/name boxes)
+	- HP bars (outer div for outer-line & inner div for inner-fill) drained via width %
+	- css of start screen, pick 12 pokemon screen, battle screen, end screen
+	- sourcing & loading Emerald sprites from PokemonDB
+
 Max: sql database setup, battle base ui, battle communcation (like from buttons to url)
+
 Alexis: Database querying and player, pokemon, and move objects along with creating global array of pokemon.
             Along with javascript logic for pokemon selection and team building.
+
 Joseph: battle logic
+
 Habib: background audio, pokemon audio, ui audio
