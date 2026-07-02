@@ -63,7 +63,7 @@ function goToBattleScreen() {
 		setTimeout(() => {
 			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+			document.getElementById("confirmTeamButton").onclick = goToBattleScreen;
 		}, 3000);
 
 	} else {
@@ -89,11 +89,11 @@ function pickPokemon(choice) {
 		setTimeout(() => {
 			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+			document.getElementById("confirmTeamButton").onclick = goToBattleScreen;
 		}, 3000);
 
 	} else if (playerSelect.includes(choice - 1)) {
-		playerSelect = playerSelect.filter((curr) => curr == choice - 1);
+		playerSelect = playerSelect.filter((curr) => curr != choice - 1);
 		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgrey";
 
 	} else {
