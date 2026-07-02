@@ -545,6 +545,11 @@ function changeHPBy(pokemon, isPlayer){
 		// (2D) CHANGE HP NUMBERS BELOW HP BAR
 		pHP_Nums.style.fontSize = "14px";
 		pHP_Nums.textContent = pCurrHP + " / " + pMaxHP;
+		if (pCurrHP == 0) {
+			user.team[user.currIndex].status = "Fainted";
+			console.log("Your pokemon fainted!");
+			swapSelected();
+		}
 	}
 	else {
 		let oCurrHP = pokemon.currHP;
@@ -569,6 +574,11 @@ function changeHPBy(pokemon, isPlayer){
 		// (2D) CHANGE HP NUMBERS BELOW HP BAR
 		oHP_Nums.style.fontSize = "14px";
 		oHP_Nums.textContent = oCurrHP + " / " + oMaxHP;
+		if (oCurrHP == 0) {
+			computer.team[computer.currIndex].status = "Fainted";
+			console.log("The opponent's pokemon fainted!");
+			computer.currIndex++;
+		}
 	}
 }
 
@@ -754,7 +764,6 @@ function useMove(move) {
 	var oppDamage = damageCalculation(opponentPokemon.moves[randomInt(4)], opponentPokemon, activePokemon);
 	
 	oppTakesHit(opponentPokemon, playerDamage);
-
 	setTimeout(function () {
 		playerTakesHit(activePokemon, oppDamage);
 	}, 1000);
