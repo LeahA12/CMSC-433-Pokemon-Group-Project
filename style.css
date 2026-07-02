@@ -1,3 +1,40 @@
+.startScreen {
+    width: 630px; /* same as emptyBattle width */
+    height: 416px; /* same as emptyBattle height */
+    background-color: #66CDAA; /* Medium Aquamarine from https://cssgradient.io/shades-of-green/ */
+    display: flex;
+	justify-content: center; /* Centers horizontally */
+	align-items: center; /* Centers vertically */
+	flex-direction: column;  /* Makes the introText <p> and the startButton <button> stack vertically instead of side-by-side */
+}
+.introText{
+	width: 430px; /* making width smaller so paragraph has more of a margin */
+	text-align: center; /* Centers horizontally */
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 13px; /* making authorText closer to introText */
+}
+.authorText{
+	width: 430px; /* making width smaller so paragraph has more of a margin */
+	text-align: center; /* Centers horizontally */
+	font-size: 16px;
+	font-style: italic;
+	margin-top: 0px; /* making authorText closer to introText */
+	margin-bottom: 13px; /* making startButton the same distance from authorText to introText from authorText */
+}
+.endScreen {
+    width: 630px; /* same as emptyBattle width */
+    height: 416px; /* same as emptyBattle height */
+    background-color: #D8BFD8; /* Thistle from https://cssgradient.io/shades-of-purple/ */
+    justify-content: center; /* Centers horizontally */
+	align-items: center; /* Centers vertically */
+	flex-direction: column;  /* Makes the endText <p> and the playAgainButton <button> stack vertically instead of side-by-side */
+}
+.endText{
+	text-align: center; /* Centers horizontally */
+	font-size: 20px;
+}
+
 /* Battle Container of background image, pokemon sprites, player HP/Name box, & opponent HP/Name box */
 .battleScreen {
 	position: relative; /* reference point for any absolute positioning */

@@ -10,7 +10,58 @@
     </head>
 
     <body style="justify-content: display: flex; padding: 50px">	
-		<div class="battleScreen" id="battleScreen">
+		<!-- START SCREEN -->
+		<div class="startScreen" id="startScreen">
+			<p class="introText">Welcome to Pokémon Battle!</p>
+			<p class="authorText">This was created by Alexis Young, Habib Aina, Joseph Romanic, Leah Arfa, & Maxwell Sovich</p>
+			<button id="startButton" onclick="goToChoose12Screen()">START GAME!</button>
+		</div>
+
+		<!-- CHOOSE 12 POKEMON SCREEN -->
+		<div class="chooseScreen" id="chooseScreen" style="display: none;">
+			<div class="chooseButtonsArea">
+				<button class="choosePoke" id="choose1Button" onclick="pickPokemon(1)">
+					<img class="miniSprite" id="mini1Sprite" src=""> <span id="choose1Name">[POKEMON 1]</span>
+				</button>
+				<button class="choosePoke" id="choose2Button" onclick="pickPokemon(2)">
+					<img class="miniSprite" id="mini2Sprite" src=""> <span id="choose2Name">[POKEMON 2]</span>
+				</button>
+				<button class="choosePoke" id="choose3Button" onclick="pickPokemon(3)">
+					<img class="miniSprite" id="mini3Sprite" src=""> <span id="choose3Name">[POKEMON 3]</span>
+				</button>
+				<button class="choosePoke" id="choose4Button" onclick="pickPokemon(4)">
+					<img class="miniSprite" id="mini4Sprite" src=""> <span id="choose4Name">[POKEMON 4]</span>
+				</button>
+				<button class="choosePoke" id="choose5Button" onclick="pickPokemon(5)">
+					<img class="miniSprite" id="mini5Sprite" src=""> <span id="choose5Name">[POKEMON 5]</span>
+				</button>
+				<button class="choosePoke" id="choose6Button" onclick="pickPokemon(6)">
+					<img class="miniSprite" id="mini6Sprite" src=""> <span id="choose6Name">[POKEMON 6]</span>
+				</button>
+				<button class="choosePoke" id="choose7Button" onclick="pickPokemon(7)">
+					<img class="miniSprite" id="mini7Sprite" src=""> <span id="choose7Name">[POKEMON 7]</span>
+				</button>
+				<button class="choosePoke" id="choose8Button" onclick="pickPokemon(8)">
+					<img class="miniSprite" id="mini8Sprite" src=""> <span id="choose8Name">[POKEMON 8]</span>
+				</button>
+				<button class="choosePoke" id="choose9Button" onclick="pickPokemon(9)">
+					<img class="miniSprite" id="mini9Sprite" src=""> <span id="choose9Name">[POKEMON 9]</span>
+				</button>
+				<button class="choosePoke" id="choose10Button" onclick="pickPokemon(10)">
+					<img class="miniSprite" id="mini10Sprite" src=""> <span id="choose10Name">[POKEMON 10]</span>
+				</button>
+				<button class="choosePoke" id="choose11Button" onclick="pickPokemon(11)">
+					<img class="miniSprite" id="mini11Sprite" src=""> <span id="choose11Name">[POKEMON 11]</span>
+				</button>
+				<button class="choosePoke" id="choose12Button" onclick="pickPokemon(12)">
+					<img class="miniSprite" id="mini12Sprite" src=""> <span id="choose12Name">[POKEMON 12]</span>
+				</button>
+			</div>
+			<button id="confirmTeamButton" onclick="goToBattleScreen()">CONFIRM THIS TEAM!</button>
+		</div>
+
+		<!-- BATTLE SCREEN -->		
+		<div class="battleScreen" id="battleScreen" style="display: none;">
 			<!-- The Empty Emerald Battle Arena Background
 			Note that emptyBattle.jpg is 1261 x 832 -> width: 1261, height: 832
 			emptyBattle.jpg seems a little big for a screen so we shrunk it by 
@@ -90,7 +141,13 @@
 			</div>
 		</div>
 		
-		<!-- -->
+		<!-- END SCREEN -->
+		<div class="endScreen" id="endScreen" style="display: none;">
+			<p class="endText" id="endText">YOU WIN!</p>
+			<button id="playAgainButton" onclick="goToStartScreen()">Play Again?</button>
+		</div>
+		
+		<!-- MID BATTLE CHOOSE POKEMON SCREEN -->
 		<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
 			<button class="currPoke" id="currPoke">[CURRENT POKEMON]</button>
 			<div class="partyButtonsArea">
