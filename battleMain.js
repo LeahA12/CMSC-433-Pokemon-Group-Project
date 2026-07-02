@@ -68,8 +68,6 @@ function goToBattleScreen() {
 		}, 3000);
 
 	} else {
-		console.log(playerSelect);
-
 		startGame();
 	}
 }
@@ -108,8 +106,6 @@ function pickPokemon(choice) {
 		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgreen";
 		playerSelect.push(choice - 1);
 	}
-
-	console.log(playerSelect);
 }
 
 // automatically trigger player & opponent sprites animations (hit & faint)
@@ -300,7 +296,6 @@ function battleLoop() {
 	
 	// These variables represent whether each player has at least 1 available pokemon left
 	var playerAlive = true;
-	var opponentAlive = true;
 	var playerMons = 0;
 	var opponentMons = 0;
 	user.team.forEach((pokemon) => {
@@ -310,30 +305,27 @@ function battleLoop() {
 		opponentMons++;
 	});
 
-	while (playerAlive && opponentAlive) {
+	while (playerAlive) {
 		console.log("Alive loop started");
 		// Battle logic here
 		
-		var playerLiving = playerMons;
-		var opponentLiving = opponentMons;
-		// Check player team
-		user.team.forEach((pokemon, index) => {
-			if (user.team[index].status == "Fainted") {
+		var userLiving = playerMons;
+		var computerLiving = opponentMons;
+		
+		// check if either team has died
+		for (let i = 0; i < user.team.length; i++) {
+			if (user.team[i].status == "Fainted") {
 				playerLiving--;
 			}
-			if (playerLiving == 0) {
-				playerAlive = false;
-			}
-		});
-		// Check opponent team
-		computer.team.forEach((pokemon, index) => {
-			if (computer.team[index].status == "Fainted") {
+
+			if (computer.team[i].status == "Fainted") {
 				opponentLiving--;
 			}
-			if (opponentLiving == 0) {
-				opponentAlive = false;
-			}
-		});
+		}
+
+		if (playerLiving == 0 || opponentLiving == 0) {
+			playerAlive = false;
+		}
 	}
 
 	// End of loop
