@@ -296,6 +296,44 @@ function battleLoop() {
 	// If they do force a switch
 	// Opponent's switch is random
 
+	
+	// These variables represent whether each player has at least 1 available pokemon left
+	var playerAlive = true;
+	var opponentAlive = true;
+	var playerMons = 0;
+	var opponentMons = 0;
+	user.team.forEach((pokemon) => {
+		playerMons++;
+	});
+	computer.team.forEach((pokemon) => {
+		opponentMons++;
+	});
+
+	while (playerAlive && opponentAlive) {
+		// Battle logic here
+		
+		var playerLiving = playerMons;
+		var opponentLiving = opponentMons;
+		// Check player team
+		user.team.forEach((pokemon, index) => {
+			if (user.team[index].status == "Fainted") {
+				playerLiving--;
+			}
+			if (playerLiving == 0) {
+				playerAlive = false;
+			}
+		});
+		// Check opponent team
+		computer.team.forEach((pokemon, index) => {
+			if (computer.team[index].status == "Fainted") {
+				opponentLiving--;
+			}
+			if (opponentLiving == 0) {
+				opponentAlive = false;
+			}
+		});
+	}
+
 	// End of loop
 }
 
