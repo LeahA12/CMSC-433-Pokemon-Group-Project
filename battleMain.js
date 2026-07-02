@@ -155,12 +155,19 @@ function battleEnd() {
 }
 
 // The function in which the actual battle logic happens
+// Presently doesn't do anything except create both player objects
 function battleLoop(player, opponent) {
 	// start the battle
 	var playerMon = player.team[player.currIndex];
 	var opponentMon = opponent.team[0];
 
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
+
+
+	// Damage calculation lines
+	// var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
+	// var oppDamage = damageCalculation(opponentPokemon.moves[rand(0,3)], opponentPokemon, activePokemon);
+
 
 	// Once that loop breaks, the game ends
 
