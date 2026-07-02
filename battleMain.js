@@ -12,12 +12,14 @@ class Pokemon {
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;
-		this.hp = hp;
-		this.attack = attack;
-		this.defense = defense;
-		this.sp_attack = sp_attack;
-		this.sp_defense = sp_defense;
-		this.speed = speed;
+		// A pokemon's actual stats are calculated based on its base stats
+		// We'll be treating every pokemon as level 100, 31 IVs, 0 EVs for balance sake
+		this.hp = (2 * hp + 31) + 110;
+		this.attack = (2 * attack + 31) + 5;
+		this.defense = (2 * defense + 31) + 5;
+		this.sp_attack = (2 * sp_attack + 31) + 5;
+		this.sp_defense = (2 * sp_defense + 31) + 5;
+		this.speed = (2 * speed + 31) + 5;
 		this.status = status;
 
 		// array of moves
@@ -189,15 +191,20 @@ function battleLoop(player, opponent) {
 
 	loadPlayerPokemon(user.team[currIndex]);
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
+	// Render the battle menu from the "what will ___ do?" screen
+	// If a move is selected, call useMove(selection)
+	// useMove calculates damage for both player and opponent for simplicity's sake, then updates global teams
 
+	// If a switch is selected, update player.currIndex() to match the selected pokemon, and then calculate opponent's move
+	// Opponent will never switch
 
-	// Damage calculation lines
-	// var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
-	// var oppDamage = damageCalculation(opponentPokemon.moves[rand(0,3)], opponentPokemon, activePokemon);
+	// After health is updated, update sprites
+	// If a pokemon faints, mark it as fainted and display animation
+	// Check to see if that player has any pokemon left
+	// If they do force a switch
+	// Opponent's switch is random
 
-
-	// Once that loop breaks, the game ends
-
+	// End of loop
 }
 
 loadGame();
