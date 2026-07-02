@@ -1,4 +1,8 @@
-Where we got our sprites from:
+### How to run:
+- ```mysql -u root -p proj3 < schema.sql```
+
+
+### Where we got our sprites from:
 https://pokemondb.net/sprites/blaziken
 https://pokemondb.net/sprites/mudkip
 https://pokemondb.net/sprites/sceptile
