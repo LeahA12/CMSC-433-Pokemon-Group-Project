@@ -46,7 +46,7 @@ var user;
 var computer;
 
 function pickPokemon(choice) {
-	if (playerSelect.length() == 6) {
+	if (playerSelect.length == 6) {
 		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
 		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
 		document.getElementById("confirmTeamButton").onclick = "";
@@ -83,7 +83,7 @@ function goToChoose12Screen() {
 
 // Going from 12 Pokemon Selection Screen to the Battle Arena Screen
 function goToBattleScreen() {
-	if (playerSelect.length() < 3) {
+	if (playerSelect.length < 3) {
 		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
 		document.getElementById("confirmTeamButton").innerHTML = "<b>Select atleast 3 Pokemon.</b>";
 		document.getElementById("confirmTeamButton").onclick = "";
@@ -227,7 +227,7 @@ function startGame () {
 	// get random pokemon not selected by player
 	// matching player size, in the case that the player
 	// selected 6 pokemon this is inefficient but whatever
-	for (let i = 0; i < playerSelect.length(); i++) {
+	for (let i = 0; i < playerSelect.length; i++) {
 		let randNum = Math.floor(Math.random() * 12);
 
 		while (playerSelect.includes(randNum) || enemySelect.includes(randNum)) {
@@ -248,7 +248,7 @@ function startGame () {
 	user = new Player(userTeam, 0);
 	computer = new Player(computerTeam, 0);
 	
-	for (let i = 0; i < playerSelect.length(); i++) {
+	for (let i = 0; i < playerSelect.length; i++) {
 		var partyButtons = document.getElementById("partyButtons");
 		var pokemonSelect = document.createElement("button");
 
