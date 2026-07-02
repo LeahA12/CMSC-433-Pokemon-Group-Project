@@ -49,20 +49,16 @@ window.addEventListener('load', function () {
 	changePokeName("swampert", 0, 1);
 	
 	setTimeout(function () {
-		changeHPBy(-20, 1, 0);
-		hitPlayerSprite("treecko");
+		playerTakesHit(20, "treecko");
 		setTimeout(function () {
-			changeHPBy(-20, 1, 0);
-			hitPlayerSprite("treecko");
+			playerTakesHit(20, "treecko");
 			setTimeout(function () {
 				faintPlayerSprite("treecko");
-				
+
 				setTimeout(function () {
-					changeHPBy(-50, 0, 1);
-					hitOppSprite("swampert");
+					oppTakesHit(50, "swampert");
 					setTimeout(function () {
-						changeHPBy(-50, 0, 1);
-						hitOppSprite("swampert");
+						oppTakesHit(50, "swampert");
 						setTimeout(function () {
 							faintOppSprite("swampert");
 						}, 3000); 
