@@ -212,11 +212,6 @@ function loadGame() {
 				buttonLabel.innerText = currName;
 				spriteImage.src = "https://img.pokemondb.net/sprites/emerald/normal/" + currName.toLowerCase() + ".png";
 			}
-
-			// here we can call whatever function that displays those pokemon
-			// and lets you pick some to make a team, which is then made into
-			// another array that is passed into the player object
-			startGame();
         })
         .catch(console.error)
 }
