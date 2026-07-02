@@ -737,9 +737,11 @@ function damageCalculation(move, user, target) {
 			// apply additional effect
 		}
 	}
-	// Note: In the actual games, after damage is calculated, there is an additional roll for the final value. The
-	// actual damage can be anywhere between 85% and 100% of the final value, with a 1/16 chance of hitting each
-	// percentage. This will be reflected in the battle loop, not here in damageCalculation, as this returns an int.
+	// Note: In the actual games, after damage is calculated, there is an additional roll for the final value.
+	// The actual damage can be anywhere between 85% and 100% of the final value, with a 1/16 chance of hitting
+	// each percentage.
+	var damageRoll = 85 + randomInt(16);
+	damage = Math.floor(damage * (damageRoll / 100));
 	return damage;
 }
 // Helper function to calculate type effectiveness. Takes a move and a target pokemon.

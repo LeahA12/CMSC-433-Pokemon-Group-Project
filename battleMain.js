@@ -184,12 +184,12 @@ function battleEnd() {
 
 // The function in which the actual battle logic happens
 // Presently doesn't do anything except create both player objects
-function battleLoop(player, opponent) {
+function battleLoop() {
 	// start the battle
-	var playerMon = player.team[player.currIndex];
-	var opponentMon = opponent.team[0];
+	var playerMon = user.team[user.currIndex];
+	var opponentMon = computer.team[0];
 
-	loadPlayerPokemon(user.team[currIndex]);
+	loadPlayerPokemon(user.team[user.currIndex]);
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
 	// Render the battle menu from the "what will ___ do?" screen
 	// If a move is selected, call useMove(selection)
