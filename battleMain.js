@@ -76,7 +76,7 @@ document.addEventListener('click', function () {
 
 // php loads random pokemon from database
 // and javascript will create objects for each pokemon
-function startGame() {
+function loadGame() {
 	fetch("database.php")
         .then((response) => response.json())
         .then((data) => {
@@ -138,9 +138,13 @@ function startGame() {
 			// here we can call whatever function that displays those pokemon
 			// and lets you pick some to make a team, which is then made into
 			// another array that is passed into the player object
-			
+			startGame();
         })
         .catch(console.error)
+}
+
+function startGame () {
+	loadPlayerPokemon(pokemon[Math.random() * pokemon.length | 0])
 }
 
 // sends updated pokemon information back to database
@@ -173,24 +177,4 @@ function battleLoop(player, opponent) {
 
 }
 
-
-// ignore this its testing putting a variable in the html file -- will be deleted
-// var testName1 = "TOXTRICITY";
-// document.getElementById("optionText").textContent = `WHAT WILL ${testName1} DO?`;
-/*
-var testPoke = new Pokemon("TOXTRICITY", "ELECTRIC", "POISON", 75, 98, 70, 114, 70, 75);
-const testMoveArray = new Array();
-testMoveArray.push(new Move("BOOMBURST", 140, "NORMAL", "SPECIAL"));
-testMoveArray.push(new Move("POISON JAB", 80, "POISON", "PHYSICAL"));
-testMoveArray.push(new Move("SHOCK WAVE", 60, "ELECTRIC", "SPECIAL"));
-testMoveArray.push(new Move("VENOSHOCK", 65, "POISON", "SPECIAL", "POISON"));
-document.getElementById("optionText").textContent = `WHAT WILL ${testPoke.name} DO?`;
-document.getElementById("move1Button").textContent = testMoveArray[0].name;
-document.getElementById("move2Button").textContent = testMoveArray[1].name;
-document.getElementById("move3Button").textContent = testMoveArray[2].name;
-document.getElementById("move4Button").textContent = testMoveArray[3].name;
-*/
-
-document.getElementById("optionText").textContent = `WHAT WILL ${pokemon[0].name} DO?`;
-document.getElementById("move1Button").textContent = pokemon[0].moves[0];
-// document.getElementById("optionText").textContent = `WHAT WILL ${pokemon[0].name} DO?`;
+loadGame();

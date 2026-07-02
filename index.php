@@ -94,11 +94,18 @@
 		<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
 			<button class="currPoke" id="currPoke">[CURRENT POKEMON]</button>
 			<div class="partyButtonsArea">
-				<button class="party" id="pokemon1Button" style="margin-top: 5%;">[POKEMON 1]</button>
+				<button class="party" id="pokemon1Button">[POKEMON 1]</button>
 				<button class="party" id="pokemon2Button">[POKEMON 2]</button>
 				<button class="party" id="pokemon3Button">[POKEMON 3]</button>
 				<button class="party" id="pokemon4Button">[POKEMON 4]</button>
-				<button class="party" id="pokemon5Button" style="margin-bottom: 3%;">[POKEMON 5]</button>
+				<button class="party" id="pokemon5Button">[POKEMON 5]</button>
+				<button class="party" id="pokemon6Button">[POKEMON 6]</button>
+				<button class="party" id="pokemon7Button">[POKEMON 7]</button>
+				<button class="party" id="pokemon8Button">[POKEMON 8]</button>
+				<button class="party" id="pokemon9Button">[POKEMON 9]</button>
+				<button class="party" id="pokemon10Button">[POKEMON 10]</button>
+				<button class="party" id="pokemon11Button">[POKEMON 11]</button>
+				<button class="party" id="pokemon12Button">[POKEMON 12]</button>
 			</div>
 			<div class="swapBottomBar">
 				<div class="swapPokeText" id="swapPokeText">Choose a POKEMON</div>
