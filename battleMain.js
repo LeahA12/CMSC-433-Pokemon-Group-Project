@@ -296,21 +296,14 @@ function battleLoop() {
 	
 	// These variables represent whether each player has at least 1 available pokemon left
 	var playerAlive = true;
-	var playerMons = 0;
-	var opponentMons = 0;
-	user.team.forEach((pokemon) => {
-		playerMons++;
-	});
-	computer.team.forEach((pokemon) => {
-		opponentMons++;
-	});
+	var playerMons = user.team.length;
 
 	while (playerAlive) {
 		console.log("Alive loop started");
 		// Battle logic here
 		
 		var userLiving = playerMons;
-		var computerLiving = opponentMons;
+		var computerLiving = playerMons;
 		
 		// check if either team has died
 		for (let i = 0; i < user.team.length; i++) {
@@ -319,11 +312,11 @@ function battleLoop() {
 			}
 
 			if (computer.team[i].status == "Fainted") {
-				opponentLiving--;
+				computerLiving--;
 			}
 		}
 
-		if (playerLiving == 0 || opponentLiving == 0) {
+		if (playerLiving == 0 || computerLiving == 0) {
 			playerAlive = false;
 		}
 	}
