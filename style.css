@@ -178,38 +178,61 @@
 	background-color: #5490CC;
 }
 
+.partyButtonsArea {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 60%;
+	height: 58%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding-right: 6px;
+}
+
+.swapBottomBar {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	bottom: 18px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
 /* ... */
 .party {
-	float: right;
-	margin: 1% 2% 1% 1%;
-	width: 60%;
-	height: 10%;
+	float: none;
+	margin: 0;
+	width: 100%;
+	height: 18%;
 	background-color: #A3D1FF;
+	flex: 0 0 auto;
 }
 
 /* ... */
 .swapPokeText {
-	width: 70%;
+	flex: 1;
+	width: auto;
 	background-color: #F7F7FA;
 	border-radius: 5px;
 	border: 5px solid #6E6E8F;
-	height: 15%;
-	top: 70%;
-	float: left;
+	height: 72px;
 	text-align: center;
 	align-content: center;
-	margin: 0.5% 1% 0.5% 3.5%;
+	margin: 0;
 }
 
 /* ... */
 .backToOptions {
-	float: left;
-	width: 20%;
-	height: 10%;
+	float: none;
+	width: 160px;
+	height: 72px;
 	border-radius: 15px;
-	top: 70%;
 	text-align: center;
 	align-content: center;
 	background-color: #7D72A3;
-	margin: 0.5%;
+	margin: 0;
 }
