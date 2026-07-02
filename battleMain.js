@@ -45,35 +45,6 @@ const playerSelect = new Array();
 var user;
 var computer;
 
-function pickPokemon(choice) {
-	if (playerSelect.length == 6) {
-		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
-		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
-		document.getElementById("confirmTeamButton").onclick = "";
-
-		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "light grey";
-			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
-		}, 5000);
-
-	} else if (playerSelect.includes(choice - 1)) {
-		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
-		document.getElementById("confirmTeamButton").innerHTML = "<b>Please chooose unique Pokemon.</b>";
-		document.getElementById("confirmTeamButton").onclick = "";
-
-		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "light grey";
-			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
-		}, 5000);
-
-	} else {
-		document.getElementById(`choose${choice}Button`).style.background("light green");
-		playerSelect.push(choice - 1);
-	}
-}
-
 // Going from Start Screen to the 12 Pokemon Selection Screen
 function goToChoose12Screen() {
 	loadGame();		// initialize global pokemon array
@@ -90,7 +61,7 @@ function goToBattleScreen() {
 		document.getElementById("confirmTeamButton").onclick = "";
 
 		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "light grey";
+			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
 			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
 		}, 5000);
@@ -107,9 +78,35 @@ function goToStartScreen() {
 }
 
 // Placeholder for when a mini sprite selection is clicked
-function pickPokemon(pokeIndex) {
-    console.log("Picked Pokemon slot number: " + pokeIndex);
-    // handling logic will go here
+function pickPokemon(choice) {
+    console.log("Picked Pokemon slot number: " + choice);
+
+    if (playerSelect.length == 6) {
+		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
+		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
+		document.getElementById("confirmTeamButton").onclick = "";
+
+		setTimeout(() => {
+			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
+			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
+			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+		}, 5000);
+
+	} else if (playerSelect.includes(choice - 1)) {
+		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
+		document.getElementById("confirmTeamButton").innerHTML = "<b>Please chooose unique Pokemon.</b>";
+		document.getElementById("confirmTeamButton").onclick = "";
+
+		setTimeout(() => {
+			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
+			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
+			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+		}, 5000);
+
+	} else {
+		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgreen";
+		playerSelect.push(choice - 1);
+	}
 }
 
 // automatically trigger player & opponent sprites animations (hit & faint)
@@ -226,7 +223,7 @@ function startGame () {
 	for (let i = 0; i < playerSelect.length; i++) {
 		let randNum = Math.floor(Math.random() * 12);
 
-		while (playerSelect.includes(randNum) || enemySelect.includes(randNum)) {
+		while (playerSelect.includes(randNum) || computerSelect.includes(randNum)) {
 			randNum = Math.floor(Math.random() * 12);
 		}
 
