@@ -22,6 +22,22 @@
 	margin-top: 0px; /* making authorText closer to introText */
 	margin-bottom: 13px; /* making startButton the same distance from authorText to introText from authorText */
 }
+.chooseScreen{
+	width: 630px; /* same as emptyBattle width */
+    height: 416px; /* same as emptyBattle height */
+    background-color: #20B2AA; /* Light Sea Green from https://cssgradient.io/shades-of-green/ */
+    display: flex;
+	justify-content: center; /* Centers horizontally */
+	align-items: center; /* Centers vertically */
+	flex-direction: column;  /* Makes the 12 poke <button> elements & 1 submit <button> element stack vertically instead of side-by-side */
+}
+.chooseButtonsArea{
+	width: 430px; /* making width smaller so buttons stay inside chooseScreen */
+	display: flex;
+    flex-wrap: wrap; /* making the 12 buttons wrap to the next row */
+	justify-content: center; /* Centers horizontally */
+	align-items: center; /* Centers vertically */
+}
 .endScreen {
     width: 630px; /* same as emptyBattle width */
     height: 416px; /* same as emptyBattle height */
