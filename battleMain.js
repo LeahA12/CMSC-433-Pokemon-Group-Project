@@ -146,7 +146,27 @@ function loadGame() {
 }
 
 function startGame () {
-	loadPlayerPokemon(pokemon[Math.random() * pokemon.length | 0]);
+	var randomSelection = new Array();
+
+	for (let i = 0; i < 12; i++) {
+		let randNum = Math.floor(Math.random * 12);
+
+		while (randomSelection.includes(randNum)) {
+			randNum = Math.floor(Math.random * 12);
+		}
+
+		randomSelection.push(randNum);
+	}
+
+	for (let i = 0; i < 6; i++) {
+		user.team.push(pokemon[randomSelection[i]]);
+	}
+
+	for (let i = 6; i < 12; i++) {
+		computer.team.push(pokemon[randomSelection[i]]);
+	}
+	
+	battleLoop();
 }
 
 // sends updated pokemon information back to database
@@ -167,6 +187,7 @@ function battleLoop(player, opponent) {
 	var playerMon = player.team[player.currIndex];
 	var opponentMon = opponent.team[0];
 
+	loadPlayerPokemon(user.team[currIndex]);
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
 
 
