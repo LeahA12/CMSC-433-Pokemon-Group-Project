@@ -150,7 +150,7 @@
 		<!-- MID BATTLE CHOOSE POKEMON SCREEN -->
 		<div class="swapPokemonScreen" id="swapPokemonScreen" style="display: none;">
 			<button class="currPoke" id="currPoke">[CURRENT POKEMON]</button>
-			<div class="partyButtonsArea">
+			<div class="partyButtonsArea" id="partyButtons>
 				<button class="party" id="pokemon1Button">[POKEMON 1]</button>
 				<button class="party" id="pokemon2Button">[POKEMON 2]</button>
 				<button class="party" id="pokemon3Button">[POKEMON 3]</button>

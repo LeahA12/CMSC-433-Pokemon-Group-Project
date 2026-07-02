@@ -45,18 +45,58 @@ const playerSelect = new Array();
 var user;
 var computer;
 
+function pickPokemon(choice) {
+	if (playerSelect.length() == 6) {
+		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
+		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
+		document.getElementById("confirmTeamButton").onclick = "";
+
+		setTimeout(() => {
+			document.getElementById("confirmTeamButton").style.backgroundColor = "grey";
+			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
+			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+		}, 5000);
+
+	} else if (playerSelect.includes(choice - 1)) {
+		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
+		document.getElementById("confirmTeamButton").innerHTML = "<b>Please chooose unique Pokemon.</b>";
+		document.getElementById("confirmTeamButton").onclick = "";
+
+		setTimeout(() => {
+			document.getElementById("confirmTeamButton").style.backgroundColor = "grey";
+			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
+			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+		}, 5000);
+
+	} else {
+		playerSelect.push(choice - 1);
+	}
+}
+
 // Going from Start Screen to the 12 Pokemon Selection Screen
 function goToChoose12Screen() {
+	loadGame();		// initialize global pokemon array
+
     document.getElementById("startScreen").style.display = "none";
     document.getElementById("chooseScreen").style.display = "block";
 }
 
 // Going from 12 Pokemon Selection Screen to the Battle Arena Screen
 function goToBattleScreen() {
-    document.getElementById("chooseScreen").style.display = "none";
-    document.getElementById("battleScreen").style.display = "block";
-    
-    // likely trigger the drawPlayerSprite() / drawOppSprite() here
+	if (playerSelect.length() < 3) {
+		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
+		document.getElementById("confirmTeamButton").innerHTML = "<b>Select atleast 3 Pokemon.</b>";
+		document.getElementById("confirmTeamButton").onclick = "";
+
+		setTimeout(() => {
+			document.getElementById("confirmTeamButton").style.backgroundColor = "grey";
+			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
+			document.getElementById("confirmTeamButton").onclick = "goToBattleScreen()";
+		}, 5000);
+
+	} else {
+		startGame();
+	}
 }
 
 // Going from End Screen back to Start Screen to loop the game loop
@@ -114,6 +154,9 @@ function loadGame() {
         .then((data) => {
             // loop 12 times to get variable named keys
 			for (let i = 1; i <= 12; i++) {
+				let buttonLabel = document.getElementById(`choose${i}Name`);
+				let spriteImage = document.getElementById(`mini${i}Sprite`);
+
 				let currMoves = new Array();
 
 				let currMove1Name = data["move1Name"+i];
@@ -165,6 +208,9 @@ function loadGame() {
 					currSPDefense, currSpeed, currStatus,
 					currMoves
 				));
+
+				buttonLabel.innerText = currName;
+				spriteImage.src = "https://img.pokemondb.net/sprites/emerald/normal/" + currName.toLowerCase() + ".png";
 			}
 
 			// here we can call whatever function that displays those pokemon
@@ -173,42 +219,53 @@ function loadGame() {
 			startGame();
         })
         .catch(console.error)
-
-	for (let i = 0; i < 6; i++) {
-		var pokemonSelect = document.getElementById(`pokemon${i + 1}Button`);
-		pokemonSelect.addEventListener("click", function () {
-			swapToPokemon(i);
-		});
-	}
 }
 
 function startGame () {
-	var randomSelection = new Array();
+	var computerSelect = new Array();
 
-	for (let i = 0; i < 12; i++) {
+	// get random pokemon not selected by player
+	// matching player size, in the case that the player
+	// selected 6 pokemon this is inefficient but whatever
+	for (let i = 0; i < playerSelect.length(); i++) {
 		let randNum = Math.floor(Math.random() * 12);
 
-		while (randomSelection.includes(randNum)) {
+		while (playerSelect.includes(randNum) || enemySelect.includes(randNum)) {
 			randNum = Math.floor(Math.random() * 12);
 		}
 
-		randomSelection.push(randNum);
+		computerSelect.push(randNum);
 	}
 
 	var userTeam = new Array();
 	var computerTeam = new Array();
 
 	for (let i = 0; i < 6; i++) {
-		userTeam.push(pokemon[randomSelection[i]]);
-	}
-
-	for (let i = 6; i < 12; i++) {
-		computerTeam.push(pokemon[randomSelection[i]]);
+		userTeam.push(pokemon[playerSelect[i]]);
+		computerTeam.push(pokemon[computerSelect[i]]);
 	}
 
 	user = new Player(userTeam, 0);
 	computer = new Player(computerTeam, 0);
 	
+	for (let i = 0; i < playerSelect.length(); i++) {
+		var partyButtons = document.getElementById("partyButtons");
+		var pokemonSelect = document.createElement("button");
+
+		pokemonSelect.className = "party";
+		pokemonSelect.id = `pokemon${i + 1}Button`;
+		pokemonSelect.innerText = `[POKEMON ${i + 1}]`;
+
+		pokemonSelect.addEventListener("click", function () {
+			swapToPokemon(i);
+		});
+
+		partyButtons.append(pokemonSelect);
+	}
+
+	document.getElementById("chooseScreen").style.display = "none";
+    document.getElementById("battleScreen").style.display = "block";
+
 	battleLoop();
 }
 
@@ -248,8 +305,6 @@ function battleLoop() {
 
 	// End of loop
 }
-
-loadGame();
 
 // make these global variables so
 // battleFunctions.js can access it
