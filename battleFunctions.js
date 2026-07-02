@@ -662,6 +662,18 @@ function attemptEscape() {
 	document.getElementById("runBackContainer").style.display = "block";
 }
 
+function loadPlayerPokemon (pokemon) {
+	var moves = pokemon.moves;
+
+	var optionText = document.getElementById("optionText");
+	optionText.textContent = `WHAT WILL ${pokemon.name} DO?`;
+
+	for (let i = 0; i < 4; i++) {
+		var moveButton = document.getElementById(`move${i + 1}Button`);
+		moveButton.textContent = moves[i].name;
+	}
+}
+
 function openBag() {
 	document.getElementById("optionText").style.display = "none";
 	document.getElementById("optionButtonsArea").style.display = "none";

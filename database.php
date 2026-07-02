@@ -70,7 +70,9 @@
                 $pokemon[$myStatus] = $result["status"];
             }
 
-            $sql = "SELECT * FROM attacks WHERE poke_id = ?";
+            if (!$result) continue;
+
+            $sql = "SELECT * FROM attacks WHERE attack_id = ?";
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$result["move1_id"]]);
@@ -84,7 +86,7 @@
                 $pokemon[$myMove1Status] = $result2["status"];
             }
 
-            $sql = "SELECT * FROM attacks WHERE poke_id = ?";
+            $sql = "SELECT * FROM attacks WHERE attack_id = ?";
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$result["move2_id"]]);
@@ -98,7 +100,7 @@
                 $pokemon[$myMove2Status] = $result2["status"];
             }
 
-            $sql = "SELECT * FROM attacks WHERE poke_id = ?";
+            $sql = "SELECT * FROM attacks WHERE attack_id = ?";
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$result["move3_id"]]);
@@ -112,7 +114,7 @@
                 $pokemon[$myMove3Status] = $result2["status"];
             }
 
-            $sql = "SELECT * FROM attacks WHERE poke_id = ?";
+            $sql = "SELECT * FROM attacks WHERE attack_id = ?";
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$result["move4_id"]]);
