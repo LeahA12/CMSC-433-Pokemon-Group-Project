@@ -196,6 +196,7 @@ function battleLoop() {
 	var opponentMon = computer.team[0];
 
 	loadPokemon(user.team[user.currIndex], true);
+	loadPokemon(computer.team[computer.currIndex], false);
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
 	// Render the battle menu from the "what will ___ do?" screen
 	// If a move is selected, call useMove(selection)
