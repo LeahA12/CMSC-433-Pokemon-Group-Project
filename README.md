@@ -1,5 +1,5 @@
 ### How to run:
-- go to http://localhost/phpmyadmin/, select the 'import' tab, choose file ```schema.sql```, scroll down, and press 'import' button
+- go to http://localhost/phpmyadmin/, select the 'import' tab, choose file ```schema.sql```, scroll down, and press 'import' button OR
 - ```mysql -u root -p proj3 < schema.sql```
 
 
