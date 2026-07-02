@@ -62,7 +62,7 @@ function goToBattleScreen() {
 		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
 
 		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
+			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgray";
 			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
 			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
 		}, 3000);
@@ -81,23 +81,17 @@ function goToStartScreen() {
 // Placeholder for when a mini sprite selection is clicked
 function pickPokemon(choice) {
     console.log("Picked Pokemon slot number: " + choice);
+	
+	if (playerSelect.includes(choice - 1)) {
+		let index = playerSelect.indexOf(choice - 1);
 
-    if (playerSelect.length == 6) {
-		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
-		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
-		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
+		if (index > -1) {
+			playerSelect.splice(index, 1);
+		}
+		
+		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgray";
 
-		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgrey";
-			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
-		}, 3000);
-
-	} else if (playerSelect.includes(choice - 1)) {
-		playerSelect = playerSelect.filter((curr) => curr != choice - 1);
-		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgrey";
-
-	} else {
+	} else if (playerSelect.length < 6) {
 		document.getElementById(`choose${choice}Button`).style.backgroundColor = "lightgreen";
 		playerSelect.push(choice - 1);
 	}
@@ -247,7 +241,7 @@ function startGame () {
 			swapToPokemon(i);
 		});
 
-		partyButtons.append(pokemonSelect);
+		partyButtons.appendChild(pokemonSelect);
 	}
 
 	document.getElementById("chooseScreen").style.display = "none";
