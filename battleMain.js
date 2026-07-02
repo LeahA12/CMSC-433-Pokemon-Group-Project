@@ -49,20 +49,16 @@ window.addEventListener('load', function () {
 	changePokeName("swampert", 0, 1);
 	
 	setTimeout(function () {
-		changeHPBy(-20, 1, 0);
-		hitPlayerSprite("treecko");
+		playerTakesHit(20, "treecko");
 		setTimeout(function () {
-			changeHPBy(-20, 1, 0);
-			hitPlayerSprite("treecko");
+			playerTakesHit(20, "treecko");
 			setTimeout(function () {
 				faintPlayerSprite("treecko");
-				
+
 				setTimeout(function () {
-					changeHPBy(-50, 0, 1);
-					hitOppSprite("swampert");
+					oppTakesHit(50, "swampert");
 					setTimeout(function () {
-						changeHPBy(-50, 0, 1);
-						hitOppSprite("swampert");
+						oppTakesHit(50, "swampert");
 						setTimeout(function () {
 							faintOppSprite("swampert");
 						}, 3000); 
@@ -159,12 +155,19 @@ function battleEnd() {
 }
 
 // The function in which the actual battle logic happens
+// Presently doesn't do anything except create both player objects
 function battleLoop(player, opponent) {
 	// start the battle
 	var playerMon = player.team[player.currIndex];
 	var opponentMon = opponent.team[0];
 
 	// Build a while loop that checks each player's team for a pokemon with at least 1 health
+
+
+	// Damage calculation lines
+	// var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
+	// var oppDamage = damageCalculation(opponentPokemon.moves[rand(0,3)], opponentPokemon, activePokemon);
+
 
 	// Once that loop breaks, the game ends
 

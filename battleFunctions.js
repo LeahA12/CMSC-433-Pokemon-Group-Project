@@ -587,6 +587,17 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 /* HP/NAME BOXES CODE ENDS */
 
 
+// Functions that combine hit animation & HP Bar dropping in greenness
+function oppTakesHit(damage, pokeName){
+	hitOppSprite(pokeName);
+	changeHPBy(-damage, 0, 1);
+}
+function playerTakesHit(damage, pokeName){
+	hitPlayerSprite(pokeName);
+	changeHPBy(-damage, 1, 0);
+}
+
+
 
 var soundCache = {};
 
@@ -616,6 +627,8 @@ function backToOptions () {
 	document.getElementById("movePPContainer").style.display = "none";
 	document.getElementById("runText").style.display = "none";
 	document.getElementById("runBackContainer").style.display = "none";
+	document.getElementById("bagText").style.display = "none";
+	document.getElementById("bagBackContainer").style.display = "none";
 }
 
 // Changes battle ui to show the moves your pokemon knows after you select "FIGHT"
@@ -649,6 +662,13 @@ function attemptEscape() {
 	document.getElementById("runBackContainer").style.display = "block";
 }
 
+function openBag() {
+	document.getElementById("optionText").style.display = "none";
+	document.getElementById("optionButtonsArea").style.display = "none";
+	document.getElementById("bagText").style.display = "block";
+	document.getElementById("bagBackContainer").style.display = "block";
+}
+
 // Function to use the selected attack/move
 /*
 	This whole section is VERY unfinished and full of placeholder variables.
@@ -656,17 +676,10 @@ function attemptEscape() {
 	I'll update what has changed here until the final build.
 */
 function useMove(move) {
-	var player = new Player // REPLACE THIS WITH THE ACTUAL ACTIVE PLAYER OBJECT
-	var opponent = new Player // REPLACE THIS WITH THE ACTUAL ACTIVE OPPONENT OBJECT
-	var activePokemon = player.activemon;
-	var opponentPokemon = opponent.activemon;
-
-
-
 	playSound('sounds/select.mp3');
 	// may move these elsewhere
 	var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
-	var oppDamage = damageCalculation(opponentPokemon.moves[rand(0,3)], opponentPokemon, activePokemon);
+	var oppDamage = damageCalculation(opponentPokemon.moves[randomInt(4)], opponentPokemon, activePokemon);
 	
 	
 }
@@ -677,11 +690,11 @@ function damageCalculation(move, user, target) {
 	var atk = 1;
 	var def = 1;
 	// Determines whether to use physical or special stats for damage calc. Does not factor in exceptions like psyshock or body press.
-	if (move.style == PHYSICAL) {
+	if (move.style == "Physical") {
 		atk = user.attack;
 		def = target.defense;
 	}
-	if (move.style == SPECIAL) {
+	if (move.style == "Special") {
 		atk = user.sp_attack;
 		def = target.sp_defense;
 	}
@@ -698,15 +711,15 @@ function damageCalculation(move, user, target) {
 	if (move.type == user.type1 || move.type == user.type2) {
 		damage = damage * 1.5;
 	}
-	damage = damage * typeEffectiveness(move, opponentPokemon);
+	damage = damage * typeEffectiveness(move, target);
 	
 	// Status moves do not deal damage
-	if (move.style == STATUS) {
+	if (move.style == "Status") {
 		damage = 0;
 	}
 	
 	// In this simulator, each move's additional effect only has a 10% chance of going off. Don't bother using lava plume or scald.
-	if (move.additionalEffect) {
+	if (move.status) {
 		var chance = randomInt(100)
 		if (chance < 90) {
 			// apply additional effect
