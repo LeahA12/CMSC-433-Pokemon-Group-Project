@@ -591,13 +591,15 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 
 
 // Functions that combine hit animation & HP Bar dropping in greenness
-function oppTakesHit(damage, pokeName){
-	hitOppSprite(pokeName);
-	changeHPBy(-damage, 0, 1);
+function oppTakesHit(pokemon, damage){
+	pokemon.currHP -= damage;
+	hitOppSprite(pokemon.name);
+	changeHPBy(pokemon, false);
 }
-function playerTakesHit(damage, pokeName){
-	hitPlayerSprite(pokeName);
-	changeHPBy(-damage, 1, 0);
+function playerTakesHit(pokemon, damage){
+	pokemon.currHP -= damage;
+	hitOppSprite(pokemon.name);
+	changeHPBy(pokemon, true);
 }
 
 
@@ -621,8 +623,10 @@ function playSound (src, volume) {
 	sound.play();
 }
 
-function backToOptions () {
-	playSound('sounds/select.mp3');
+function backToOptions (shouldPlaySound) {
+	if (shouldPlaySound === false) {
+		playSound('sounds/select.mp3');
+	}
 
 	document.getElementById("optionText").style.display = "block";
 	document.getElementById("optionButtonsArea").style.display = "block";
@@ -724,11 +728,18 @@ function openBag() {
 */
 function useMove(move) {
 	playSound('sounds/select.mp3');
-	// may move these elsewhere
+	
+	var activePokemon = user.team[user.currIndex];
+	var opponentPokemon = computer.team[computer.currIndex];
+
 	var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
 	var oppDamage = damageCalculation(opponentPokemon.moves[randomInt(4)], opponentPokemon, activePokemon);
 	
-	
+	oppTakesHit(opponentPokemon, playerDamage);
+
+	setTimeout(function () {
+		playerTakesHit(activePokemon, oppDamage);
+	}, 1000);
 }
 
 // Function that calculates the upper bound of battle damage from using a move on a pokemon, using the formula and rules from the games
@@ -747,7 +758,7 @@ function damageCalculation(move, user, target) {
 	}
 
 	// Base damage calculation
-	var damage = (((((2 * user.level / 5) + 2) * move.power * atk / def) / 50) + 2);
+	var damage = (((((2 * 100 / 5) + 2) * move.amount * atk / def) / 50) + 2);
 	
 	// A damaging move must always do at least 1 damage
 	if (damage < 1) {
@@ -790,7 +801,7 @@ function typeEffectiveness(move, target) {
 	// Each type matchup is hardcoded. Open at your own risk. It's long.
 	types.forEach((type, i) => {
 		switch (type) {
-			case NULL:
+			case null:
 				eff = eff;
 				break;
 			case "Normal":
