@@ -41,6 +41,7 @@ class Move {
 
 // array of pokemon
 const pokemon = new Array();
+const playerSelect = new Array();
 var user;
 var computer;
 
