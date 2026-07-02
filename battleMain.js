@@ -1,29 +1,3 @@
-// Going from Start Screen to the 12 Pokemon Selection Screen
-function goToChoose12Screen() {
-    document.getElementById("startScreen").style.display = "none";
-    document.getElementById("chooseScreen").style.display = "block";
-}
-
-// Going from 12 Pokemon Selection Screen to the Battle Arena Screen
-function goToBattleScreen() {
-    document.getElementById("chooseScreen").style.display = "none";
-    document.getElementById("battleScreen").style.display = "block";
-    
-    // likely trigger the drawPlayerSprite() / drawOppSprite() here
-}
-
-// Going from End Screen back to Start Screen to loop the game loop
-function goToStartScreen() {
-    document.getElementById("endScreen").style.display = "none";
-    document.getElementById("startScreen").style.display = "flex"; // preserving the centering style
-}
-
-// Placeholder for when a mini sprite selection is clicked
-function pickPokemon(pokeIndex) {
-    console.log("Picked Pokemon slot number: " + pokeIndex);
-    // handling logic will go here
-}
-
 // player class containing array of pokemon (team)
 class Player {
 	constructor(team, currIndex) {
@@ -67,8 +41,35 @@ class Move {
 
 // array of pokemon
 const pokemon = new Array();
+const playerSelect = new Array();
 var user;
 var computer;
+
+// Going from Start Screen to the 12 Pokemon Selection Screen
+function goToChoose12Screen() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("chooseScreen").style.display = "block";
+}
+
+// Going from 12 Pokemon Selection Screen to the Battle Arena Screen
+function goToBattleScreen() {
+    document.getElementById("chooseScreen").style.display = "none";
+    document.getElementById("battleScreen").style.display = "block";
+    
+    // likely trigger the drawPlayerSprite() / drawOppSprite() here
+}
+
+// Going from End Screen back to Start Screen to loop the game loop
+function goToStartScreen() {
+    document.getElementById("endScreen").style.display = "none";
+    document.getElementById("startScreen").style.display = "flex"; // preserving the centering style
+}
+
+// Placeholder for when a mini sprite selection is clicked
+function pickPokemon(pokeIndex) {
+    console.log("Picked Pokemon slot number: " + pokeIndex);
+    // handling logic will go here
+}
 
 // automatically trigger player & opponent sprites animations (hit & faint)
 window.addEventListener('load', function () {
