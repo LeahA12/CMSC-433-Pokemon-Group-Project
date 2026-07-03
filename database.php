@@ -8,14 +8,15 @@
 
     // reading data from database
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // make range of all pokemon then shuffle
-        // and only read the first 12
-        $pokemonIDs = range(1, 104);
+        // fetch all pokemon ids from db, shuffle, and return the first 12
+        $stmt = $pdo->query("SELECT poke_id FROM pokemon");
+        $pokemonIDs = $stmt->fetchAll(PDO::FETCH_COLUMN);
         shuffle($pokemonIDs);
+        $pokemonIDs = array_slice($pokemonIDs, 0, 12);
 
         $pokemon = array();
 
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= count($pokemonIDs); $i++) {
             $myName = "name".$i;
             $myType1 = "type1".$i;
             $myType2 = "type2".$i;
