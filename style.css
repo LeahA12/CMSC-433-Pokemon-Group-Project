@@ -286,7 +286,6 @@
 	gap: 8px;
 	padding-right: 6px;
 }
-
 .swapBottomBar {
 	position: absolute;
 	left: 20px;
@@ -305,6 +304,11 @@
 	height: 18%;
 	background-color: #A3D1FF;
 	flex: 0 0 auto;
+	object-fit: contain;
+	display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    gap: 8px;
 }
 
 .party:disabled {
