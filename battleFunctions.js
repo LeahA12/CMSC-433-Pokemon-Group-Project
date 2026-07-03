@@ -550,7 +550,7 @@ function changeHPBy(pokemon, isPlayer){
 		if (pCurrHP == 0) {
 			user.team[user.currIndex].status = "Fainted";
 			console.log("Your pokemon fainted!");
-			swapSelected();
+			swapSelected(true);
 		}
 	}
 	else {
@@ -679,19 +679,28 @@ function fightSelected() {
 	document.getElementById("movePPContainer").style.display = "flex";
 }
 
-function swapSelected() {
+function swapSelected(forcedSwap) {
 	playSound('sounds/select.mp3');
-	
+
+	var swapText = document.getElementById("swapPokeText");
+	var cancelButton = document.getElementById("backToOptions");
+
 	document.getElementById("battleScreen").style.display = "none";
 	document.getElementById("swapPokemonScreen").style.display = "block";
+
+	if (forcedSwap) {
+		swapText.textContent = "Your pokemon fainted. Choose a pokemon.";
+		cancelButton.style.display = "none";
+	} else {
+		swapText.textContent = "Choose a POKEMON";
+		cancelButton.style.display = "block";
+	}
 
 	for (let i = 0; i < user.team.length; i++) {
 		var pokeButton = document.getElementById(`pokemon${i + 1}Button`);
 		pokeButton.textContent = user.team[i].name.toUpperCase();
+		pokeButton.disabled = user.team[i].status === "Fainted";
 	}
-
-	var current = document.getElementById("currPoke");
-	current.textContent = user.team[user.currIndex].name.toUpperCase();
 }
 
 function cancelSwap() {
@@ -709,6 +718,10 @@ function attemptEscape() {
 }
 
 function swapToPokemon (teamIndex) {
+	if (user.team[teamIndex].status === "Fainted") {
+		return;
+	}
+
 	playSound('sounds/select.mp3');
 
 	var pokemon = user.team[teamIndex];
