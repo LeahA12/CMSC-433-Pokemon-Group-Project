@@ -17,4 +17,11 @@ Alexis: Database querying and player, pokemon, and move objects along with creat
 
 Joseph: battle logic
 
-Habib: background audio, pokemon audio, ui audio
+Habib:
+	- game audio (battle music, hit sounds, faint, victory, low health, UI/select sounds)
+	- battle bug fixes (team select, sprite swap, opponent faint/switch, loss screen)
+	- battle messaging ("POKEMON USED MOVE!", "POKEMON FAINTED!")
+	- game reset on play again (clear state, stop music, reset UI)
+	- low-HP feedback (turning red HP bar, low-health sound loop)
+	- remote sprite loading from external website (https://img.pokemondb.net/sprites/emerald/normal/)
+	- early damage/hit handling and pokemon selection work

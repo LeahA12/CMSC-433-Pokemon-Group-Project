@@ -22,6 +22,14 @@
 	margin-top: 0px; /* making authorText closer to introText */
 	margin-bottom: 13px; /* making startButton the same distance from authorText to introText from authorText */
 }
+.instructionText{
+	width: 520px;
+	text-align: center;
+	font-size: 14px;
+	margin-top: 0;
+	margin-bottom: 16px;
+	line-height: 1.35;
+}
 
 
 

@@ -14,6 +14,7 @@
 		<div class="startScreen" id="startScreen">
 			<p class="introText">Welcome to Pokémon Battle!</p>
 			<p class="authorText">This was created by Alexis Young, Habib Aina, Joseph Romanic, Leah Arfa, & Maxwell Sovich</p>
+			<p class="instructionText">How to play: Click START, then pick 3 to 6 Pokemon from the 12 shown. In battle, use FIGHT to choose a move. Use POKEMON to switch. If your active Pokemon faints, you must pick another. Defeat all of the opponent's Pokemon to win. If all of yours faint, you lose.</p>
 			<button id="startButton" onclick="goToChoose12Screen()">START GAME!</button>
 		</div>
 
