@@ -7,7 +7,10 @@ Leah:
 	- css of start screen, pick 12 pokemon screen, battle screen, end screen
 	- sourcing & loading Emerald sprites from PokemonDB
 
-Max: sql database setup, battle base ui, battle communcation (like from buttons to url)
+Max: 
+	- sql database setup 
+	- battle base ui 
+	- battle communcation (like from buttons to url)
 
 Alexis: Database querying and player, pokemon, and move objects along with creating global array of pokemon.
             Along with javascript logic for pokemon selection and team building.
