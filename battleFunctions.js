@@ -177,7 +177,8 @@ function idleOppSprite(pokeName){
 
 // Animate Player's chosen pokemon getting Hit (will shake and flash!)
 //    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
-function hitPlayerSprite(pokeName){
+//    onComplete: optional callback after hit animation finishes
+function hitPlayerSprite(pokeName, onComplete){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second shake/flash on top of a running shake/flash
 	if (pShakeTimerID || pFlashTimerID){
 		clearInterval(pShakeTimerID);
@@ -260,7 +261,12 @@ function hitPlayerSprite(pokeName){
 			pCanvas.style.opacity = "1.0";
 			isFullOpacity = true;
 			pContext.clearRect(0, 0, pCanvasWidth, pCanvasHeight);
-			drawPlayerSprite(pokeName); // continues the idle animation!
+
+			if (onComplete) {
+				onComplete();
+			} else {
+				drawPlayerSprite(pokeName);
+			}
 		}, total_hit_ms );
 	});
 }
@@ -284,11 +290,8 @@ function hitOppSprite(pokeName, onComplete){
 		oIdleTimerID = null;
 	}
 	
-	// Hide battle options
-	document.getElementById("optionText").style.display = "none";
-	document.getElementById("optionButtonsArea").style.display = "none";
-	document.getElementById("moveSelect").style.display = "none";
-	document.getElementById("movePPContainer").style.display = "none";
+	// Hide battle menu buttons but keep the message area visible
+	hideBattleMenu();
 
 	// (3) CREATE A SPRITE-IMAGE OF THE CHOSEN POKEMON
 	var oSprite = new Image();
@@ -628,6 +631,7 @@ function resetBattleUI() {
 	oHP_Nums.textContent = "";
 
 	document.getElementById("optionText").textContent = "WHAT WILL [POKEMON] DO?";
+	document.getElementById("optionText").classList.remove("messageMode");
 	document.getElementById("optionText").style.display = "block";
 	document.getElementById("optionButtonsArea").style.display = "block";
 	document.getElementById("moveSelect").style.display = "none";
@@ -700,7 +704,6 @@ function changeHPBy(pokemon, isPlayer){
 		if (pCurrHP == 0) {
 			user.team[user.currIndex].status = "Fainted";
 			console.log("Your pokemon fainted!");
-			swapSelected(true);
 		}
 	}
 	else {
@@ -765,43 +768,65 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 
 
 // Functions that combine hit animation & HP Bar dropping in greenness
-function oppTakesHit(pokemon, damage, move){
+function oppTakesHit(pokemon, damage, move, fainted){
 	if (move) {
 		playHitSound(move, pokemon);
 	}
 
 	pokemon.currHP -= damage;
 
-	if (pokemon.currHP <= 0) {
+	if (fainted) {
 		pokemon.currHP = 0;
 		changeHPBy(pokemon, false);
 
 		var nextPokemon = computer.team[computer.currIndex];
-		hitOppSprite(pokemon.name, function () {
-			if (nextPokemon) {
-				loadPokemon(nextPokemon, false);
-				restoreBattleOptions();
-			} else {
-				endBattle(true);
-			}
+		var faintedName = pokemon.name;
+
+		hitOppSprite(faintedName, function () {
+			showBattleMessage(`${faintedName.toUpperCase()} FAINTED!`);
+			playSound("sounds/faint.mp3");
+			faintOppSprite(faintedName);
+
+			setTimeout(function () {
+				if (nextPokemon) {
+					loadPokemon(nextPokemon, false);
+					restoreBattleOptions();
+				} else {
+					endBattle(true);
+				}
+			}, 2000);
 		});
 	} else {
-		hitOppSprite(pokemon.name);
+		hitOppSprite(pokemon.name, function () {
+			drawOppSprite(pokemon.name);
+		});
 		changeHPBy(pokemon, false);
 	}
 }
-function playerTakesHit(pokemon, damage, move){
+function playerTakesHit(pokemon, damage, move, fainted){
 	if (move) {
 		playHitSound(move, pokemon);
 	}
 
 	pokemon.currHP -= damage;
-	hitPlayerSprite(pokemon.name);
-	changeHPBy(pokemon, true);
 
-	if (pokemon.currHP <= 0) {
-		pokemon.status = "Fainted";
-	}
+	hitPlayerSprite(pokemon.name, function () {
+		changeHPBy(pokemon, true);
+
+		if (fainted) {
+			pokemon.status = "Fainted";
+			showBattleMessage(`${pokemon.name.toUpperCase()} FAINTED!`);
+			playSound("sounds/faint.mp3");
+			faintPlayerSprite(pokemon.name);
+
+			setTimeout(function () {
+				swapSelected(true);
+			}, 2000);
+		} else {
+			drawPlayerSprite(pokemon.name);
+			restoreBattleOptions();
+		}
+	});
 }
 
 
@@ -929,10 +954,33 @@ function swapToPokemon (teamIndex) {
 
 	loadPokemon(pokemon, true);
 	cancelSwap();
+	restoreBattleOptions();
+}
+
+function hideBattleMenu() {
+	document.getElementById("optionButtonsArea").style.display = "none";
+	document.getElementById("moveSelect").style.display = "none";
+	document.getElementById("movePPContainer").style.display = "none";
+	document.getElementById("runText").style.display = "none";
+	document.getElementById("runBackContainer").style.display = "none";
+	document.getElementById("bagText").style.display = "none";
+	document.getElementById("bagBackContainer").style.display = "none";
+}
+
+function showBattleMessage(message) {
+	hideBattleMenu();
+	var optionText = document.getElementById("optionText");
+	optionText.textContent = message;
+	optionText.classList.add("messageMode");
+	optionText.style.display = "block";
 }
 
 function restoreBattleOptions() {
-	document.getElementById("optionText").style.display = "block";
+	var activePokemon = user.team[user.currIndex];
+	var optionText = document.getElementById("optionText");
+	optionText.textContent = `WHAT WILL ${activePokemon.name.toUpperCase()} DO?`;
+	optionText.classList.remove("messageMode");
+	optionText.style.display = "block";
 	document.getElementById("optionButtonsArea").style.display = "block";
 	document.getElementById("moveSelect").style.display = "none";
 	document.getElementById("movePPContainer").style.display = "none";
@@ -948,17 +996,32 @@ function loadPokemon (pokemon, isPlayer) {
 	
 		var optionText = document.getElementById("optionText");
 		optionText.textContent = `WHAT WILL ${pokemon.name.toUpperCase()} DO?`;
+		optionText.classList.remove("messageMode");
 	
 		for (let i = 0; i < 4; i++) {
 			var moveButton = document.getElementById(`move${i + 1}Button`);
 			moveButton.textContent = moves[i].name.toUpperCase();
 		}
 
+		if (pFadeTimerID) { clearInterval(pFadeTimerID); pFadeTimerID = null; }
+		if (pDropTimerID) { clearInterval(pDropTimerID); pDropTimerID = null; }
+		if (pIdleTimerID) { clearInterval(pIdleTimerID); pIdleTimerID = null; }
+		pCanvas.style.opacity = "1.0";
+		pPokeCurrCoords[0] = pPokeStartCoords[0];
+		pPokeCurrCoords[1] = pPokeStartCoords[1];
+
 		pContext.clearRect(0, 0, pContext.canvas.width, pContext.canvas.height);
 		
 		drawPlayerSprite(pokemon.name);
 		changePokeName(pokemon.name, 1, 0);
 	} else {
+		if (oFadeTimerID) { clearInterval(oFadeTimerID); oFadeTimerID = null; }
+		if (oDropTimerID) { clearInterval(oDropTimerID); oDropTimerID = null; }
+		if (oIdleTimerID) { clearInterval(oIdleTimerID); oIdleTimerID = null; }
+		oCanvas.style.opacity = "1.0";
+		oPokeCurrCoords[0] = oPokeStartCoords[0];
+		oPokeCurrCoords[1] = oPokeStartCoords[1];
+
 		oContext.clearRect(0, 0, oContext.canvas.width, oContext.canvas.height);
 
 		drawOppSprite(pokemon.name);
@@ -993,13 +1056,22 @@ function useMove(move) {
 	var playerDamage = damageCalculation(playerMove, activePokemon, opponentPokemon);
 	var oppDamage = damageCalculation(oppMove, opponentPokemon, activePokemon);
 	var opponentFainted = opponentPokemon.currHP <= playerDamage;
-	
-	oppTakesHit(opponentPokemon, playerDamage, playerMove);
-	if (!opponentFainted) {
-		setTimeout(function () {
-			playerTakesHit(activePokemon, oppDamage, oppMove);
-		}, 1000);
-	}
+	var playerFainted = activePokemon.currHP <= oppDamage;
+
+	showBattleMessage(`${activePokemon.name.toUpperCase()} USED ${playerMove.name.toUpperCase()}!`);
+
+	setTimeout(function () {
+		oppTakesHit(opponentPokemon, playerDamage, playerMove, opponentFainted);
+
+		if (!opponentFainted) {
+			setTimeout(function () {
+				showBattleMessage(`${opponentPokemon.name.toUpperCase()} USED ${oppMove.name.toUpperCase()}!`);
+				setTimeout(function () {
+					playerTakesHit(activePokemon, oppDamage, oppMove, playerFainted);
+				}, 1000);
+			}, total_hit_ms);
+		}
+	}, 1000);
 }
 
 // Function that calculates the upper bound of battle damage from using a move on a pokemon, using the formula and rules from the games
