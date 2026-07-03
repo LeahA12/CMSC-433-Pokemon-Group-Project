@@ -11,6 +11,7 @@ Max:
 	- sql database setup 
 	- battle base ui 
 	- battle communcation (like from buttons to url)
+	- player pokemon minisprites on win screen
 
 Alexis: Database querying and player, pokemon, and move objects along with creating global array of pokemon.
             Along with javascript logic for pokemon selection and team building.
