@@ -361,6 +361,8 @@ function hitOppSprite(pokeName){
 			// Reset battle menu options
 			document.getElementById("optionText").style.display = "block";
 			document.getElementById("optionButtonsArea").style.display = "block";
+			document.getElementById("moveSelect").style.display = "none";
+			document.getElementById("movePPContainer").style.display = "none";
 		}, total_hit_ms );
 	});
 }
@@ -577,7 +579,7 @@ function changeHPBy(pokemon, isPlayer){
 		if (oCurrHP == 0) {
 			computer.team[computer.currIndex].status = "Fainted";
 			console.log("The opponent's pokemon fainted!");
-			computer.currIndex++;
+			computer.currIndex += 1;
 		}
 	}
 }
@@ -618,6 +620,7 @@ function oppTakesHit(pokemon, damage){
 
 	if (pokemon.currHP <= 0) {
 		pokemon.status = "Fainted";
+		loadPokemon(computer.team[computer.currIndex], false);
 	}
 }
 function playerTakesHit(pokemon, damage){
