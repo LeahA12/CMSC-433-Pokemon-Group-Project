@@ -520,7 +520,149 @@ var oHP_fill = document.getElementById("oHP_InnerFill");
 var pHP_nums = document.getElementById("pHP_Nums");
 var oHP_nums = document.getElementById("oHP_Nums");
 
-// Increase or Decrease the HP Bar 
+const LOW_HP_THRESHOLD = 0.3;
+var lowHealthSound = null;
+var battleMusic = null;
+
+function setHpBarState(hpFill, currHP, maxHP) {
+	if (maxHP <= 0 || currHP <= 0) {
+		hpFill.classList.remove("lowHP");
+		return false;
+	}
+
+	var isLow = (currHP / maxHP) <= LOW_HP_THRESHOLD;
+	if (isLow) {
+		hpFill.classList.add("lowHP");
+	} else {
+		hpFill.classList.remove("lowHP");
+	}
+	return isLow;
+}
+
+function startLowHealthSound() {
+	if (!lowHealthSound) {
+		lowHealthSound = new Audio("sounds/low_health.mp3");
+		lowHealthSound.loop = true;
+		lowHealthSound.volume = 0.01;
+	}
+
+	if (lowHealthSound.paused) {
+		lowHealthSound.play();
+	}
+}
+
+function stopLowHealthSound() {
+	if (lowHealthSound && !lowHealthSound.paused) {
+		lowHealthSound.pause();
+		lowHealthSound.currentTime = 0;
+	}
+}
+
+function startBattleMusic() {
+	if (!battleMusic) {
+		battleMusic = new Audio("sounds/battle.mp3");
+		battleMusic.loop = true;
+		battleMusic.volume = 0.05;
+	}
+
+	if (battleMusic.paused) {
+		battleMusic.play();
+	}
+}
+
+function stopBattleMusic() {
+	if (battleMusic && !battleMusic.paused) {
+		battleMusic.pause();
+		battleMusic.currentTime = 0;
+	}
+}
+
+function clearBattleAnimations() {
+	if (pShakeTimerID) clearInterval(pShakeTimerID);
+	if (pFlashTimerID) clearInterval(pFlashTimerID);
+	if (pIdleTimerID) clearInterval(pIdleTimerID);
+	if (pFadeTimerID) clearInterval(pFadeTimerID);
+	if (pDropTimerID) clearInterval(pDropTimerID);
+	if (oShakeTimerID) clearInterval(oShakeTimerID);
+	if (oFlashTimerID) clearInterval(oFlashTimerID);
+	if (oIdleTimerID) clearInterval(oIdleTimerID);
+	if (oFadeTimerID) clearInterval(oFadeTimerID);
+	if (oDropTimerID) clearInterval(oDropTimerID);
+
+	pShakeTimerID = null;
+	pFlashTimerID = null;
+	pIdleTimerID = null;
+	pFadeTimerID = null;
+	pDropTimerID = null;
+	oShakeTimerID = null;
+	oFlashTimerID = null;
+	oIdleTimerID = null;
+	oFadeTimerID = null;
+	oDropTimerID = null;
+}
+
+function resetBattleUI() {
+	clearBattleAnimations();
+
+	if (pContext) {
+		pContext.clearRect(0, 0, pCanvasWidth, pCanvasHeight);
+		pCanvas.style.opacity = "1.0";
+		pPokeCurrCoords[0] = pPokeStartCoords[0];
+		pPokeCurrCoords[1] = pPokeStartCoords[1];
+	}
+
+	if (oContext) {
+		oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
+		oCanvas.style.opacity = "1.0";
+		oPokeCurrCoords[0] = oPokeStartCoords[0];
+		oPokeCurrCoords[1] = oPokeStartCoords[1];
+	}
+
+	pPokeName.textContent = "";
+	oPokeName.textContent = "";
+	pHP_fill.style.width = "100%";
+	oHP_fill.style.width = "100%";
+	pHP_fill.classList.remove("lowHP");
+	oHP_fill.classList.remove("lowHP");
+	pHP_Nums.textContent = "";
+	oHP_Nums.textContent = "";
+
+	document.getElementById("optionText").textContent = "WHAT WILL [POKEMON] DO?";
+	document.getElementById("optionText").style.display = "block";
+	document.getElementById("optionButtonsArea").style.display = "block";
+	document.getElementById("moveSelect").style.display = "none";
+	document.getElementById("movePPContainer").style.display = "none";
+	document.getElementById("runText").style.display = "none";
+	document.getElementById("runBackContainer").style.display = "none";
+	document.getElementById("bagText").style.display = "none";
+	document.getElementById("bagBackContainer").style.display = "none";
+
+	document.getElementById("swapPokeText").textContent = "Choose a POKEMON";
+	document.getElementById("backToOptions").style.display = "block";
+
+	for (let i = 1; i <= 4; i++) {
+		document.getElementById(`move${i}Button`).textContent = `[MOVE ${i}]`;
+	}
+}
+
+function endBattle(playerWon) {
+	stopBattleMusic();
+	stopLowHealthSound();
+
+	document.getElementById("battleScreen").style.display = "none";
+	document.getElementById("swapPokemonScreen").style.display = "none";
+	document.getElementById("endScreen").style.display = "flex";
+
+	if (playerWon) {
+		document.getElementById("endText").textContent = "YOU WIN!";
+		playSound("sounds/victory.mp3", 0.1);
+		battleEnd();
+	} else {
+		document.getElementById("endText").textContent = "YOU LOSE!";
+	}
+}
+
+// Increase or Decrease the HP Bar
 //	  pokemon: pokemon being drawn
 //    isPlayer: is 1 if pokemon is player's pokemon, zero otherwise
 function changeHPBy(pokemon, isPlayer){
@@ -548,6 +690,13 @@ function changeHPBy(pokemon, isPlayer){
 		// (2D) CHANGE HP NUMBERS BELOW HP BAR
 		pHP_Nums.style.fontSize = "14px";
 		pHP_Nums.textContent = pCurrHP + " / " + pMaxHP;
+
+		if (setHpBarState(pHP_fill, pCurrHP, pMaxHP)) {
+			startLowHealthSound();
+		} else {
+			stopLowHealthSound();
+		}
+
 		if (pCurrHP == 0) {
 			user.team[user.currIndex].status = "Fainted";
 			console.log("Your pokemon fainted!");
@@ -577,6 +726,8 @@ function changeHPBy(pokemon, isPlayer){
 		// (2D) CHANGE HP NUMBERS BELOW HP BAR
 		oHP_Nums.style.fontSize = "14px";
 		oHP_Nums.textContent = oCurrHP + " / " + oMaxHP;
+		setHpBarState(oHP_fill, oCurrHP, oMaxHP);
+
 		if (oCurrHP == 0) {
 			computer.team[computer.currIndex].status = "Fainted";
 			console.log("The opponent's pokemon fainted!");
@@ -614,7 +765,11 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 
 
 // Functions that combine hit animation & HP Bar dropping in greenness
-function oppTakesHit(pokemon, damage){
+function oppTakesHit(pokemon, damage, move){
+	if (move) {
+		playHitSound(move, pokemon);
+	}
+
 	pokemon.currHP -= damage;
 
 	if (pokemon.currHP <= 0) {
@@ -625,15 +780,21 @@ function oppTakesHit(pokemon, damage){
 		hitOppSprite(pokemon.name, function () {
 			if (nextPokemon) {
 				loadPokemon(nextPokemon, false);
+				restoreBattleOptions();
+			} else {
+				endBattle(true);
 			}
-			restoreBattleOptions();
 		});
 	} else {
 		hitOppSprite(pokemon.name);
 		changeHPBy(pokemon, false);
 	}
 }
-function playerTakesHit(pokemon, damage){
+function playerTakesHit(pokemon, damage, move){
+	if (move) {
+		playHitSound(move, pokemon);
+	}
+
 	pokemon.currHP -= damage;
 	hitPlayerSprite(pokemon.name);
 	changeHPBy(pokemon, true);
@@ -646,6 +807,20 @@ function playerTakesHit(pokemon, damage){
 
 
 var soundCache = {};
+
+function stopCachedSound(src) {
+	var sound = soundCache[src];
+	if (sound) {
+		sound.pause();
+		sound.currentTime = 0;
+	}
+}
+
+function stopAllGameSounds() {
+	stopBattleMusic();
+	stopLowHealthSound();
+	stopCachedSound("sounds/victory.mp3");
+}
 
 function playSound (src, volume) {
 	if (volume === undefined) {
@@ -662,6 +837,21 @@ function playSound (src, volume) {
 	
 	sound.volume = volume;
 	sound.play();
+}
+
+function playHitSound(move, target) {
+	if (!move || move.style === "Status") {
+		return;
+	}
+
+	var effectiveness = typeEffectiveness(move, target);
+	if (effectiveness > 1) {
+		playSound('sounds/hit_effective_damage.mp3');
+	} else if (effectiveness < 1) {
+		playSound('sounds/hit_weak_damage.mp3');
+	} else {
+		playSound('sounds/hit_normal_damage.mp3');
+	}
 }
 
 function backToOptions (shouldPlaySound) {
@@ -799,14 +989,17 @@ function useMove(move) {
 	var activePokemon = user.team[user.currIndex];
 	var opponentPokemon = computer.team[computer.currIndex];
 
-	var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
-	var oppDamage = damageCalculation(opponentPokemon.moves[randomInt(4)], opponentPokemon, activePokemon);
+	var playerMove = activePokemon.moves[move - 1];
+	var oppMove = opponentPokemon.moves[randomInt(4)];
+
+	var playerDamage = damageCalculation(playerMove, activePokemon, opponentPokemon);
+	var oppDamage = damageCalculation(oppMove, opponentPokemon, activePokemon);
 	var opponentFainted = opponentPokemon.currHP <= playerDamage;
 	
-	oppTakesHit(opponentPokemon, playerDamage);
+	oppTakesHit(opponentPokemon, playerDamage, playerMove);
 	if (!opponentFainted) {
 		setTimeout(function () {
-			playerTakesHit(activePokemon, oppDamage);
+			playerTakesHit(activePokemon, oppDamage, oppMove);
 		}, 1000);
 	}
 }
