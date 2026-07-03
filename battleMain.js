@@ -40,8 +40,8 @@ class Move {
 }
 
 // array of pokemon
-const pokemon = new Array();
-const playerSelect = new Array();
+var pokemon = new Array();
+var playerSelect = new Array();
 var user;
 var computer;
 
@@ -51,7 +51,6 @@ function goToChoose12Screen() {
 
     document.getElementById("startScreen").style.display = "none";
     document.getElementById("chooseScreen").style.display = "block";
-	document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
 }
 
 function showError(message) {
@@ -75,10 +74,35 @@ function goToBattleScreen() {
 
 // Going from End Screen back to Start Screen to loop the game loop
 function goToStartScreen() {
-	stopBattleMusic();
-	stopLowHealthSound();
-    document.getElementById("endScreen").style.display = "none";
-    document.getElementById("startScreen").style.display = "flex"; // preserving the centering style
+	resetGame();
+}
+
+function resetGame() {
+	stopAllGameSounds();
+	resetBattleUI();
+
+	playerSelect = [];
+	pokemon = [];
+	user = undefined;
+	computer = undefined;
+	window.user = user;
+	window.computer = computer;
+
+	document.getElementById("partyButtons").innerHTML = "";
+
+	for (let i = 1; i <= 12; i++) {
+		document.getElementById(`choose${i}Button`).style.backgroundColor = "lightgray";
+	}
+
+	var confirmBtn = document.getElementById("confirmTeamButton");
+	confirmBtn.style.backgroundColor = "lightgray";
+	confirmBtn.innerHTML = "CONFIRM THIS TEAM!";
+
+	document.getElementById("endScreen").style.display = "none";
+	document.getElementById("battleScreen").style.display = "none";
+	document.getElementById("swapPokemonScreen").style.display = "none";
+	document.getElementById("chooseScreen").style.display = "none";
+	document.getElementById("startScreen").style.display = "flex";
 }
 
 // Placeholder for when a mini sprite selection is clicked
@@ -137,6 +161,8 @@ window.addEventListener('load', function () {
 // php loads random pokemon from database
 // and javascript will create objects for each pokemon
 function loadGame() {
+	pokemon = [];
+
 	fetch("database.php")
         .then((response) => response.json())
         .then((data) => {

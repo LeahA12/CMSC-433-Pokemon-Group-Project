@@ -57,7 +57,7 @@
 					<img class="miniSprite" id="mini12Sprite" src=""> <span id="choose12Name">[POKEMON 12]</span>
 				</button>
 			</div>
-			<button id="confirmTeamButton">CONFIRM THIS TEAM!</button>
+			<button id="confirmTeamButton" onclick="goToBattleScreen()">CONFIRM THIS TEAM!</button>
 		</div>
 
 		<!-- BATTLE SCREEN -->		

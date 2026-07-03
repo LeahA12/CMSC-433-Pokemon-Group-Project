@@ -577,6 +577,74 @@ function stopBattleMusic() {
 	}
 }
 
+function clearBattleAnimations() {
+	if (pShakeTimerID) clearInterval(pShakeTimerID);
+	if (pFlashTimerID) clearInterval(pFlashTimerID);
+	if (pIdleTimerID) clearInterval(pIdleTimerID);
+	if (pFadeTimerID) clearInterval(pFadeTimerID);
+	if (pDropTimerID) clearInterval(pDropTimerID);
+	if (oShakeTimerID) clearInterval(oShakeTimerID);
+	if (oFlashTimerID) clearInterval(oFlashTimerID);
+	if (oIdleTimerID) clearInterval(oIdleTimerID);
+	if (oFadeTimerID) clearInterval(oFadeTimerID);
+	if (oDropTimerID) clearInterval(oDropTimerID);
+
+	pShakeTimerID = null;
+	pFlashTimerID = null;
+	pIdleTimerID = null;
+	pFadeTimerID = null;
+	pDropTimerID = null;
+	oShakeTimerID = null;
+	oFlashTimerID = null;
+	oIdleTimerID = null;
+	oFadeTimerID = null;
+	oDropTimerID = null;
+}
+
+function resetBattleUI() {
+	clearBattleAnimations();
+
+	if (pContext) {
+		pContext.clearRect(0, 0, pCanvasWidth, pCanvasHeight);
+		pCanvas.style.opacity = "1.0";
+		pPokeCurrCoords[0] = pPokeStartCoords[0];
+		pPokeCurrCoords[1] = pPokeStartCoords[1];
+	}
+
+	if (oContext) {
+		oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
+		oCanvas.style.opacity = "1.0";
+		oPokeCurrCoords[0] = oPokeStartCoords[0];
+		oPokeCurrCoords[1] = oPokeStartCoords[1];
+	}
+
+	pPokeName.textContent = "";
+	oPokeName.textContent = "";
+	pHP_fill.style.width = "100%";
+	oHP_fill.style.width = "100%";
+	pHP_fill.classList.remove("lowHP");
+	oHP_fill.classList.remove("lowHP");
+	pHP_Nums.textContent = "";
+	oHP_Nums.textContent = "";
+
+	document.getElementById("optionText").textContent = "WHAT WILL [POKEMON] DO?";
+	document.getElementById("optionText").style.display = "block";
+	document.getElementById("optionButtonsArea").style.display = "block";
+	document.getElementById("moveSelect").style.display = "none";
+	document.getElementById("movePPContainer").style.display = "none";
+	document.getElementById("runText").style.display = "none";
+	document.getElementById("runBackContainer").style.display = "none";
+	document.getElementById("bagText").style.display = "none";
+	document.getElementById("bagBackContainer").style.display = "none";
+
+	document.getElementById("swapPokeText").textContent = "Choose a POKEMON";
+	document.getElementById("backToOptions").style.display = "block";
+
+	for (let i = 1; i <= 4; i++) {
+		document.getElementById(`move${i}Button`).textContent = `[MOVE ${i}]`;
+	}
+}
+
 function endBattle(playerWon) {
 	stopBattleMusic();
 	stopLowHealthSound();
@@ -739,6 +807,20 @@ function playerTakesHit(pokemon, damage, move){
 
 
 var soundCache = {};
+
+function stopCachedSound(src) {
+	var sound = soundCache[src];
+	if (sound) {
+		sound.pause();
+		sound.currentTime = 0;
+	}
+}
+
+function stopAllGameSounds() {
+	stopBattleMusic();
+	stopLowHealthSound();
+	stopCachedSound("sounds/victory.mp3");
+}
 
 function playSound (src, volume) {
 	if (volume === undefined) {
