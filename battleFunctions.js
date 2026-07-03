@@ -267,7 +267,8 @@ function hitPlayerSprite(pokeName){
 
 // Animate Opponent's chosen pokemon getting Hit (will shake and flash!)
 //    pokeName: lowercase pokemon name (options are blaziken, mudkip, sceptile, swampert, torchic, or treecko)
-function hitOppSprite(pokeName){
+//    onComplete: a callback for after hit animation finishes
+function hitOppSprite(pokeName, onComplete){
 	// (1) CHECK IF ALREADY RUNNING: don't start a second shake/flash on top of a running shake/flash
 	if (oShakeTimerID || oFlashTimerID){
 		clearInterval(oShakeTimerID);
@@ -356,13 +357,13 @@ function hitOppSprite(pokeName){
 			oCanvas.style.opacity = "1.0";
 			isFullOpacity = true;
 			oContext.clearRect(0, 0, oCanvasWidth, oCanvasHeight);
-			drawOppSprite(pokeName); // continues the idle animation!
 
-			// Reset battle menu options
-			document.getElementById("optionText").style.display = "block";
-			document.getElementById("optionButtonsArea").style.display = "block";
-			document.getElementById("moveSelect").style.display = "none";
-			document.getElementById("movePPContainer").style.display = "none";
+			if (onComplete) {
+				onComplete();
+			} else {
+				drawOppSprite(pokeName);
+				restoreBattleOptions();
+			}
 		}, total_hit_ms );
 	});
 }
@@ -615,12 +616,21 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 // Functions that combine hit animation & HP Bar dropping in greenness
 function oppTakesHit(pokemon, damage){
 	pokemon.currHP -= damage;
-	hitOppSprite(pokemon.name);
-	changeHPBy(pokemon, false);
 
 	if (pokemon.currHP <= 0) {
-		pokemon.status = "Fainted";
-		loadPokemon(computer.team[computer.currIndex], false);
+		pokemon.currHP = 0;
+		changeHPBy(pokemon, false);
+
+		var nextPokemon = computer.team[computer.currIndex];
+		hitOppSprite(pokemon.name, function () {
+			if (nextPokemon) {
+				loadPokemon(nextPokemon, false);
+			}
+			restoreBattleOptions();
+		});
+	} else {
+		hitOppSprite(pokemon.name);
+		changeHPBy(pokemon, false);
 	}
 }
 function playerTakesHit(pokemon, damage){
@@ -731,7 +741,18 @@ function swapToPokemon (teamIndex) {
 	cancelSwap();
 }
 
+function restoreBattleOptions() {
+	document.getElementById("optionText").style.display = "block";
+	document.getElementById("optionButtonsArea").style.display = "block";
+	document.getElementById("moveSelect").style.display = "none";
+	document.getElementById("movePPContainer").style.display = "none";
+}
+
 function loadPokemon (pokemon, isPlayer) {
+	if (!pokemon) {
+		return;
+	}
+
 	if (isPlayer) {
 		var moves = pokemon.moves;
 	
@@ -743,15 +764,15 @@ function loadPokemon (pokemon, isPlayer) {
 			moveButton.textContent = moves[i].name.toUpperCase();
 		}
 
+		pContext.clearRect(0, 0, pContext.canvas.width, pContext.canvas.height);
+		
 		drawPlayerSprite(pokemon.name);
 		changePokeName(pokemon.name, 1, 0);
-
-		pContext.clearRect(0, 0, pContext.canvas.width, pContext.canvas.height);
 	} else {
+		oContext.clearRect(0, 0, oContext.canvas.width, oContext.canvas.height);
+
 		drawOppSprite(pokemon.name);
 		changePokeName(pokemon.name, 0, 1);
-
-		oContext.clearRect(0, 0, oContext.canvas.width, oContext.canvas.height);
 	}
 
 	changeHPBy(pokemon, isPlayer);
@@ -778,11 +799,14 @@ function useMove(move) {
 
 	var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
 	var oppDamage = damageCalculation(opponentPokemon.moves[randomInt(4)], opponentPokemon, activePokemon);
+	var opponentFainted = opponentPokemon.currHP <= playerDamage;
 	
 	oppTakesHit(opponentPokemon, playerDamage);
-	setTimeout(function () {
-		playerTakesHit(activePokemon, oppDamage);
-	}, 1000);
+	if (!opponentFainted) {
+		setTimeout(function () {
+			playerTakesHit(activePokemon, oppDamage);
+		}, 1000);
+	}
 }
 
 // Function that calculates the upper bound of battle damage from using a move on a pokemon, using the formula and rules from the games
