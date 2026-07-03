@@ -520,7 +520,81 @@ var oHP_fill = document.getElementById("oHP_InnerFill");
 var pHP_nums = document.getElementById("pHP_Nums");
 var oHP_nums = document.getElementById("oHP_Nums");
 
-// Increase or Decrease the HP Bar 
+const LOW_HP_THRESHOLD = 0.3;
+var lowHealthSound = null;
+var battleMusic = null;
+
+function setHpBarState(hpFill, currHP, maxHP) {
+	if (maxHP <= 0 || currHP <= 0) {
+		hpFill.classList.remove("lowHP");
+		return false;
+	}
+
+	var isLow = (currHP / maxHP) <= LOW_HP_THRESHOLD;
+	if (isLow) {
+		hpFill.classList.add("lowHP");
+	} else {
+		hpFill.classList.remove("lowHP");
+	}
+	return isLow;
+}
+
+function startLowHealthSound() {
+	if (!lowHealthSound) {
+		lowHealthSound = new Audio("sounds/low_health.mp3");
+		lowHealthSound.loop = true;
+		lowHealthSound.volume = 0.01;
+	}
+
+	if (lowHealthSound.paused) {
+		lowHealthSound.play();
+	}
+}
+
+function stopLowHealthSound() {
+	if (lowHealthSound && !lowHealthSound.paused) {
+		lowHealthSound.pause();
+		lowHealthSound.currentTime = 0;
+	}
+}
+
+function startBattleMusic() {
+	if (!battleMusic) {
+		battleMusic = new Audio("sounds/battle.mp3");
+		battleMusic.loop = true;
+		battleMusic.volume = 0.05;
+	}
+
+	if (battleMusic.paused) {
+		battleMusic.play();
+	}
+}
+
+function stopBattleMusic() {
+	if (battleMusic && !battleMusic.paused) {
+		battleMusic.pause();
+		battleMusic.currentTime = 0;
+	}
+}
+
+function endBattle(playerWon) {
+	stopBattleMusic();
+	stopLowHealthSound();
+
+	document.getElementById("battleScreen").style.display = "none";
+	document.getElementById("swapPokemonScreen").style.display = "none";
+	document.getElementById("endScreen").style.display = "flex";
+
+	if (playerWon) {
+		document.getElementById("endText").textContent = "YOU WIN!";
+		playSound("sounds/victory.mp3", 0.1);
+		battleEnd();
+	} else {
+		document.getElementById("endText").textContent = "YOU LOSE!";
+	}
+}
+
+// Increase or Decrease the HP Bar
 //	  pokemon: pokemon being drawn
 //    isPlayer: is 1 if pokemon is player's pokemon, zero otherwise
 function changeHPBy(pokemon, isPlayer){
@@ -548,6 +622,13 @@ function changeHPBy(pokemon, isPlayer){
 		// (2D) CHANGE HP NUMBERS BELOW HP BAR
 		pHP_Nums.style.fontSize = "14px";
 		pHP_Nums.textContent = pCurrHP + " / " + pMaxHP;
+
+		if (setHpBarState(pHP_fill, pCurrHP, pMaxHP)) {
+			startLowHealthSound();
+		} else {
+			stopLowHealthSound();
+		}
+
 		if (pCurrHP == 0) {
 			user.team[user.currIndex].status = "Fainted";
 			console.log("Your pokemon fainted!");
@@ -577,6 +658,8 @@ function changeHPBy(pokemon, isPlayer){
 		// (2D) CHANGE HP NUMBERS BELOW HP BAR
 		oHP_Nums.style.fontSize = "14px";
 		oHP_Nums.textContent = oCurrHP + " / " + oMaxHP;
+		setHpBarState(oHP_fill, oCurrHP, oMaxHP);
+
 		if (oCurrHP == 0) {
 			computer.team[computer.currIndex].status = "Fainted";
 			console.log("The opponent's pokemon fainted!");
@@ -614,7 +697,11 @@ function changePokeName(pokeName, isPlayer, isOpponent){
 
 
 // Functions that combine hit animation & HP Bar dropping in greenness
-function oppTakesHit(pokemon, damage){
+function oppTakesHit(pokemon, damage, move){
+	if (move) {
+		playHitSound(move, pokemon);
+	}
+
 	pokemon.currHP -= damage;
 
 	if (pokemon.currHP <= 0) {
@@ -625,15 +712,21 @@ function oppTakesHit(pokemon, damage){
 		hitOppSprite(pokemon.name, function () {
 			if (nextPokemon) {
 				loadPokemon(nextPokemon, false);
+				restoreBattleOptions();
+			} else {
+				endBattle(true);
 			}
-			restoreBattleOptions();
 		});
 	} else {
 		hitOppSprite(pokemon.name);
 		changeHPBy(pokemon, false);
 	}
 }
-function playerTakesHit(pokemon, damage){
+function playerTakesHit(pokemon, damage, move){
+	if (move) {
+		playHitSound(move, pokemon);
+	}
+
 	pokemon.currHP -= damage;
 	hitPlayerSprite(pokemon.name);
 	changeHPBy(pokemon, true);
@@ -662,6 +755,21 @@ function playSound (src, volume) {
 	
 	sound.volume = volume;
 	sound.play();
+}
+
+function playHitSound(move, target) {
+	if (!move || move.style === "Status") {
+		return;
+	}
+
+	var effectiveness = typeEffectiveness(move, target);
+	if (effectiveness > 1) {
+		playSound('sounds/hit_effective_damage.mp3');
+	} else if (effectiveness < 1) {
+		playSound('sounds/hit_weak_damage.mp3');
+	} else {
+		playSound('sounds/hit_normal_damage.mp3');
+	}
 }
 
 function backToOptions (shouldPlaySound) {
@@ -797,14 +905,17 @@ function useMove(move) {
 	var activePokemon = user.team[user.currIndex];
 	var opponentPokemon = computer.team[computer.currIndex];
 
-	var playerDamage = damageCalculation(activePokemon.moves[move - 1], activePokemon, opponentPokemon);
-	var oppDamage = damageCalculation(opponentPokemon.moves[randomInt(4)], opponentPokemon, activePokemon);
+	var playerMove = activePokemon.moves[move - 1];
+	var oppMove = opponentPokemon.moves[randomInt(4)];
+
+	var playerDamage = damageCalculation(playerMove, activePokemon, opponentPokemon);
+	var oppDamage = damageCalculation(oppMove, opponentPokemon, activePokemon);
 	var opponentFainted = opponentPokemon.currHP <= playerDamage;
 	
-	oppTakesHit(opponentPokemon, playerDamage);
+	oppTakesHit(opponentPokemon, playerDamage, playerMove);
 	if (!opponentFainted) {
 		setTimeout(function () {
-			playerTakesHit(activePokemon, oppDamage);
+			playerTakesHit(activePokemon, oppDamage, oppMove);
 		}, 1000);
 	}
 }

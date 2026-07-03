@@ -75,6 +75,8 @@ function goToBattleScreen() {
 
 // Going from End Screen back to Start Screen to loop the game loop
 function goToStartScreen() {
+	stopBattleMusic();
+	stopLowHealthSound();
     document.getElementById("endScreen").style.display = "none";
     document.getElementById("startScreen").style.display = "flex"; // preserving the centering style
 }
@@ -130,10 +132,6 @@ window.addEventListener('load', function () {
 	// 		}, 3000); 
 	// 	}, 3000);
 	// }, 2000);
-});
-
-document.addEventListener('click', function () {
-	playSound('sounds/battle.mp3');
 });
 
 // php loads random pokemon from database
@@ -246,6 +244,7 @@ function startGame () {
 	document.getElementById("chooseScreen").style.display = "none";
     document.getElementById("battleScreen").style.display = "block";
 
+	startBattleMusic();
 	battleLoop();
 }
 

@@ -146,6 +146,10 @@
 	background-color: limegreen;
 }
 
+.pHP_InnerFill.lowHP, .oHP_InnerFill.lowHP {
+	background-color: red;
+}
+
 /* Player's & Opponent's HP Bar's Numbers -> positioned correctly so no overlap w/Poke Name or HP Bar */
 .pHP_Nums, .oHP_Nums {
 	position: absolute; /* positioned relative to .battleScreen */
