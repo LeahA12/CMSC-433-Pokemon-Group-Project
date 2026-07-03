@@ -54,22 +54,23 @@ function goToChoose12Screen() {
 	document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
 }
 
+function showError(message) {
+	const btn = document.getElementById("confirmTeamButton");
+	btn.style.backgroundColor = "red";
+	btn.innerHTML = `<b>${message}</b>`;
+	setTimeout(() => {
+		btn.style.backgroundColor = "lightgray";
+		btn.innerHTML = "CONFIRM THIS TEAM!";
+	}, 3000);
+}
+
 // Going from 12 Pokemon Selection Screen to the Battle Arena Screen
 function goToBattleScreen() {
 	if (playerSelect.length < 3) {
-		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
-		document.getElementById("confirmTeamButton").innerHTML = "<b>Select atleast 3 Pokemon.</b>";
-		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
-
-		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgray";
-			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
-		}, 3000);
-
-	} else {
-		startGame();
+		showError("Select atleast 3 Pokemon.");
+		return;
 	}
+	startGame();
 }
 
 // Going from End Screen back to Start Screen to loop the game loop
@@ -82,17 +83,9 @@ function goToStartScreen() {
 function pickPokemon(choice) {
     console.log("Picked Pokemon slot number: " + choice);
 
-    if (playerSelect.length == 6) {
-		document.getElementById("confirmTeamButton").style.backgroundColor = "red";
-		document.getElementById("confirmTeamButton").innerHTML = "<b>Can only select 6 Pokemon.</b>";
-		document.getElementById("confirmTeamButton").removeEventListener("click", goToBattleScreen);
-
-		setTimeout(() => {
-			document.getElementById("confirmTeamButton").style.backgroundColor = "lightgray";
-			document.getElementById("confirmTeamButton").innerHTML = "CONFIRM THIS TEAM!";
-			document.getElementById("confirmTeamButton").addEventListener("click", goToBattleScreen);
-		}, 3000);
-
+    if (playerSelect.length == 6 && !playerSelect.includes(choice - 1)) {
+		showError("Can only select 6 Pokemon.");
+		return;
 	} else if (playerSelect.includes(choice - 1)) {
 		let index = playerSelect.indexOf(choice - 1);
 
@@ -214,17 +207,13 @@ function loadGame() {
 }
 
 function startGame () {
-	let computerSelect = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+	let computerSelect = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+		.filter(i => !playerSelect.includes(i));
 
-	// shuffle array
-	for (let i = 0; i < 12; i++) {
-		let randNum = Math.floor(Math.random() * 12);
-
-		[playerSelect[i], computerSelect[randNum]] = [computerSelect[randNum], playerSelect[i]];
+	for (let i = computerSelect.length - 1; i > 0; i--) {
+		let randNum = Math.floor(Math.random() * (i + 1));
+		[computerSelect[i], computerSelect[randNum]] = [computerSelect[randNum], computerSelect[i]];
 	}
-
-	// remove overlapping values
-	computer = computerSelect.filter(curr => !(playerSelect.includes(curr)));
 
 	var userTeam = new Array();
 	var computerTeam = new Array();
@@ -236,6 +225,8 @@ function startGame () {
 
 	user = new Player(userTeam, 0);
 	computer = new Player(computerTeam, 0);
+	window.user = user;
+	window.computer = computer;
 	
 	for (let i = 0; i < playerSelect.length; i++) {
 		var partyButtons = document.getElementById("partyButtons");
@@ -295,29 +286,18 @@ function battleLoop() {
 
 	
 	// These variables represent whether each player has at least 1 available pokemon left
-	var playerAlive = true;
-	var playerMons = user.team.length;
+	var playerLiving = user.team.length;
+	var computerLiving = computer.team.length;
 
-	while (playerAlive) {
-		console.log("Alive loop started");
-		// Battle logic here
-		
-		var userLiving = playerMons;
-		var computerLiving = playerMons;
-		
-		// check if either team has died
-		for (let i = 0; i < user.team.length; i++) {
-			if (user.team[i].status == "Fainted") {
-				playerLiving--;
-			}
-
-			if (computer.team[i].status == "Fainted") {
-				computerLiving--;
-			}
+	for (let i = 0; i < user.team.length; i++) {
+		if (user.team[i].status == "Fainted") {
+			playerLiving--;
 		}
+	}
 
-		if (playerLiving == 0 || computerLiving == 0) {
-			playerAlive = false;
+	for (let i = 0; i < computer.team.length; i++) {
+		if (computer.team[i].status == "Fainted") {
+			computerLiving--;
 		}
 	}
 
