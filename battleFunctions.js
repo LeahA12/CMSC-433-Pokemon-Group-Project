@@ -654,7 +654,12 @@ function endBattle(playerWon) {
 	document.getElementById("endScreen").style.display = "flex";
 
 	if (playerWon) {
-		document.getElementById("endText").textContent = "YOU WIN!";
+		var endTextEdit = document.getElementById("endText");
+		endTextEdit.innerHTML = "YOU WIN!<br>";
+		for(let i = 0; i < user.team.length; i++) {
+			imgS = "https://img.pokemondb.net/sprites/emerald/normal/" + user.team[i].name.toLowerCase() + ".png";
+			endTextEdit.innerHTML += `<img class="miniSprite" src="${imgS}">`;
+		}
 		playSound("sounds/victory.mp3", 0.1);
 		battleEnd();
 	} else {
