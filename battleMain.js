@@ -83,8 +83,8 @@ function resetGame() {
 
 	playerSelect = [];
 	pokemon = [];
-	user = undefined;
-	computer = undefined;
+	user = null;
+	computer = null;
 	window.user = user;
 	window.computer = computer;
 
