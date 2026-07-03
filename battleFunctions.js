@@ -625,7 +625,7 @@ function oppTakesHit(pokemon, damage){
 }
 function playerTakesHit(pokemon, damage){
 	pokemon.currHP -= damage;
-	hitOppSprite(pokemon.name);
+	hitPlayerSprite(pokemon.name);
 	changeHPBy(pokemon, true);
 
 	if (pokemon.currHP <= 0) {
