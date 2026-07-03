@@ -709,6 +709,8 @@ function swapSelected(forcedSwap) {
 	for (let i = 0; i < user.team.length; i++) {
 		var pokeButton = document.getElementById(`pokemon${i + 1}Button`);
 		pokeButton.textContent = user.team[i].name.toUpperCase();
+		imgS = "https://img.pokemondb.net/sprites/emerald/normal/" + user.team[i].name.toLowerCase() + ".png";
+		pokeButton.innerHTML = `<img class="miniSprite" src="${imgS}"> ${user.team[i].name.toUpperCase()}`;
 		pokeButton.disabled = user.team[i].status === "Fainted";
 	}
 }
