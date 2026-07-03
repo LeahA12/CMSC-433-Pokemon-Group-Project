@@ -803,6 +803,15 @@ function oppTakesHit(pokemon, damage, move, fainted){
 		changeHPBy(pokemon, false);
 	}
 }
+function hasLivingPokemon(team) {
+	for (let i = 0; i < team.length; i++) {
+		if (team[i].status !== "Fainted") {
+			return true;
+		}
+	}
+	return false;
+}
+
 function playerTakesHit(pokemon, damage, move, fainted){
 	if (move) {
 		playHitSound(move, pokemon);
@@ -820,7 +829,11 @@ function playerTakesHit(pokemon, damage, move, fainted){
 			faintPlayerSprite(pokemon.name);
 
 			setTimeout(function () {
-				swapSelected(true);
+				if (hasLivingPokemon(user.team)) {
+					swapSelected(true);
+				} else {
+					endBattle(false);
+				}
 			}, 2000);
 		} else {
 			drawPlayerSprite(pokemon.name);
