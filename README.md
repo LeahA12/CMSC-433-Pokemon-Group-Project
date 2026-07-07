@@ -1,6 +1,6 @@
 
 ### CMSC 433 Project 3 - Group members:
-Alexis Young, Habib Aina, Joseph Romanic, Leah Arfa, Maxwell Sovich
+[Alexis Young](https://github.com/AlexisYoung17), [Habib Aina](https://github.com/MajorH5), [Joseph Romanic](https://github.com/Nitro524), [Leah Arfa](https://github.com/LeahA12), [Maxwell Sovich](https://github.com/mjsovich)
 
 ## What is this project?:
 This webapp is a pokemon game built with mariadb, php, html, js, and css and is a pokemon battle. Select your starter pokemon
