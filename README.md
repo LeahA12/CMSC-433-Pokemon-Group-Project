@@ -31,9 +31,8 @@ and face against 6 other NPC pokemon and defeat them all to win.
 - Habib: game audio, battle bug fixes, battle messaging, game reset, low-HP feedback
 
 ### Where we got our sprites from:
-https://pokemondb.net/sprites/blaziken
-https://pokemondb.net/sprites/mudkip
-https://pokemondb.net/sprites/sceptile
-https://pokemondb.net/sprites/swampert
-https://pokemondb.net/sprites/torchic
-https://pokemondb.net/sprites/treecko
+- the pokemondb.net website
+- written like https://pokemondb.net/sprites/`pokename` like
+  - https://pokemondb.net/sprites/blaziken
+  - https://pokemondb.net/sprites/mudkip
+  - https://pokemondb.net/sprites/sceptile
